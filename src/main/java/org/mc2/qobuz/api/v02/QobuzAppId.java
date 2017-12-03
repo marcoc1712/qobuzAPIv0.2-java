@@ -65,6 +65,9 @@ public class QobuzAppId {
     * https://github.com/murdos/musicbrainz-userscripts/blob/master/qobuz_importer.user.js
     * public static final String APP_ID ="667867760";
     * 
+    * QOBUZ PLUGIN LMS:
+    *public static final String APP_ID = "942852567";
+    * 
     * please replace value with your own valid APP_ID:
     */
     public static final String APP_ID = "928179325";

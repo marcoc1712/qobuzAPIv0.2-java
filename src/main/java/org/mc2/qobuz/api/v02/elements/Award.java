@@ -79,7 +79,10 @@ public final class  Award extends QobuzObject{
         try {
                 award_id = jsonObject.getString(AWARD_ID);
                 name = jsonObject.getString(NAME);
-                slug = jsonObject.getString(SLUG);
+
+                slug= jsonObject.has(SLUG) ? 
+                            jsonObject.isNull(SLUG) ? 
+                            null : jsonObject.getString(SLUG) : null;
                 
                 award_slug= jsonObject.has(AWARD_SLUG) ? 
                             jsonObject.isNull(AWARD_SLUG) ? 

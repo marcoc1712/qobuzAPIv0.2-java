@@ -348,10 +348,14 @@ public final class Album extends QobuzObject {
                             jsonObject.isNull(DURATION) ? 
                             null : jsonObject.getLong(DURATION) : null;
 
-                released_at = jsonObject.has(RELEASED_AT) ? 
-                            jsonObject.isNull(RELEASED_AT) ? 
-                            null : jsonObject.getLong(RELEASED_AT) : null;
                 
+                Object obj = jsonObject.has(RELEASED_AT) ? 
+                            jsonObject.isNull(RELEASED_AT) ? 
+                            null : jsonObject.get(RELEASED_AT) : null;
+                
+                if (obj == null || !(obj instanceof Long)) {released_at = null;}
+                else {released_at = (Long)obj;}
+               
                 maximum_technical_specifications = jsonObject.has(MAXIMUM_TECHNICAL_SPECIFICATIONS) ? 
                             jsonObject.isNull(MAXIMUM_TECHNICAL_SPECIFICATIONS) ? 
                             null : jsonObject.getString(MAXIMUM_TECHNICAL_SPECIFICATIONS) : null;

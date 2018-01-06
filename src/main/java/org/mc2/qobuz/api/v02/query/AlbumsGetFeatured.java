@@ -27,21 +27,29 @@ import org.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
 public class AlbumsGetFeatured extends QobuzObjectQuery {
     
     //at 2017/10/03
-    public static final String[] TYPES = {  "most-streamed", 
-                                            "best-sellers", 
+    public static final String[] TYPES = {  
                                             "new-releases", 
                                             "press-awards", 
                                             "editor-picks", 
+                                            
+                                            "ideal-discography", 
+                                            "qobuzissims",
+                                            
                                             "most-featured", 
+                                            "most-streamed", 
+                                            "best-sellers", 
+
                                             "harmonia-mundi", 
                                             "universal-classic", 
                                             "universal-jazz", 
                                             "universal-jeunesse", 
                                             "universal-chanson", 
+                                            
                                             "new-releases-full", 
                                             "recent-releases", 
-                                            "ideal-discography", 
-                                            "qobuzissims",
+                                            
+                                            
+                                            
     };
 
     public AlbumsGetFeatured(String  type) throws QobuzAPIException{

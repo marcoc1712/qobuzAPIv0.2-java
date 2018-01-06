@@ -51,7 +51,7 @@ public class GenreListGet extends QobuzObjectQuery {
     private String buildUrlStr(){
         
         String urlStr = QobuzController.BASEURL + "/"+QobuzObjectQuery.ENDPOINT_GENRE+
-                        "/list";
+                        "/list?offset=0&limit=100";
         
         return urlStr;
     }

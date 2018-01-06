@@ -51,11 +51,37 @@ import org.mc2.qobuz.api.v02.lists.TrackList;
  */
 public class TestUtils {
     
+
+    public static void printGenre(Genre genre, String Indent){
+        printGenre(genre,Indent,true);
+    }
+    public static void printGenre(Genre genre, String Indent, Boolean details){
+        
+        if (!details){
+            System.out.println(Indent+"Genre: "+genre.getId()+" - "+genre.getName());
+        } else {
+            System.out.println(Indent+"Id: "+genre.getId());
+            System.out.println(Indent+"Name: "+genre.getName());
+            System.out.println(Indent+"Color: "+genre.getColor());
+            System.out.println(Indent+"PATH: ");
+
+            for (int i = 0; i < genre.getPath().size(); i++) {
+                System.out.println(Indent+" - "+i+": "+genre.getPath().get(i));
+            }
+            System.out.println(Indent+"Slug: "+genre.getSlug());
+
+            if (genre.getAlbums() != null){
+                 System.out.println(Indent+"ALBUMS: ");
+                 printAlbumList(genre.getAlbums(), Indent+"    ");
+            } 
+        }
+    }
     public static void printLabel(Label label,String Indent){
         
         printLabel(label, Indent, true);
         
     }
+    
     public static void printLabel(Label label,String Indent, boolean detailed){
         
         if (!detailed){
@@ -377,30 +403,7 @@ public class TestUtils {
             printAlbum(albumList.getItems().get(i), Indent+"   ",detailed);
         } 
     }
-    public static void printGenre(Genre genre, String Indent){
-        printGenre(genre,Indent,true);
-    }
-    public static void printGenre(Genre genre, String Indent, Boolean details){
-        
-        if (!details){
-            System.out.println(Indent+"Genre: "+genre.getName());
-        } else {
-            System.out.println(Indent+"Id: "+genre.getId());
-            System.out.println(Indent+"Name: "+genre.getName());
-            System.out.println(Indent+"Color: "+genre.getColor());
-            System.out.println(Indent+"PATH: ");
-
-            for (int i = 0; i < genre.getPath().size(); i++) {
-                System.out.println(Indent+" - "+i+": "+genre.getPath().get(i));
-            }
-            System.out.println(Indent+"Slug: "+genre.getSlug());
-
-            if (genre.getAlbums() != null){
-                 System.out.println(Indent+"ALBUMS: ");
-                 printAlbumList(genre.getAlbums(), Indent+"    ");
-            } 
-        }
-    }
+    
     
     public static void printGoodies(ArrayList<Goody> goodies, String Indent){
         for (int i = 0; i < goodies.size(); i++) {

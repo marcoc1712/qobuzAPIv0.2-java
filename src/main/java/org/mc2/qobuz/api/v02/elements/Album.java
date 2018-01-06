@@ -264,9 +264,18 @@ public final class Album extends QobuzObject {
                         jsonObject.isNull(AREA) ? 
                             null : new Area(jsonObject.getJSONObject(AREA)) : null;
                 
-                description = jsonObject.has(DESCRIPTION) ? 
-                            jsonObject.isNull(DESCRIPTION) ? 
-                            null : jsonObject.getString(DESCRIPTION) : null;
+                Object obj = jsonObject.has(DESCRIPTION) ? 
+                                jsonObject.isNull(DESCRIPTION) ? 
+                                    null : jsonObject.get(DESCRIPTION): null;
+                        
+                if (obj instanceof String) {    
+                
+                    description = jsonObject.getString(DESCRIPTION);
+                
+                } else if (obj instanceof JSONObject && ((JSONObject) obj).has("content") && !((JSONObject) obj).isNull("content") ) {
+                    
+                    description = ((JSONObject) obj).getString("content");
+                }
                 
                 catchline = jsonObject.has(CATCHLINE) ? 
                             jsonObject.isNull(CATCHLINE) ? 
@@ -349,7 +358,7 @@ public final class Album extends QobuzObject {
                             null : jsonObject.getLong(DURATION) : null;
 
                 
-                Object obj = jsonObject.has(RELEASED_AT) ? 
+                obj = jsonObject.has(RELEASED_AT) ? 
                             jsonObject.isNull(RELEASED_AT) ? 
                             null : jsonObject.get(RELEASED_AT) : null;
                 
@@ -436,7 +445,7 @@ public final class Album extends QobuzObject {
                             null : new TrackList(jsonObject.getJSONObject(TRACKS)) : null;
                         
         } catch (JSONException ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, jsonObject.toString(), ex);
             throw new QobuzAPIException(ex.getMessage(), ex);
         }
    

@@ -18,37 +18,38 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-package test.units;
+package com.mc2.qobuz.api.v02.query;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.junit.Test;
 import com.mc2.qobuz.api.v02.QobuzController;
+import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
+import com.mc2.qobuz.api.v02.elements.Catalog;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+public class CatalogCount extends QobuzObjectQuery {
 
-/**
- *
- * @author marco
- */
-public class DirectCallTest extends UnitTest {
-    
-    //@Test
-    public void DirectCallTest(){
+
+    public CatalogCount(String query) throws QobuzAPIException{
         
         try {
-                //String urlString = QobuzController.BASEURL+"/album/get?album_id=0822189023645";
-                String urlString = "http://www.qobuz.com/api.json/0.2/album/get?album_id=0822189023645";
-                String answer =QobuzController.makeApiCall(urlString);
-                System.out.println(answer);
-
-        } catch (Exception ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-
+            // use an empty string to count all items.
+            
+            String urlStr =  QobuzController.BASEURL+"/"+
+                    QobuzObjectQuery.ENDPOINT_CATALOG+
+                    "/count?query="+URLEncoder.encode(query, "UTF-8");;
+                    
+                    getAnswer(urlStr);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(CatalogCount.class.getName()).log(Level.SEVERE, null, ex);
+            throw new QobuzAPIException(ex);
         }
+
+    }
+
+    public Catalog getCatalog() throws QobuzAPIException{
+         
+         return new Catalog(super.getObject());
     }
 }

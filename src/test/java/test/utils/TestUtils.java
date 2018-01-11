@@ -23,21 +23,21 @@ package test.utils;
 
 import java.util.ArrayList;
 import java.util.Date;
-import org.mc2.qobuz.api.v02.elements.Album;
-import org.mc2.qobuz.api.v02.elements.Article;
-import org.mc2.qobuz.api.v02.elements.Artist;
-import org.mc2.qobuz.api.v02.elements.Award;
-import org.mc2.qobuz.api.v02.elements.Genre;
-import org.mc2.qobuz.api.v02.elements.Goody;
-import org.mc2.qobuz.api.v02.elements.Image;
-import org.mc2.qobuz.api.v02.elements.Label;
-import org.mc2.qobuz.api.v02.elements.StoreRelated;
-import org.mc2.qobuz.api.v02.elements.Track;
-import org.mc2.qobuz.api.v02.lists.AlbumList;
-import org.mc2.qobuz.api.v02.lists.ArtistList;
-import org.mc2.qobuz.api.v02.lists.GenreList;
-import org.mc2.qobuz.api.v02.lists.LabelList;
-import org.mc2.qobuz.api.v02.lists.TrackList;
+import com.mc2.qobuz.api.v02.elements.Album;
+import com.mc2.qobuz.api.v02.elements.Article;
+import com.mc2.qobuz.api.v02.elements.Artist;
+import com.mc2.qobuz.api.v02.elements.Award;
+import com.mc2.qobuz.api.v02.elements.Genre;
+import com.mc2.qobuz.api.v02.elements.Goody;
+import com.mc2.qobuz.api.v02.elements.Image;
+import com.mc2.qobuz.api.v02.elements.Label;
+import com.mc2.qobuz.api.v02.elements.StoreRelated;
+import com.mc2.qobuz.api.v02.elements.Track;
+import com.mc2.qobuz.api.v02.lists.AlbumList;
+import com.mc2.qobuz.api.v02.lists.ArtistList;
+import com.mc2.qobuz.api.v02.lists.GenreList;
+import com.mc2.qobuz.api.v02.lists.LabelList;
+import com.mc2.qobuz.api.v02.lists.TrackList;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

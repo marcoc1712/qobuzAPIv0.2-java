@@ -23,11 +23,11 @@ package test.units;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
-import org.mc2.qobuz.api.v02.elements.Catalog;
-import org.mc2.qobuz.api.v02.lists.ArtistList;
-import org.mc2.qobuz.api.v02.lists.TrackList;
-import org.mc2.qobuz.api.v02.lists.AlbumList;
-import org.mc2.qobuz.api.v02.query.CatalogSearch;
+import com.mc2.qobuz.api.v02.elements.Catalog;
+import com.mc2.qobuz.api.v02.lists.ArtistList;
+import com.mc2.qobuz.api.v02.lists.TrackList;
+import com.mc2.qobuz.api.v02.lists.AlbumList;
+import com.mc2.qobuz.api.v02.query.CatalogSearch;
 
 import test.utils.TestUtils;
 

@@ -23,10 +23,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
-import org.mc2.qobuz.api.v02.elements.Genre;
-import org.mc2.qobuz.api.v02.elements.GenreListResult;
-import org.mc2.qobuz.api.v02.lists.GenreList;
-import org.mc2.qobuz.api.v02.query.GenreListGet;
+import com.mc2.qobuz.api.v02.elements.Genre;
+import com.mc2.qobuz.api.v02.elements.GenreListResult;
+import com.mc2.qobuz.api.v02.lists.GenreList;
+import com.mc2.qobuz.api.v02.query.GenreListGet;
 import test.utils.TestUtils;
 
 /**

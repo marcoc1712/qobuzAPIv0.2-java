@@ -23,8 +23,8 @@ package test.units;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
-import org.mc2.qobuz.api.v02.elements.Album;
-import org.mc2.qobuz.api.v02.query.AlbumGet;
+import com.mc2.qobuz.api.v02.elements.Album;
+import com.mc2.qobuz.api.v02.query.AlbumGet;
 
 import test.utils.TestUtils;
 

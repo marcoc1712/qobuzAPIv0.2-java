@@ -23,8 +23,8 @@ package test.units;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
-import org.mc2.qobuz.api.v02.elements.Catalog;
-import org.mc2.qobuz.api.v02.query.CatalogCount;
+import com.mc2.qobuz.api.v02.elements.Catalog;
+import com.mc2.qobuz.api.v02.query.CatalogCount;
 /**
  *
  * @author marco

@@ -297,6 +297,7 @@ public class TestUtils {
             System.out.println(Indent+"Maximum sampling rate: "+a.getMaximum_sampling_rate());
             System.out.println(Indent+"Maximum bit depth: "+a.getMaximum_bit_depth());
             System.out.println(Indent+"Hires: "+a.getHires());
+			System.out.println(Indent+"UPC: "+a.getUpc());
 
             if (a.getTracks() != null){
                 System.out.println(Indent+"TRACKS: ");
@@ -612,6 +613,7 @@ public class TestUtils {
         System.out.println(Indent+"Maximum sampling rate: "+track.getMaximum_sampling_rate());
         System.out.println(Indent+"Maximum bit depth: "+track.getMaximum_bit_depth());
         System.out.println(Indent+"Hires: "+track.getHires());
+		System.out.println(Indent+"ISRC: "+track.getIsrc());
         
     }
 }

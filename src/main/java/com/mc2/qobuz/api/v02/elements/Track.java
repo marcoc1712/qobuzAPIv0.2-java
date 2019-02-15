@@ -55,6 +55,7 @@ public final class Track extends QobuzObject {
     public static final String MAXIMUM_SAMPLING_RATE = "maximum_sampling_rate";
     public static final String MAXIMUM_BIT_DEPTH = "maximum_bit_depth";
     public static final String HIRES = "hires";
+	public static final String ISRC = "isrc";
     
     private Long id;
     private String title;
@@ -79,6 +80,7 @@ public final class Track extends QobuzObject {
     private Double maximum_sampling_rate;
     private Long  maximum_bit_depth;
     private Boolean hires;
+	private String isrc;
     
     private ArrayList<Article> articles = new ArrayList<>();
     
@@ -115,8 +117,8 @@ public final class Track extends QobuzObject {
         KeyList.add(MAXIMUM_SAMPLING_RATE);
         KeyList.add(MAXIMUM_BIT_DEPTH);
         KeyList.add(HIRES);
-        
-        
+		KeyList.add(ISRC);
+
         checkJSONObject(jsonObject);
         /**
          * If there is no parameter there is no need to go further
@@ -220,6 +222,9 @@ public final class Track extends QobuzObject {
                             jsonObject.isNull(HIRES) ? 
                             false : jsonObject.getBoolean(HIRES) : null;
                 
+				isrc = jsonObject.has(ISRC) ? 
+                            jsonObject.isNull(ISRC) ? 
+                            null : jsonObject.getString(ISRC) : null;
                         
         } catch (JSONException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
@@ -384,6 +389,14 @@ public final class Track extends QobuzObject {
     public Boolean getHires() {
         return hires;
     }
+	
+	 /**
+     * @return the isrc
+     */
+    public String getIsrc() {
+        return isrc;
+    }
+	
     /**
      * @return the articles
      */

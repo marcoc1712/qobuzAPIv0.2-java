@@ -97,6 +97,7 @@ public final class Album extends QobuzObject {
     public static final String TRACKS = "tracks"; 
     public static final String TRACKSCOUNT = "tracks_count";
     
+	public static final String UPC = "upc";
     public static final String URL = "url";
  
     private String id;
@@ -134,6 +135,7 @@ public final class Album extends QobuzObject {
     private Double maximum_sampling_rate;
     private Long  maximum_bit_depth;
     private Boolean hires;
+	private String upc;
 
     private Genre genre;
     private Collection collection;
@@ -191,6 +193,7 @@ public final class Album extends QobuzObject {
         KeyList.add(PERIOD);
         KeyList.add(PRODUCT_URL);
         KeyList.add(URL);
+		KeyList.add(UPC);
         KeyList.add(DURATION);
         KeyList.add(RELEASED_AT);
         KeyList.add(MAXIMUM_TECHNICAL_SPECIFICATIONS);
@@ -225,6 +228,10 @@ public final class Album extends QobuzObject {
                 id = jsonObject.getString(ID);
                 title = jsonObject.getString(TITLE);
                 
+				upc = jsonObject.has(UPC) ? 
+                            jsonObject.isNull(UPC) ? 
+                            null : jsonObject.getString(UPC) : null;
+				
                 slug = jsonObject.has(SLUG) ? 
                             jsonObject.isNull(SLUG) ? 
                             null : jsonObject.getString(SLUG) : null;
@@ -685,7 +692,13 @@ public final class Album extends QobuzObject {
     public URL getUrl() {
         return url;
     }
-    
+	
+    /**
+     * @return the upc
+     */
+    public String getUpc() {
+        return upc;
+    }
     /**
      * @return the relative_url
      */

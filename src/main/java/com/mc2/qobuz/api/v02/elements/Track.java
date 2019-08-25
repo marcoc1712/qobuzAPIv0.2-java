@@ -60,6 +60,8 @@ public final class Track extends QobuzObject {
     private Long id;
     private String title;
     private String work;
+	private String titleOnly;
+	private String workGuessed;
     private Artist composer;
     private String performers;
     private Long  duration;
@@ -225,7 +227,10 @@ public final class Track extends QobuzObject {
 				isrc = jsonObject.has(ISRC) ? 
                             jsonObject.isNull(ISRC) ? 
                             null : jsonObject.getString(ISRC) : null;
-                        
+				
+				workGuessed= workFromTitle(work,title);
+				titleOnly =calcTitleOnly(workGuessed,title);
+				
         } catch (JSONException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             throw new QobuzAPIException(ex.getMessage(), ex);
@@ -252,6 +257,18 @@ public final class Track extends QobuzObject {
     public String getWork() {
         return work;
     }
+	/**
+     * @return the work stored in work field or guessed from the title-.
+     */
+    public String geWorkGuessed() {
+       return workGuessed;
+	}
+	/**
+     * @return the title cleaned by the work part as per in workGuessed.
+     */
+    public String getTitleOnly() {
+       return titleOnly;
+	}
     /**
      * @return the composer
      */
@@ -403,5 +420,48 @@ public final class Track extends QobuzObject {
     public ArrayList<Article> getArticles() {
         return articles;
     }
+	
+	private String workFromTitle(String work, String title){
+		
+		if (work != null && !"".equals(work)) return work;
+		if  (title == null || "".equals(title)) return "";
+		
+		if (title.split(":").length > 1){
+		
+			return 	title.split(":")[0].trim();
+		
+		}
+		
+		return "";
+	}
+	
+	private String calcTitleOnly(String work, String title){
+		
+		/*
+		Work: Cello Sonata in B-Flat Major, RV 46
+		Title: Cello Sonata in B-Flat Major, RV 46: I. Preludio (Largo)
+		Title only: I. Preludio (Largo)
+		
+		Work: Cello Sonata in B-Flat Major, RV 46
+		Title: Cello Sonata in B-Flat Major, RV 46 : Cello Sonata in B-Flat Major, RV 46: I. Preludio (Largo)
+		Title only: I. Preludio (Largo)
+		*/
+		
+		if  (title == null || "".equals(title)) return "";
+		if (work == null || "".equals(work)) return title;
+		
+		String out="";
+	
+		for (String el :  title.split(":")){
+		
+			if (!el.trim().toUpperCase().equals(work.trim().toUpperCase())){
+				
+				if (! out.isEmpty()) out= out.concat(" : ");
+				out= out.concat(el.trim());
+			}
+		}
+		if (out.isEmpty()) return title;
+		return out;
+	}
 }
 

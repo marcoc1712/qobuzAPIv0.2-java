@@ -36,12 +36,12 @@ import test.utils.TestUtils;
  */
 public class CatalogueSearchTest extends UnitTest{
     
-    //@Test
+    @Test
     public void searchAllCatalog() {
 
         try {
-                String query = "Antonio Vivaldi"; //can't use an empty string here.
-                
+                //String query = "Antonio Vivaldi"; //can't use an empty string here.
+                String query = "Cello Sonata in B-Flat Major, RV 46";
                 CatalogSearch q = new CatalogSearch(query);
                 Catalog catalog = q.getCatalog();
                                 

@@ -35,7 +35,7 @@ public class CatalogCountTest extends UnitTest{
     public void CatalogCountTest() {
 
         try {
-                String query = ""; //use an empty string to count ALL the objects in Qobuz archives.
+                String query = ""; //use an empty string to count ALL the objects in Qobuz archives. DOES NOT WORKS
                 //query = "Antonio Vivaldi"; 
                 
                 CatalogCount q = new CatalogCount(query);

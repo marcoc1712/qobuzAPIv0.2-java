@@ -560,14 +560,16 @@ public class TestUtils {
     public static void printTrack (Track track, String Indent){
 
         System.out.println(Indent+"Id: "+track.getId());
-        System.out.println(Indent+"Work: "+track.getWork());
-        
+
         if (track.getComposer() !=  null){
             System.out.println(Indent+"Composer: "+track.getComposer().getId()+" - "+track.getComposer().getName());
         } else { 
             System.out.println(Indent+"Composer: "+track.getComposer());
         }
+		
+		System.out.println(Indent+"Work: "+track.getWork());
         System.out.println(Indent+"Title: "+track.getTitle());
+		System.out.println(Indent+"Title only: "+track.getTitleOnly());
         System.out.println(Indent+"Duration: "+track.getDuration());
         System.out.println(Indent+"Performers: "+track.getPerformers());
         

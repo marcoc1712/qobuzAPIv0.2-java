@@ -38,7 +38,9 @@ public class AlbumGetTest extends UnitTest {
     public void getAlbum() {
 
         try {
-                AlbumGet q = new AlbumGet("0822189023645");
+                // AlbumGet q = new AlbumGet("0822189023645");
+				// AlbumGet q = new AlbumGet("zcyp7kgzkrl3b"); //tracks with work NOT in title
+				AlbumGet q = new AlbumGet("3760014193255"); //tracks with work in title
                 Album album = q.getAlbum();
                 album.completeTrackList();
                 

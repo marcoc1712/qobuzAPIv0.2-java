@@ -103,7 +103,7 @@ public class CatalogSearch extends QobuzObjectQuery {
         }
     }
     
-     private String buildUrlStr(String  query, Long offset) throws QobuzAPIException{
+    private String buildUrlStr(String  query, Long offset) throws QobuzAPIException{
         
         String urlStr = buildUrlStr(query);
         

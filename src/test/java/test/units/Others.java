@@ -42,6 +42,7 @@ import com.mc2.qobuz.api.v02.query.GenreGet;
 import com.mc2.qobuz.api.v02.query.LabelGet;
 import com.mc2.qobuz.api.v02.query.TrackGet;
 import com.mc2.qobuz.api.v02.query.CatalogSearch;
+import org.junit.Test;
 
 import test.utils.TestUtils;
 

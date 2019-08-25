@@ -29,9 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URL;
 import com.mc2.qobuz.api.v02.query.AlbumGet;
-import com.mc2.qobuz.api.v02.utils.JsonUtils;
 
 public final class Album extends QobuzObject {
     
@@ -116,7 +114,7 @@ public final class Album extends QobuzObject {
     private String product_type;
     private String copyright;
     private String product_url;
-    private URL url;
+    private String url;
     private Long  duration;
     private Long  released_at;
     private String maximum_technical_specifications;
@@ -358,7 +356,9 @@ public final class Album extends QobuzObject {
                             jsonObject.isNull(PRODUCT_URL) ? 
                             null : jsonObject.getString(PRODUCT_URL) : null;
                              
-                url = JsonUtils.getURL(jsonObject, URL);
+                url = jsonObject.has(URL) ? 
+                            jsonObject.isNull(URL) ? 
+                            null : jsonObject.getString(URL) : null;
                                 
                 duration = jsonObject.has(DURATION) ? 
                             jsonObject.isNull(DURATION) ? 
@@ -689,7 +689,7 @@ public final class Album extends QobuzObject {
     /**
      * @return the url
      */
-    public URL getUrl() {
+    public String getUrl() {
         return url;
     }
 	

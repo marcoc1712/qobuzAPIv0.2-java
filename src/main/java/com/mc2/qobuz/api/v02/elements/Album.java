@@ -30,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mc2.qobuz.api.v02.query.AlbumGet;
+import java.util.List;
 
 public final class Album extends QobuzObject {
     
@@ -97,7 +98,18 @@ public final class Album extends QobuzObject {
     
 	public static final String UPC = "upc";
     public static final String URL = "url";
- 
+	
+	/* 9/9/19 */
+	public static final String PARENTAL_WARNING = "parental_warning";
+	public static final String HIRES_STREAMABLE = "hires_streamable";
+	public static final String MAXIMUM_CHANNEL_COUNT = "maximum_channel_count";
+	
+	public static final String RELEASE_DATE_DOWNLOAD ="release_date_download";
+	public static final String RELEASE_DATE_STREAM ="release_date_stream";
+	public static final String RELEASE_DATE_ORIGINAL ="release_date_original";
+	public static final String SUBTITLE ="subtitle";
+	public static final String ARTICLE_IDS ="article_ids";
+	
     private String id;
     private String title;
     
@@ -152,6 +164,17 @@ public final class Album extends QobuzObject {
     private ArrayList<StoreRelated> store_related = new ArrayList<>();
     private ArrayList<Award> awards = new ArrayList<>();
     
+	/* 9/9/19 */
+	private Boolean hires_streamable;
+	private Boolean parental_warning;
+	private Long maximum_channel_count;
+	private String release_date_download;
+	private String release_date_stream;
+	private String release_date_original;
+	private String subtitle;
+	
+	//private ArrayList<String> article_ids;
+	
      public  Album() {
         super();
      }
@@ -212,7 +235,16 @@ public final class Album extends QobuzObject {
         KeyList.add(MAXIMUM_BIT_DEPTH);
         KeyList.add(HIRES);
         KeyList.add(TRACKS);
+		
+		KeyList.add(PARENTAL_WARNING);
+        KeyList.add(HIRES_STREAMABLE);
+        KeyList.add(MAXIMUM_CHANNEL_COUNT);
         
+		KeyList.add(RELEASE_DATE_DOWNLOAD);
+		KeyList.add(RELEASE_DATE_STREAM);
+		KeyList.add(RELEASE_DATE_ORIGINAL);
+		KeyList.add(SUBTITLE);
+		KeyList.add(ARTICLE_IDS);
         
         checkJSONObject(jsonObject);
         /**
@@ -426,7 +458,7 @@ public final class Album extends QobuzObject {
                 displayable= jsonObject.has(DISPLAYABLE) ? 
                             jsonObject.isNull(DISPLAYABLE) ? 
                             false : jsonObject.getBoolean(DISPLAYABLE) : null;
-                
+
                 purchasable_at = jsonObject.has(PURCHASABLE_AT) ? 
                             jsonObject.isNull(PURCHASABLE_AT) ? 
                             null : jsonObject.getLong(PURCHASABLE_AT) : null;
@@ -450,7 +482,50 @@ public final class Album extends QobuzObject {
                 tracks = jsonObject.has(TRACKS) ? 
                         jsonObject.isNull(TRACKS) ? 
                             null : new TrackList(jsonObject.getJSONObject(TRACKS)) : null;
-                        
+				
+				hires_streamable= jsonObject.has(HIRES_STREAMABLE) ? 
+                            jsonObject.isNull(HIRES_STREAMABLE) ? 
+                            false : jsonObject.getBoolean(HIRES_STREAMABLE) : null;
+				
+				parental_warning= jsonObject.has(PARENTAL_WARNING) ? 
+                            jsonObject.isNull(PARENTAL_WARNING) ? 
+                            false : jsonObject.getBoolean(PARENTAL_WARNING) : null;
+
+				maximum_channel_count = jsonObject.has(MAXIMUM_CHANNEL_COUNT) ? 
+                        jsonObject.isNull(MAXIMUM_CHANNEL_COUNT) ? 
+                            null : jsonObject.getLong(MAXIMUM_CHANNEL_COUNT) : null;
+				
+				obj = jsonObject.has(RELEASED_AT) ? 
+                            jsonObject.isNull(RELEASED_AT) ? 
+                            null : jsonObject.get(RELEASED_AT) : null;
+                
+                if (obj == null || !(obj instanceof Long)) {released_at = null;}
+                else {released_at = (Long)obj;}
+
+				release_date_download = jsonObject.has(RELEASE_DATE_DOWNLOAD) ? 
+                            jsonObject.isNull(RELEASE_DATE_DOWNLOAD) ? 
+                            null : jsonObject.getString(RELEASE_DATE_DOWNLOAD) : null;
+				
+				release_date_stream = jsonObject.has(RELEASE_DATE_STREAM) ? 
+                            jsonObject.isNull(RELEASE_DATE_STREAM) ? 
+                            null : jsonObject.getString(RELEASE_DATE_STREAM) : null;
+				
+				release_date_original = jsonObject.has(RELEASE_DATE_ORIGINAL) ? 
+                            jsonObject.isNull(RELEASE_DATE_ORIGINAL) ? 
+                            null : jsonObject.getString(RELEASE_DATE_ORIGINAL) : null;
+
+				subtitle = jsonObject.has(SUBTITLE) ? 
+                            jsonObject.isNull(SUBTITLE) ? 
+                            null : jsonObject.getString(SUBTITLE) : null;
+				/*
+				if (jsonObject.has(ARTICLE_IDS)) {
+                    JSONArray jIds = jsonObject.getJSONArray(ARTICLE_IDS);
+                    for (int i = 0; i < jIds.length(); i++) {
+                        article_ids.add(jIds.getString(i));
+                    }
+                }
+				*/
+				
         } catch (JSONException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, jsonObject.toString(), ex);
             throw new QobuzAPIException(ex.getMessage(), ex);
@@ -840,6 +915,62 @@ public final class Album extends QobuzObject {
     public TrackList getTracks() {
         return tracks;
     }
-
+	
+	 /**
+     * @return the hires streamable
+     */
+    public Boolean getHiresStreamable() {
+        return hires_streamable;
+    }
+	
+	 /**
+     * @return the parental warning
+     */
+    public Boolean getParentalWarning() {
+        return parental_warning;
+    }
+	
+	/**
+     * @return the maximum_channel_count
+     */
+    public Long getMaximumChannelCount() {
+        return maximum_channel_count;
+    }
+	
+	/**
+     * @return the subtitle
+     */
+    public String getSubtitle() {
+        return subtitle;
+    }
+	
+	/**
+     * @return the release_date_download
+     */
+    public String getReleaseDateDownload() {
+        return release_date_download;
+    }
+	/**
+     * @return the release_date_stream
+     */
+    public String getReleaseDateStream() {
+        return release_date_stream;
+    }
+	/**
+     * @return the release_date_original
+     */
+    public String getReleaseDateOriginal() {
+        return release_date_original;
+    }
+	
+	/**
+     * @return the article_Ids (not used)
+     
+    public List<String> getArticleIds() {
+        return article_ids;
+    }
+	* 
+	
+	*/
 }
 

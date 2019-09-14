@@ -117,6 +117,7 @@ public class TestUtils {
   
         System.out.println(Indent+"Id: "+a.getId());
         System.out.println(Indent+"Title: "+a.getTitle());
+		System.out.println(Indent+"Subtitle: "+a.getSubtitle());
 
         if (!detailed){
         
@@ -277,11 +278,19 @@ public class TestUtils {
             System.out.println(Indent+"Product sales factors yearly: "+a.getProduct_sales_factors_yearly());
             System.out.println(Indent+"Purchasable: "+a.getPurchasable());
             System.out.println(Indent+"Streamable: "+a.getStreamable());
+			System.out.println(Indent+"Hi Res Streamable: "+a.getHiresStreamable());
             System.out.println(Indent+"Previewable: "+a.getPreviewable());
             System.out.println(Indent+"Sampleable: "+a.getSampleable());
             System.out.println(Indent+"Downloadable: "+a.getDownloadable());
             System.out.println(Indent+"Displayable: "+a.getDisplayable());
+			System.out.println(Indent+"Parental warning: "+a.getParentalWarning());
 
+			if (a.getReleased_at() != null){
+                System.out.println(Indent+"Released at: "+new Date(a.getReleased_at()*1000));
+            }else{
+                System.out.println(Indent+"Released at: "+ a.getReleased_at());       
+            }
+			
             if (a.getPurchasable_at() != null){
                 System.out.println(Indent+"Purchasable at: "+new Date(a.getPurchasable_at()*1000));
             } else {
@@ -293,7 +302,13 @@ public class TestUtils {
             } else {
                 System.out.println(Indent+"Streamable at: "+ a.getStreamable_at());
             }
-
+			
+			System.out.println(Indent+"Released for download at: "+a.getReleaseDateDownload());
+			System.out.println(Indent+"Released for streaming at: "+a.getReleaseDateStream());
+			System.out.println(Indent+"Originally released at: "+a.getReleaseDateOriginal());
+			
+			
+			System.out.println(Indent+"Maximum channel count: "+a.getMaximumChannelCount());
             System.out.println(Indent+"Maximum sampling rate: "+a.getMaximum_sampling_rate());
             System.out.println(Indent+"Maximum bit depth: "+a.getMaximum_bit_depth());
             System.out.println(Indent+"Hires: "+a.getHires());

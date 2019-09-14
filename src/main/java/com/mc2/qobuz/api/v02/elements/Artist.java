@@ -20,6 +20,7 @@
 
 package com.mc2.qobuz.api.v02.elements;
 
+import static com.mc2.qobuz.api.v02.elements.Album.ARTICLE_IDS;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +31,9 @@ import com.mc2.qobuz.api.v02.lists.AlbumList;
 import com.mc2.qobuz.api.v02.lists.TrackList;
 import com.mc2.qobuz.api.v02.query.ArtistGet;
 import com.mc2.qobuz.api.v02.utils.JsonUtils;
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONArray;
 
 /**
  *
@@ -50,6 +54,9 @@ public final class  Artist extends QobuzObject{
     public static final String TRACKS = "tracks";
     public static final String INFORMATION = "information";
     
+	/* 9/9/19 */
+	public static final String SIMILAR_ARTIST_IDS ="similar_artist_ids";
+
     private Long id;
     private URL picture;
     private Long albums_as_primary_composer_count;
@@ -62,6 +69,8 @@ public final class  Artist extends QobuzObject{
     private AlbumList albums;
     private TrackList tracks;
     private EmptyClass information;
+	
+	private ArrayList<String> similar_artist_ids;
     
     
     public Artist() {
@@ -83,6 +92,7 @@ public final class  Artist extends QobuzObject{
         KeyList.add(ALBUMS);
         KeyList.add(TRACKS);
         KeyList.add(INFORMATION);
+		KeyList.add(SIMILAR_ARTIST_IDS);
         
         checkJSONObject(jsonObject);
         
@@ -139,7 +149,14 @@ public final class  Artist extends QobuzObject{
                 information = jsonObject.has(INFORMATION) ? 
                             jsonObject.isNull(INFORMATION) ? 
                             null : new EmptyClass(jsonObject.getJSONObject(INFORMATION)) : null;
-                
+				
+				if (jsonObject.has(SIMILAR_ARTIST_IDS)) {
+                    JSONArray jIds = jsonObject.getJSONArray(SIMILAR_ARTIST_IDS);
+                    for (int i = 0; i < jIds.length(); i++) {
+                        similar_artist_ids.add(jIds.getString(i));
+                    }
+                }
+				
             } catch (JSONException ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                 throw new QobuzAPIException(ex.getMessage(), ex);
@@ -333,5 +350,10 @@ public final class  Artist extends QobuzObject{
     public EmptyClass getInformation() {
         return information;
     }
-
+	/**
+     * @return the similar_artist_ids (not used)
+     */
+    public List<String> getSimilarArtistIds() {
+        return similar_artist_ids;
+    }
 }

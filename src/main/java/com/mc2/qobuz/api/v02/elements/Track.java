@@ -57,6 +57,11 @@ public final class Track extends QobuzObject {
     public static final String HIRES = "hires";
 	public static final String ISRC = "isrc";
     
+	/* 9/9/19 */
+	public static final String PARENTAL_WARNING = "parental_warning";
+	public static final String HIRES_STREAMABLE = "hires_streamable";
+	public static final String MAXIMUM_CHANNEL_COUNT = "maximum_channel_count";
+	
     private Long id;
     private String title;
     private String work;
@@ -84,6 +89,11 @@ public final class Track extends QobuzObject {
     private Boolean hires;
 	private String isrc;
     
+	/* 9/9/19 */
+	private Boolean hires_streamable;
+	private Boolean parental_warning;
+	private Long  maximum_channel_count;
+	
     private ArrayList<Article> articles = new ArrayList<>();
     
      public  Track() {
@@ -121,6 +131,10 @@ public final class Track extends QobuzObject {
         KeyList.add(HIRES);
 		KeyList.add(ISRC);
 
+		KeyList.add(PARENTAL_WARNING);
+        KeyList.add(HIRES_STREAMABLE);
+        KeyList.add(MAXIMUM_CHANNEL_COUNT);
+		
         checkJSONObject(jsonObject);
         /**
          * If there is no parameter there is no need to go further
@@ -229,7 +243,20 @@ public final class Track extends QobuzObject {
                             null : jsonObject.getString(ISRC) : null;
 				
 				workGuessed= workFromTitle(work,title);
+				
 				titleOnly =calcTitleOnly(workGuessed,title);
+					
+				hires_streamable= jsonObject.has(HIRES_STREAMABLE) ? 
+                            jsonObject.isNull(HIRES_STREAMABLE) ? 
+                            false : jsonObject.getBoolean(HIRES_STREAMABLE) : null;
+				
+				parental_warning= jsonObject.has(PARENTAL_WARNING) ? 
+                            jsonObject.isNull(PARENTAL_WARNING) ? 
+                            false : jsonObject.getBoolean(PARENTAL_WARNING) : null;
+
+				maximum_channel_count = jsonObject.has(MAXIMUM_CHANNEL_COUNT) ? 
+                        jsonObject.isNull(MAXIMUM_CHANNEL_COUNT) ? 
+                            null : jsonObject.getLong(MAXIMUM_CHANNEL_COUNT) : null;
 				
         } catch (JSONException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
@@ -421,6 +448,27 @@ public final class Track extends QobuzObject {
         return articles;
     }
 	
+	 /**
+     * @return the hires streamable
+     */
+    public Boolean getHiresStreamable() {
+        return hires_streamable;
+    }
+	
+	 /**
+     * @return the parental warning
+     */
+    public Boolean getParentalWarning() {
+        return parental_warning;
+    }
+	
+	/**
+     * @return the maximum_channel_count
+     */
+    public Long getMaximumChannelCount() {
+        return maximum_channel_count;
+    }
+	
 	private String workFromTitle(String work, String title){
 		
 		if (work != null && !"".equals(work)) return work;
@@ -463,5 +511,6 @@ public final class Track extends QobuzObject {
 		if (out.isEmpty()) return title;
 		return out;
 	}
+	
 }
 

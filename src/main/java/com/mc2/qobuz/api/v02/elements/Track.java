@@ -22,6 +22,8 @@ package com.mc2.qobuz.api.v02.elements;
 
 import java.util.ArrayList;
 import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
@@ -31,36 +33,40 @@ import org.json.JSONObject;
 
 public final class Track extends QobuzObject {
 
-    public static final String ID = "id";
+    public static final String ID = "id"; //no
     public static final String TITLE = "title";
     public static final String WORK = "work"; 
     public static final String COMPOSER = "composer"; 
-    public static final String PERFORMERS = "performers"; 
-    public static final String DURATION = "duration"; 
-    public static final String ARTICLES = "articles";
+    public static final String PERFORMERS = "performers"; //no
+    public static final String DURATION = "duration"; //no
+    public static final String ARTICLES = "articles"; //no
     public static final String ALBUM = "album"; 
     public static final String PERFORMER = "performer"; 
     public static final String COPYRIGHT = "copyright";
-    public static final String MEDIA_NUMBER = "media_number";
-    public static final String TRACK_NUMBER = "track_number";
-    public static final String VERSION = "version";
-    public static final String PURCHASABLE = "purchasable";
-    public static final String STREAMABLE = "streamable";
-    public static final String PREVIEWABLE = "previewable";
-    public static final String SAMPLEABLE = "sampleable";
-    public static final String DOWNLOADABLE = "downloadable";
-    public static final String DISPLAYABLE = "displayable";
-    public static final String PURCHASABLE_AT = "purchasable_at";
-    public static final String STREAMABLE_AT = "streamable_at";
-    public static final String MAXIMUM_SAMPLING_RATE = "maximum_sampling_rate";
-    public static final String MAXIMUM_BIT_DEPTH = "maximum_bit_depth";
-    public static final String HIRES = "hires";
+    public static final String MEDIA_NUMBER = "media_number"; //no
+    public static final String TRACK_NUMBER = "track_number"; //no TRACK_NO
+    public static final String VERSION = "version"; //no
+    public static final String PURCHASABLE = "purchasable";//no
+    public static final String STREAMABLE = "streamable";//no
+    public static final String PREVIEWABLE = "previewable";//no
+    public static final String SAMPLEABLE = "sampleable";//no
+    public static final String DOWNLOADABLE = "downloadable";//no
+    public static final String DISPLAYABLE = "displayable";//no
+    public static final String PURCHASABLE_AT = "purchasable_at";//no
+    public static final String STREAMABLE_AT = "streamable_at";//no
+    public static final String MAXIMUM_SAMPLING_RATE = "maximum_sampling_rate";//no
+    public static final String MAXIMUM_BIT_DEPTH = "maximum_bit_depth";//no
+    public static final String HIRES = "hires";//no
 	public static final String ISRC = "isrc";
     
+	public static final String TITLEONLY = "titleOnly"; //no
+	public static final String WORKGUESSED = "workGuessed";//no
+	
 	/* 9/9/19 */
-	public static final String PARENTAL_WARNING = "parental_warning";
-	public static final String HIRES_STREAMABLE = "hires_streamable";
-	public static final String MAXIMUM_CHANNEL_COUNT = "maximum_channel_count";
+	public static final String PARENTAL_WARNING = "parental_warning";//no
+	public static final String HIRES_STREAMABLE = "hires_streamable";//no
+	public static final String MAXIMUM_CHANNEL_COUNT = "maximum_channel_count";//no
+	public static final String ARTICLE_IDS ="article_ids"; //no
 	
     private Long id;
     private String title;
@@ -89,12 +95,13 @@ public final class Track extends QobuzObject {
     private Boolean hires;
 	private String isrc;
     
+    private ArrayList<Article> articles = new ArrayList<>();
+	
 	/* 9/9/19 */
 	private Boolean hires_streamable;
 	private Boolean parental_warning;
 	private Long  maximum_channel_count;
-	
-    private ArrayList<Article> articles = new ArrayList<>();
+	//private ArrayList<String> article_ids;
     
      public  Track() {
         super();
@@ -134,6 +141,7 @@ public final class Track extends QobuzObject {
 		KeyList.add(PARENTAL_WARNING);
         KeyList.add(HIRES_STREAMABLE);
         KeyList.add(MAXIMUM_CHANNEL_COUNT);
+		KeyList.add(ARTICLE_IDS);
 		
         checkJSONObject(jsonObject);
         /**
@@ -144,119 +152,71 @@ public final class Track extends QobuzObject {
         }
 
         try {
-                id = jsonObject.getLong(ID);
-                title = jsonObject.getString(TITLE);
                 
-                work = jsonObject.has(WORK) ? 
-                            jsonObject.isNull(WORK) ? 
-                            null : jsonObject.getString(WORK) : null;
-                
-                composer = jsonObject.has(COMPOSER) ? 
-                        jsonObject.isNull(COMPOSER) ? 
-                            null : new Artist(jsonObject.getJSONObject(COMPOSER)) : null;
-                
-                performers = jsonObject.has(PERFORMERS) ? 
-                            jsonObject.isNull(PERFORMERS) ? 
-                            null : jsonObject.getString(PERFORMERS) : null;
-                
-                duration = jsonObject.has(DURATION) ? 
-                            jsonObject.isNull(DURATION) ? 
-                            null : jsonObject.getLong(DURATION) : null;
-                
-                if (jsonObject.has(ARTICLES)) {
+				id = this.getLong(ID, jsonObject);
+				title = this.getString(TITLE, jsonObject);
+				work = this.getString(WORK, jsonObject);
+				performers = this.getString(PERFORMERS, jsonObject);
+                duration = this.getLong(DURATION, jsonObject);
+				copyright = this.getString(COPYRIGHT, jsonObject);
+				media_number = this.getLong(MEDIA_NUMBER, jsonObject);
+				track_number = this.getLong(TRACK_NUMBER, jsonObject);
+				purchasable= this.getBoolean(PURCHASABLE, jsonObject);
+				streamable= this.getBoolean(STREAMABLE, jsonObject);
+				previewable= this.getBoolean(PREVIEWABLE, jsonObject);
+				sampleable= this.getBoolean(SAMPLEABLE, jsonObject);
+				downloadable= this.getBoolean(DOWNLOADABLE, jsonObject);
+				displayable= this.getBoolean(DISPLAYABLE, jsonObject);
+				purchasable_at = this.getDate(PURCHASABLE_AT, jsonObject);
+				streamable_at = this.getDate(STREAMABLE_AT, jsonObject);
+				maximum_sampling_rate = this.getDouble(MAXIMUM_SAMPLING_RATE, jsonObject);
+                maximum_bit_depth = this.getLong(MAXIMUM_BIT_DEPTH, jsonObject);
+                hires = this.getBoolean(HIRES, jsonObject);
+                isrc = this.getString(ISRC, jsonObject);
+                hires_streamable = this.getBoolean(HIRES_STREAMABLE, jsonObject);
+				parental_warning = this.getBoolean(PARENTAL_WARNING, jsonObject);
+				maximum_channel_count= this.getLong(MAXIMUM_CHANNEL_COUNT, jsonObject);
+				version = this.getString(VERSION, jsonObject);
+				
+				/*
+                version = jsonObject.has(VERSION) ? 
+                            jsonObject.isNull(VERSION) ? 
+                            null :  jsonObject.get(VERSION).toString() : null;
+                */
+				
+				titleOnly =calcTitleOnly(workGuessed,title);
+				//rawKeyValuePair.put(TITLEONLY, titleOnly);
+				
+				workGuessed= workFromTitle(work,title);
+				//rawKeyValuePair.put(WORKGUESSED, workGuessed);
+				
+				if (jsonObject.has(ALBUM)&& !jsonObject.isNull(ALBUM)){
+					album =  new Album(jsonObject.getJSONObject(ALBUM));
+					rawKeyValuePair.put(ALBUM, album.getTitle());
+				}
+				if (jsonObject.has(COMPOSER)&& !jsonObject.isNull(COMPOSER)){
+					composer =  new Artist(jsonObject.getJSONObject(COMPOSER));
+					rawKeyValuePair.put(COMPOSER, composer.getName());
+				}
+				
+				if (jsonObject.has(PERFORMER)&& !jsonObject.isNull(PERFORMER)){
+					performer =  new Artist(jsonObject.getJSONObject(PERFORMER));
+					rawKeyValuePair.put(PERFORMER, performer.getName());
+				}
+				if (jsonObject.has(ARTICLES)) {
                     JSONArray jArticles = jsonObject.getJSONArray(ARTICLES);
                     for (int i = 0; i < jArticles.length(); i++) {
                         articles.add(new Article(jArticles.getJSONObject(i)));
                     }
                 }
-                
-                album = jsonObject.has(ALBUM) ? 
-                        jsonObject.isNull(ALBUM) ? 
-                            null : new Album(jsonObject.getJSONObject(ALBUM)) : null;
-                 
-                performer = jsonObject.has(PERFORMER) ? 
-                        jsonObject.isNull(PERFORMER) ? 
-                            null : new Artist(jsonObject.getJSONObject(PERFORMER)) : null;
-                
-                copyright = jsonObject.has(COPYRIGHT) ? 
-                            jsonObject.isNull(COPYRIGHT) ? 
-                            null : jsonObject.getString(COPYRIGHT) : null;
-                
-                media_number = jsonObject.has(MEDIA_NUMBER) ? 
-                            jsonObject.isNull(MEDIA_NUMBER) ? 
-                            null : jsonObject.getLong(MEDIA_NUMBER) : null;
-                                
-                track_number = jsonObject.has(TRACK_NUMBER) ? 
-                            jsonObject.isNull(TRACK_NUMBER) ? 
-                            null : jsonObject.getLong(TRACK_NUMBER) : null;        
-                                
-                version = jsonObject.has(VERSION) ? 
-                            jsonObject.isNull(VERSION) ? 
-                            null :  jsonObject.get(VERSION).toString() : null;
-                
-                purchasable= jsonObject.has(PURCHASABLE) ? 
-                            jsonObject.isNull(PURCHASABLE) ? 
-                            false : jsonObject.getBoolean(PURCHASABLE) : null;
-                
-                streamable= jsonObject.has(STREAMABLE) ? 
-                            jsonObject.isNull(STREAMABLE) ? 
-                            false : jsonObject.getBoolean(STREAMABLE) : null;
-                                
-                previewable= jsonObject.has(PREVIEWABLE) ? 
-                            jsonObject.isNull(PREVIEWABLE) ? 
-                            false : jsonObject.getBoolean(PREVIEWABLE) : null;
-                                
-                sampleable= jsonObject.has(SAMPLEABLE) ? 
-                            jsonObject.isNull(SAMPLEABLE) ? 
-                            false : jsonObject.getBoolean(SAMPLEABLE) : null;
-                                
-                downloadable= jsonObject.has(DOWNLOADABLE) ? 
-                            jsonObject.isNull(DOWNLOADABLE) ? 
-                            false : jsonObject.getBoolean(DOWNLOADABLE) : null;
-                               
-                displayable= jsonObject.has(DISPLAYABLE) ? 
-                            jsonObject.isNull(DISPLAYABLE) ? 
-                            false : jsonObject.getBoolean(DISPLAYABLE) : null;
-                
-                purchasable_at = jsonObject.has(PURCHASABLE_AT) ? 
-                            jsonObject.isNull(PURCHASABLE_AT) ? 
-                            null : jsonObject.getLong(PURCHASABLE_AT) : null;
-               
-                streamable_at = jsonObject.has(STREAMABLE_AT) ? 
-                            jsonObject.isNull(STREAMABLE_AT) ? 
-                            null : jsonObject.getLong(STREAMABLE_AT) : null;
-                
-                maximum_sampling_rate= jsonObject.has(MAXIMUM_SAMPLING_RATE) ? 
-                            jsonObject.isNull(MAXIMUM_SAMPLING_RATE) ? 
-                            null : jsonObject.getDouble(MAXIMUM_SAMPLING_RATE) : null;
-                        
-                maximum_bit_depth= jsonObject.has(MAXIMUM_BIT_DEPTH) ? 
-                            jsonObject.isNull(MAXIMUM_BIT_DEPTH) ? 
-                            null : jsonObject.getLong(MAXIMUM_BIT_DEPTH) : null;
-                
-                hires= jsonObject.has(HIRES) ? 
-                            jsonObject.isNull(HIRES) ? 
-                            false : jsonObject.getBoolean(HIRES) : null;
-                
-				isrc = jsonObject.has(ISRC) ? 
-                            jsonObject.isNull(ISRC) ? 
-                            null : jsonObject.getString(ISRC) : null;
-				
-				workGuessed= workFromTitle(work,title);
-				
-				titleOnly =calcTitleOnly(workGuessed,title);
-					
-				hires_streamable= jsonObject.has(HIRES_STREAMABLE) ? 
-                            jsonObject.isNull(HIRES_STREAMABLE) ? 
-                            false : jsonObject.getBoolean(HIRES_STREAMABLE) : null;
-				
-				parental_warning= jsonObject.has(PARENTAL_WARNING) ? 
-                            jsonObject.isNull(PARENTAL_WARNING) ? 
-                            false : jsonObject.getBoolean(PARENTAL_WARNING) : null;
-
-				maximum_channel_count = jsonObject.has(MAXIMUM_CHANNEL_COUNT) ? 
-                        jsonObject.isNull(MAXIMUM_CHANNEL_COUNT) ? 
-                            null : jsonObject.getLong(MAXIMUM_CHANNEL_COUNT) : null;
+				/*
+				if (jsonObject.has(ARTICLE_IDS)) {
+                    JSONArray jIds = jsonObject.getJSONArray(ARTICLE_IDS);
+                    for (int i = 0; i < jIds.length(); i++) {
+                        article_ids.add(jIds.getString(i));
+                    }
+                }
+				*/
 				
         } catch (JSONException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
@@ -304,12 +264,72 @@ public final class Track extends QobuzObject {
     }
 
     /**
-     * @return the performers
+     * @return the performers as a string
      */
     public String getPerformers() {
         return performers;
     }
+	/**
+     * @return the performers as a list of strings
+     */
+	public ArrayList<String> getPerformerList(){
+        
+        ArrayList<String> out=new ArrayList<>();
+        		
+        if (this.getPerformers() == null) return out;
+        if (this.getPerformers().isEmpty()) return out;
+        
+        if (!this.getPerformers().contains("-")){
+            
+			out.add(this.getPerformers());
+        
+		} else {
+        
+			String[] parts = this.getPerformers().split(" - ");
 
+			for (String part : parts){
+				out.add(part);
+			}
+		}
+
+        return out; 
+    }
+	/**
+     * @return the performers as a map of struing (role and performer name)
+     */
+	public Map<String,String> getPerformersMap(){
+        
+        Map<String,String> performersMap = new HashMap<>();
+		
+        if (this.getPerformerList().isEmpty()) return performersMap;
+        
+		for (String perf : this.getPerformerList()){
+		
+			String[] parts = perf.split(", ");
+			
+			if (parts.length > 1){
+			
+				String value = parts[0].trim();
+				
+				for (int i = 1; i < parts.length; i++) {
+					
+					String key = parts[i].trim();
+					
+					if (performersMap.containsKey(key)){
+						performersMap.put(key, performersMap.get(key)+", "+value);
+					} else{
+						performersMap.put(key, value);
+					}
+				}
+			} else if (parts.length == 1)	{
+				
+				String value = parts[0].trim();
+				performersMap.put("Performer", value);
+			}		
+		}
+
+        return performersMap; 
+    }
     /**
      * @return the duration
      */
@@ -448,7 +468,7 @@ public final class Track extends QobuzObject {
         return articles;
     }
 	
-	 /**
+	/**
      * @return the hires streamable
      */
     public Boolean getHiresStreamable() {
@@ -512,5 +532,12 @@ public final class Track extends QobuzObject {
 		return out;
 	}
 	
+	/**
+     * @return the article_Ids (not used)
+     
+    public List<String> getArticleIds() {
+        return article_ids;
+    }
+	**/
 }
 

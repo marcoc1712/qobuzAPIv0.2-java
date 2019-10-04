@@ -30,85 +30,86 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mc2.qobuz.api.v02.query.AlbumGet;
-import java.util.List;
 
 public final class Album extends QobuzObject {
     
-    public static final String ID = "id";
-    public static final String TITLE = "title";
+    public static final String ID = "id"; //no
+    public static final String TITLE = "title"; 
     
-    public static final String AREA = "area";
-    public static final String ARTICLES = "articles";
-    public static final String ARTIST = "artist";
-    public static final String AWARDS = "awards";
+    public static final String AREA = "area"; //no
+    public static final String ARTICLES = "articles"; //no
+    public static final String ARTIST = "artist"; 
+    public static final String AWARDS = "awards"; //no
     
-    public static final String CATCHLINE = "catchline";
-    public static final String COLLECTION = "collection";
+    public static final String CATCHLINE = "catchline"; //no
+    public static final String COLLECTION = "collection"; //no
     public static final String COMPOSER = "composer";
     public static final String COPYRIGHT = "copyright";
-    public static final String CREATED_AT = "created_at";
-    
-    public static final String DESCRIPTION = "description";
-    public static final String DISPLAYABLE = "displayable";
-    public static final String DOWNLOADABLE = "downloadable";
-    public static final String DURATION = "duration";
+    public static final String CREATED_AT = "created_at"; //no
+	
+    public static final String CONTENT = "content"; //no
+    public static final String DESCRIPTION = "description"; //no
+	
+    public static final String DISPLAYABLE = "displayable"; //no
+    public static final String DOWNLOADABLE = "downloadable"; //no
+    public static final String DURATION = "duration"; //no
 
     public static final String GENRE = "genre";
-    public static final String GENRES_LIST = "genres_list";
-    public static final String GOODIES = "goodies";
+    public static final String GENRES_LIST = "genres_list"; //no
+    public static final String GOODIES = "goodies"; //no
     
-    public static final String HIRES = "hires";
+    public static final String HIRES = "hires"; //no
      
-    public static final String IMAGE = "image";
+    public static final String IMAGE = "image"; //no
     public static final String INSTRUMENT = "instrument";
     
     public static final String LABEL = "label";
     
-    public static final String MAXIMUM_BIT_DEPTH = "maximum_bit_depth";
-    public static final String MAXIMUM_SAMPLING_RATE = "maximum_sampling_rate";
-    public static final String MAXIMUM_TECHNICAL_SPECIFICATIONS = "maximum_technical_specifications";
-    public static final String MEDIA_COUNT = "media_count";
+    public static final String MAXIMUM_BIT_DEPTH = "maximum_bit_depth"; //no
+    public static final String MAXIMUM_SAMPLING_RATE = "maximum_sampling_rate"; //no
+    public static final String MAXIMUM_TECHNICAL_SPECIFICATIONS = "maximum_technical_specifications"; //no
+    public static final String MEDIA_COUNT = "media_count"; //no
     
     public static final String PERIOD = "period";
-    public static final String POPULARITY = "popularity";
-    public static final String PREVIEWABLE = "previewable";
-    public static final String PRODUCT_TYPE = "product_type";
-    public static final String PRODUCT_SALES_FACTORS_MONTHLY  = "product_sales_factors_monthly";
-    public static final String PRODUCT_SALES_FACTORS_WEEKLY = "product_sales_factors_weekly";
-    public static final String PRODUCT_SALES_FACTORS_YEARLY = "product_sales_factors_yearly";
-    public static final String PRODUCT_URL = "product_url";
-    public static final String PROGRAM = "program";
-    public static final String PURCHASABLE = "purchasable";
-    public static final String PURCHASABLE_AT = "purchasable_at";
+    public static final String POPULARITY = "popularity"; //no
+    public static final String PREVIEWABLE = "previewable"; //no
+    public static final String PRODUCT_TYPE = "product_type"; //no
+    public static final String PRODUCT_SALES_FACTORS_MONTHLY  = "product_sales_factors_monthly"; //no
+    public static final String PRODUCT_SALES_FACTORS_WEEKLY = "product_sales_factors_weekly"; //no
+    public static final String PRODUCT_SALES_FACTORS_YEARLY = "product_sales_factors_yearly"; //no
+    public static final String PRODUCT_URL = "product_url"; //no
+    public static final String PROGRAM = "program"; //no
+    public static final String PURCHASABLE = "purchasable"; //no
+    public static final String PURCHASABLE_AT = "purchasable_at"; //no
 
-    public static final String QOBUZ_ID = "qobuz_id";
+    public static final String QOBUZ_ID = "qobuz_id"; //no
      
-    public static final String RECORDING_INFORMATION = "recording_information";
-    public static final String RELATIVE_URL = "relative_url";
-    public static final String RELEASED_AT = "released_at";
+    public static final String RECORDING_INFORMATION = "recording_information"; //no
+    public static final String RELATIVE_URL = "relative_url"; //no
+    public static final String RELEASED_AT = "released_at"; //no
     
-    public static final String SAMPLEABLE = "sampleable";
-    public static final String SLUG = "slug";
-    public static final String STORE_RELATED = "store_related";
-    public static final String STREAMABLE = "streamable";
-    public static final String STREAMABLE_AT = "streamable_at";
+    public static final String SAMPLEABLE = "sampleable"; //no
+    public static final String SLUG = "slug"; //no
+    public static final String STORE_RELATED = "store_related"; //no
+    public static final String STREAMABLE = "streamable"; //no
+    public static final String STREAMABLE_AT = "streamable_at"; //no
     
-    public static final String TRACKS = "tracks"; 
-    public static final String TRACKSCOUNT = "tracks_count";
+    public static final String TRACKS = "tracks"; //no
+    public static final String TRACKSCOUNT = "tracks_count"; //no  TRACK_TOTAL
     
-	public static final String UPC = "upc";
-    public static final String URL = "url";
+	public static final String UPC = "upc"; 
+    public static final String URL = "url"; //no
 	
 	/* 9/9/19 */
-	public static final String PARENTAL_WARNING = "parental_warning";
-	public static final String HIRES_STREAMABLE = "hires_streamable";
-	public static final String MAXIMUM_CHANNEL_COUNT = "maximum_channel_count";
+	public static final String PARENTAL_WARNING = "parental_warning"; //no
+	public static final String HIRES_STREAMABLE = "hires_streamable"; //no
+	public static final String MAXIMUM_CHANNEL_COUNT = "maximum_channel_count"; //no
 	
-	public static final String RELEASE_DATE_DOWNLOAD ="release_date_download";
-	public static final String RELEASE_DATE_STREAM ="release_date_stream";
-	public static final String RELEASE_DATE_ORIGINAL ="release_date_original";
-	public static final String SUBTITLE ="subtitle";
-	public static final String ARTICLE_IDS ="article_ids";
+	public static final String RELEASE_DATE_DOWNLOAD ="release_date_download"; //no
+	public static final String RELEASE_DATE_STREAM ="release_date_stream"; //no
+	public static final String RELEASE_DATE_ORIGINAL ="release_date_original"; //no
+	public static final String SUBTITLE ="subtitle"; //no
+	public static final String ARTICLE_IDS ="article_ids"; //no
 	
     private String id;
     private String title;
@@ -255,99 +256,133 @@ public final class Album extends QobuzObject {
         }
 
         try {
-                id = jsonObject.getString(ID);
-                title = jsonObject.getString(TITLE);
-                
-				upc = jsonObject.has(UPC) ? 
-                            jsonObject.isNull(UPC) ? 
-                            null : jsonObject.getString(UPC) : null;
+                id = this.getString(ID, jsonObject);
+				title = this.getString(TITLE, jsonObject);
+				slug = this.getString(SLUG, jsonObject);
+				tracks_count = this.getLong(TRACKSCOUNT, jsonObject);
+				recording_information = this.getString(RECORDING_INFORMATION, jsonObject);
+				product_sales_factors_weekly = this.getDouble(PRODUCT_SALES_FACTORS_WEEKLY, jsonObject);
+				catchline = this.getString(CATCHLINE, jsonObject);
+				created_at = this.getDate(CREATED_AT, jsonObject);
+				product_sales_factors_monthly = this.getDouble(PRODUCT_SALES_FACTORS_MONTHLY, jsonObject);
+				popularity =this.getDouble(POPULARITY, jsonObject);                
+				media_count = this.getLong(MEDIA_COUNT, jsonObject);
+				product_type = this.getString(PRODUCT_TYPE, jsonObject);
+				product_url = this.getString(PRODUCT_URL, jsonObject);
+				url = this.getString(URL, jsonObject);
+				upc = this.getString(UPC, jsonObject);
+				duration = this.getLong(DURATION, jsonObject);
+				released_at = this.getDate(RELEASED_AT, jsonObject);
+				maximum_technical_specifications = this.getString(MAXIMUM_TECHNICAL_SPECIFICATIONS, jsonObject);
+				program = this.getString(PROGRAM, jsonObject);
+				relative_url = this.getString(RELATIVE_URL, jsonObject);
+				qobuz_id = this.getLong(QOBUZ_ID, jsonObject);
+				product_sales_factors_yearly = this.getDouble(PRODUCT_SALES_FACTORS_YEARLY, jsonObject);
+				purchasable= this.getBoolean(PURCHASABLE, jsonObject);
+				streamable= this.getBoolean(STREAMABLE, jsonObject);
+				previewable= this.getBoolean(PREVIEWABLE, jsonObject);
+				sampleable= this.getBoolean(SAMPLEABLE, jsonObject);
+				downloadable= this.getBoolean(DOWNLOADABLE, jsonObject);
+				displayable= this.getBoolean(DISPLAYABLE, jsonObject);
+				purchasable_at = this.getDate(PURCHASABLE_AT, jsonObject);
+				streamable_at = this.getDate(STREAMABLE_AT, jsonObject);
+				maximum_sampling_rate = this.getDouble(MAXIMUM_SAMPLING_RATE, jsonObject);
+                maximum_bit_depth = this.getLong(MAXIMUM_BIT_DEPTH, jsonObject);
+                hires = this.getBoolean(HIRES, jsonObject);
+				copyright = this.getString(COPYRIGHT, jsonObject);
 				
-                slug = jsonObject.has(SLUG) ? 
-                            jsonObject.isNull(SLUG) ? 
-                            null : jsonObject.getString(SLUG) : null;
+				hires_streamable = this.getBoolean(HIRES_STREAMABLE, jsonObject);
+				parental_warning = this.getBoolean(PARENTAL_WARNING, jsonObject);
+				maximum_channel_count= this.getLong(MAXIMUM_CHANNEL_COUNT, jsonObject);
+				release_date_download = this.getString(RELEASE_DATE_DOWNLOAD, jsonObject);
+				release_date_stream = this.getString(RELEASE_DATE_STREAM, jsonObject);
+				release_date_original = this.getString(RELEASE_DATE_ORIGINAL, jsonObject);
+				subtitle  = this.getString(SUBTITLE, jsonObject);
+				
+				if (jsonObject.has(DESCRIPTION)&& !jsonObject.isNull(DESCRIPTION)){
+					
+					Object obj = jsonObject.get(DESCRIPTION);
+					
+					if (obj instanceof String) {    
                 
-                genre = jsonObject.has(GENRE) ? 
-                        jsonObject.isNull(GENRE) ? 
-                            null : new Genre(jsonObject.getJSONObject(GENRE)) : null;
-                
-                tracks_count = jsonObject.has(TRACKSCOUNT) ? 
-                        jsonObject.isNull(TRACKSCOUNT) ? 
-                            null : jsonObject.getLong(TRACKSCOUNT) : null;
-                
-                recording_information = jsonObject.has(RECORDING_INFORMATION) ? 
-                            jsonObject.isNull(RECORDING_INFORMATION) ? 
-                            null : jsonObject.getString(RECORDING_INFORMATION) : null;
+						description = this.getString(DESCRIPTION, jsonObject);
 
-                collection = jsonObject.has(COLLECTION) ? 
-                        jsonObject.isNull(COLLECTION) ? 
-                            null : new Collection(jsonObject.getJSONObject(COLLECTION)) : null;
-                
-                product_sales_factors_weekly = jsonObject.has(PRODUCT_SALES_FACTORS_WEEKLY) ? 
-                        jsonObject.isNull(PRODUCT_SALES_FACTORS_WEEKLY) ? 
-                            null : jsonObject.getDouble(PRODUCT_SALES_FACTORS_WEEKLY) : null;
-                
-                if (jsonObject.has(GOODIES)) {
+					} else if (obj instanceof JSONObject) {
+						
+						description = this.getString(CONTENT, (JSONObject) obj);
+						
+					}
+					rawKeyValuePair.put(CONTENT, description);
+				}
+				
+				image = jsonObject.has(IMAGE) ? 
+                        jsonObject.isNull(IMAGE) ? 
+                            null : new Image(jsonObject.getJSONObject(IMAGE)) : null;
+							
+				if (jsonObject.has(COMPOSER)&& !jsonObject.isNull(COMPOSER)){
+					composer =  new Artist(jsonObject.getJSONObject(COMPOSER));
+					rawKeyValuePair.put(COMPOSER, composer.getName());
+				}
+				
+				if (jsonObject.has(ARTIST)&& !jsonObject.isNull(ARTIST)){
+					artist =  new Artist(jsonObject.getJSONObject(ARTIST));
+					rawKeyValuePair.put(ARTIST, artist.getName());
+				}
+				
+				if (jsonObject.has(GENRE)&& !jsonObject.isNull(GENRE)){
+					genre =  new Genre(jsonObject.getJSONObject(GENRE));
+					rawKeyValuePair.put(GENRE, genre.getName());
+				}
+	
+				if (jsonObject.has(COLLECTION)&& !jsonObject.isNull(COLLECTION)){
+					collection =  new Collection(jsonObject.getJSONObject(COLLECTION));
+					rawKeyValuePair.put(COLLECTION, collection.getName());
+				}
+				if (jsonObject.has(AREA)&& !jsonObject.isNull(AREA)){
+					area =  new Area(jsonObject.getJSONObject(AREA));
+					rawKeyValuePair.put(AREA, area.getName());
+				}
+				if (jsonObject.has(LABEL)&& !jsonObject.isNull(LABEL)){
+					label =  new Label(jsonObject.getJSONObject(LABEL));
+					rawKeyValuePair.put(LABEL, label.getName());
+				}
+				
+				if (jsonObject.has(INSTRUMENT)&& !jsonObject.isNull(INSTRUMENT)){
+					instrument =  new Instrument(jsonObject.getJSONObject(INSTRUMENT));
+					rawKeyValuePair.put(INSTRUMENT, instrument.getName());
+				}
+
+				if (jsonObject.has(PERIOD)&& !jsonObject.isNull(PERIOD)){
+					period =  new Period(jsonObject.getJSONObject(PERIOD));
+					rawKeyValuePair.put(PERIOD, period.getName());
+				}
+				
+				tracks = jsonObject.has(TRACKS) ? 
+                        jsonObject.isNull(TRACKS) ? 
+                            null : new TrackList(jsonObject.getJSONObject(TRACKS)) : null;
+				
+				if (jsonObject.has(AWARDS)) {
+                    JSONArray jAwards = jsonObject.getJSONArray(AWARDS);
+                    for (int i = 0; i < jAwards.length(); i++) {
+                        awards.add(new Award(jAwards.getJSONObject(i)));
+                    }
+                }
+
+				if (jsonObject.has(GOODIES)) {
                     JSONArray jGoodies = jsonObject.getJSONArray(GOODIES);
                     for (int i = 0; i < jGoodies.length(); i++) {
                         goodies.add(new Goody(jGoodies.getJSONObject(i)));
                     }
                 }
-                
-                composer = jsonObject.has(COMPOSER) ? 
-                        jsonObject.isNull(COMPOSER) ? 
-                            null : new Artist(jsonObject.getJSONObject(COMPOSER)) : null;
-                
-                area = jsonObject.has(AREA) ? 
-                        jsonObject.isNull(AREA) ? 
-                            null : new Area(jsonObject.getJSONObject(AREA)) : null;
-                
-                Object obj = jsonObject.has(DESCRIPTION) ? 
-                                jsonObject.isNull(DESCRIPTION) ? 
-                                    null : jsonObject.get(DESCRIPTION): null;
-                        
-                if (obj instanceof String) {    
-                
-                    description = jsonObject.getString(DESCRIPTION);
-                
-                } else if (obj instanceof JSONObject && ((JSONObject) obj).has("content") && !((JSONObject) obj).isNull("content") ) {
-                    
-                    description = ((JSONObject) obj).getString("content");
-                }
-                
-                catchline = jsonObject.has(CATCHLINE) ? 
-                            jsonObject.isNull(CATCHLINE) ? 
-                            null : jsonObject.getString(CATCHLINE) : null;
-                
-                created_at = jsonObject.has(CREATED_AT) ? 
-                        jsonObject.isNull(CREATED_AT) ? 
-                            null : jsonObject.getLong(CREATED_AT) : null;
-                
-                if (jsonObject.has(GENRES_LIST)) {
+				
+				if (jsonObject.has(GENRES_LIST)) {
                     JSONArray jGenres = jsonObject.getJSONArray(GENRES_LIST);
                     for (int i = 0; i < jGenres.length(); i++) {
                         genres_list.add(jGenres.getString(i));
                     }
                 }
-                
-                artist = jsonObject.has(ARTIST) ? 
-                        jsonObject.isNull(ARTIST) ? 
-                            null : new Artist(jsonObject.getJSONObject(ARTIST)) : null;
-                 
-                product_sales_factors_monthly = jsonObject.has(PRODUCT_SALES_FACTORS_MONTHLY) ? 
-                        jsonObject.isNull(PRODUCT_SALES_FACTORS_MONTHLY) ? 
-                            null : jsonObject.getDouble(PRODUCT_SALES_FACTORS_MONTHLY) : null;
-                
-                popularity = jsonObject.has(POPULARITY) ? 
-                        jsonObject.isNull(POPULARITY) ? 
-                            null : jsonObject.getDouble(POPULARITY) : null;
-                
-                if (jsonObject.has(ARTICLES)) {
-                    JSONArray jArticles = jsonObject.getJSONArray(ARTICLES);
-                    for (int i = 0; i < jArticles.length(); i++) {
-                        articles.add(new Article(jArticles.getJSONObject(i)));
-                    }
-                }
-                if (jsonObject.has(STORE_RELATED)) {
+				
+				if (jsonObject.has(STORE_RELATED)) {
                     
                     JSONObject store = jsonObject.getJSONObject(STORE_RELATED);
                     for(int i = 0; i<store.names().length(); i++){
@@ -356,167 +391,14 @@ public final class Album extends QobuzObject {
                         store_related.add(new StoreRelated(key, store.getJSONObject(key)));
                     }
                 }
-                image = jsonObject.has(IMAGE) ? 
-                        jsonObject.isNull(IMAGE) ? 
-                            null : new Image(jsonObject.getJSONObject(IMAGE)) : null;
-                
-                media_count = jsonObject.has(MEDIA_COUNT) ? 
-                        jsonObject.isNull(MEDIA_COUNT) ? 
-                            null : jsonObject.getLong(MEDIA_COUNT) : null;
-                
-                product_type = jsonObject.has(PRODUCT_TYPE) ? 
-                            jsonObject.isNull(PRODUCT_TYPE) ? 
-                            null : jsonObject.getString(PRODUCT_TYPE) : null;
-                
-                label = jsonObject.has(LABEL) ? 
-                        jsonObject.isNull(LABEL) ? 
-                            null : new Label(jsonObject.getJSONObject(LABEL)) : null;
-                
-                instrument = jsonObject.has(INSTRUMENT) ? 
-                        jsonObject.isNull(INSTRUMENT) ? 
-                            null : new Instrument(jsonObject.getJSONObject(INSTRUMENT)) : null;
-                
-                copyright = jsonObject.has(COPYRIGHT) ? 
-                            jsonObject.isNull(COPYRIGHT) ? 
-                            null : jsonObject.getString(COPYRIGHT) : null;
-                
-                period = jsonObject.has(PERIOD) ? 
-                        jsonObject.isNull(PERIOD) ? 
-                            null : new Period(jsonObject.getJSONObject(PERIOD)) : null;
-                
-                product_url = jsonObject.has(PRODUCT_URL) ? 
-                            jsonObject.isNull(PRODUCT_URL) ? 
-                            null : jsonObject.getString(PRODUCT_URL) : null;
-                             
-                url = jsonObject.has(URL) ? 
-                            jsonObject.isNull(URL) ? 
-                            null : jsonObject.getString(URL) : null;
-                                
-                duration = jsonObject.has(DURATION) ? 
-                            jsonObject.isNull(DURATION) ? 
-                            null : jsonObject.getLong(DURATION) : null;
 
-                
-                obj = jsonObject.has(RELEASED_AT) ? 
-                            jsonObject.isNull(RELEASED_AT) ? 
-                            null : jsonObject.get(RELEASED_AT) : null;
-                
-                if (obj == null || !(obj instanceof Long)) {released_at = null;}
-                else {released_at = (Long)obj;}
-               
-                maximum_technical_specifications = jsonObject.has(MAXIMUM_TECHNICAL_SPECIFICATIONS) ? 
-                            jsonObject.isNull(MAXIMUM_TECHNICAL_SPECIFICATIONS) ? 
-                            null : jsonObject.getString(MAXIMUM_TECHNICAL_SPECIFICATIONS) : null;
-                
-                if (jsonObject.has(AWARDS)) {
-                    JSONArray jAwards = jsonObject.getJSONArray(AWARDS);
-                    for (int i = 0; i < jAwards.length(); i++) {
-                        awards.add(new Award(jAwards.getJSONObject(i)));
+				if (jsonObject.has(ARTICLES)) {
+                    JSONArray jArticles = jsonObject.getJSONArray(ARTICLES);
+                    for (int i = 0; i < jArticles.length(); i++) {
+                        articles.add(new Article(jArticles.getJSONObject(i)));
                     }
                 }
-                
-                program = jsonObject.has(PROGRAM) ? 
-                            jsonObject.isNull(PROGRAM) ? 
-                            null : jsonObject.getString(PROGRAM) : null;
-                
-                slug = jsonObject.has(SLUG) ? 
-                            jsonObject.isNull(SLUG) ? 
-                            null : jsonObject.getString(SLUG) : null;
-                                
-                relative_url = jsonObject.has(RELATIVE_URL) ? 
-                            jsonObject.isNull(RELATIVE_URL) ? 
-                            null : jsonObject.getString(RELATIVE_URL) : null;
-                
-                qobuz_id = jsonObject.has(QOBUZ_ID) ? 
-                            jsonObject.isNull(QOBUZ_ID) ? 
-                            null : jsonObject.getLong(QOBUZ_ID) : null;
-                
-                product_sales_factors_yearly= jsonObject.has(PRODUCT_SALES_FACTORS_YEARLY) ? 
-                            jsonObject.isNull(PRODUCT_SALES_FACTORS_YEARLY) ? 
-                            null : jsonObject.getDouble(PRODUCT_SALES_FACTORS_YEARLY) : null;
-                
-                purchasable= jsonObject.has(PURCHASABLE) ? 
-                            jsonObject.isNull(PURCHASABLE) ? 
-                            false : jsonObject.getBoolean(PURCHASABLE) : null;
-                
-                streamable= jsonObject.has(STREAMABLE) ? 
-                            jsonObject.isNull(STREAMABLE) ? 
-                            false : jsonObject.getBoolean(STREAMABLE) : null;
-                                
-                previewable= jsonObject.has(PREVIEWABLE) ? 
-                            jsonObject.isNull(PREVIEWABLE) ? 
-                            false : jsonObject.getBoolean(PREVIEWABLE) : null;
-                                
-                sampleable= jsonObject.has(SAMPLEABLE) ? 
-                            jsonObject.isNull(SAMPLEABLE) ? 
-                            false : jsonObject.getBoolean(SAMPLEABLE) : null;
-                                
-                downloadable= jsonObject.has(DOWNLOADABLE) ? 
-                            jsonObject.isNull(DOWNLOADABLE) ? 
-                            false : jsonObject.getBoolean(DOWNLOADABLE) : null;
-                               
-                displayable= jsonObject.has(DISPLAYABLE) ? 
-                            jsonObject.isNull(DISPLAYABLE) ? 
-                            false : jsonObject.getBoolean(DISPLAYABLE) : null;
 
-                purchasable_at = jsonObject.has(PURCHASABLE_AT) ? 
-                            jsonObject.isNull(PURCHASABLE_AT) ? 
-                            null : jsonObject.getLong(PURCHASABLE_AT) : null;
-               
-                streamable_at = jsonObject.has(STREAMABLE_AT) ? 
-                            jsonObject.isNull(STREAMABLE_AT) ? 
-                            null : jsonObject.getLong(STREAMABLE_AT) : null;
-                
-                maximum_sampling_rate= jsonObject.has(MAXIMUM_SAMPLING_RATE) ? 
-                            jsonObject.isNull(MAXIMUM_SAMPLING_RATE) ? 
-                            null : jsonObject.getDouble(MAXIMUM_SAMPLING_RATE) : null;
-                        
-                maximum_bit_depth= jsonObject.has(MAXIMUM_BIT_DEPTH) ? 
-                            jsonObject.isNull(MAXIMUM_BIT_DEPTH) ? 
-                            null : jsonObject.getLong(MAXIMUM_BIT_DEPTH) : null;
-                
-                hires= jsonObject.has(HIRES) ? 
-                            jsonObject.isNull(HIRES) ? 
-                            false : jsonObject.getBoolean(HIRES) : null;
-                
-                tracks = jsonObject.has(TRACKS) ? 
-                        jsonObject.isNull(TRACKS) ? 
-                            null : new TrackList(jsonObject.getJSONObject(TRACKS)) : null;
-				
-				hires_streamable= jsonObject.has(HIRES_STREAMABLE) ? 
-                            jsonObject.isNull(HIRES_STREAMABLE) ? 
-                            false : jsonObject.getBoolean(HIRES_STREAMABLE) : null;
-				
-				parental_warning= jsonObject.has(PARENTAL_WARNING) ? 
-                            jsonObject.isNull(PARENTAL_WARNING) ? 
-                            false : jsonObject.getBoolean(PARENTAL_WARNING) : null;
-
-				maximum_channel_count = jsonObject.has(MAXIMUM_CHANNEL_COUNT) ? 
-                        jsonObject.isNull(MAXIMUM_CHANNEL_COUNT) ? 
-                            null : jsonObject.getLong(MAXIMUM_CHANNEL_COUNT) : null;
-				
-				obj = jsonObject.has(RELEASED_AT) ? 
-                            jsonObject.isNull(RELEASED_AT) ? 
-                            null : jsonObject.get(RELEASED_AT) : null;
-                
-                if (obj == null || !(obj instanceof Long)) {released_at = null;}
-                else {released_at = (Long)obj;}
-
-				release_date_download = jsonObject.has(RELEASE_DATE_DOWNLOAD) ? 
-                            jsonObject.isNull(RELEASE_DATE_DOWNLOAD) ? 
-                            null : jsonObject.getString(RELEASE_DATE_DOWNLOAD) : null;
-				
-				release_date_stream = jsonObject.has(RELEASE_DATE_STREAM) ? 
-                            jsonObject.isNull(RELEASE_DATE_STREAM) ? 
-                            null : jsonObject.getString(RELEASE_DATE_STREAM) : null;
-				
-				release_date_original = jsonObject.has(RELEASE_DATE_ORIGINAL) ? 
-                            jsonObject.isNull(RELEASE_DATE_ORIGINAL) ? 
-                            null : jsonObject.getString(RELEASE_DATE_ORIGINAL) : null;
-
-				subtitle = jsonObject.has(SUBTITLE) ? 
-                            jsonObject.isNull(SUBTITLE) ? 
-                            null : jsonObject.getString(SUBTITLE) : null;
 				/*
 				if (jsonObject.has(ARTICLE_IDS)) {
                     JSONArray jIds = jsonObject.getJSONArray(ARTICLE_IDS);
@@ -532,6 +414,7 @@ public final class Album extends QobuzObject {
         }
    
     }
+	
     public boolean isTracklistComplete(){
         
         if (tracks == null) return true; // no tracks to get.

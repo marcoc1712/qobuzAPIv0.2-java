@@ -48,7 +48,7 @@ public class AlbumFeaturedTest extends UnitTest {
     @Test
     public void newClassicalRelease(){
        
-        albumFeaturedTest(0, 10L, true);
+        albumFeaturedTest(13, 10L, true);
     }
     
     private void albumFeaturedTest(int typeInd, long genre, Boolean details) {

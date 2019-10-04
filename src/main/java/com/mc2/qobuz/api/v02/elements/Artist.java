@@ -149,13 +149,15 @@ public final class  Artist extends QobuzObject{
                 information = jsonObject.has(INFORMATION) ? 
                             jsonObject.isNull(INFORMATION) ? 
                             null : new EmptyClass(jsonObject.getJSONObject(INFORMATION)) : null;
-				
+				/*
 				if (jsonObject.has(SIMILAR_ARTIST_IDS)) {
                     JSONArray jIds = jsonObject.getJSONArray(SIMILAR_ARTIST_IDS);
                     for (int i = 0; i < jIds.length(); i++) {
                         similar_artist_ids.add(jIds.getString(i));
                     }
                 }
+				*/
+				
 				
             } catch (JSONException ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);

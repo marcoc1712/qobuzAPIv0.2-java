@@ -38,6 +38,7 @@ import com.mc2.qobuz.api.v02.lists.ArtistList;
 import com.mc2.qobuz.api.v02.lists.GenreList;
 import com.mc2.qobuz.api.v02.lists.LabelList;
 import com.mc2.qobuz.api.v02.lists.TrackList;
+import java.util.Map.Entry;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -588,6 +589,11 @@ public class TestUtils {
         System.out.println(Indent+"Duration: "+track.getDuration());
         System.out.println(Indent+"Performers: "+track.getPerformers());
         
+		for ( Entry<String,String> entry : track.getPerformersMap().entrySet()){
+		
+			System.out.println(Indent+"CREDITS: "+entry.getKey()+" - "+entry.getValue());
+		}
+		
         if (track.getArticles() != null){
             System.out.println(Indent+"ARTICLES: ");
             printArticles(track.getArticles(), Indent+" ");

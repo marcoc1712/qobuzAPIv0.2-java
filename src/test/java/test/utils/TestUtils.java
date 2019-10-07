@@ -589,7 +589,7 @@ public class TestUtils {
         System.out.println(Indent+"Duration: "+track.getDuration());
         System.out.println(Indent+"Performers: "+track.getPerformers());
         
-		for ( Entry<String,String> entry : track.getPerformersMap().entrySet()){
+		for ( Entry<String,String> entry : track.getPerformersRoleNamesMap().entrySet()){
 		
 			System.out.println(Indent+"CREDITS: "+entry.getKey()+" - "+entry.getValue());
 		}

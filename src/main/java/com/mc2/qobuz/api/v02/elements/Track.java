@@ -270,7 +270,7 @@ public final class Track extends QobuzObject {
         return performers;
     }
 	/**
-     * @return the performers as a list of strings
+     * @return the performers as a list of strings (name: roles)
      */
 	public ArrayList<String> getPerformerList(){
         
@@ -295,9 +295,10 @@ public final class Track extends QobuzObject {
         return out; 
     }
 	/**
-     * @return the performers as a map of struing (role and performer name)
+     * @return the performers as a map of string where role is the key 
+	 * and the performers name the value.
      */
-	public Map<String,String> getPerformersMap(){
+	public Map<String,String> getPerformersRoleNamesMap(){
         
         Map<String,String> performersMap = new HashMap<>();
 		

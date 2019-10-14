@@ -583,7 +583,7 @@ public class TestUtils {
             System.out.println(Indent+"Composer: "+track.getComposer());
         }
 		
-		System.out.println(Indent+"Work: "+track.getWork());
+		System.out.println(Indent+"Work: "+track.getWorkTitle());
         System.out.println(Indent+"Title: "+track.getTitle());
 		System.out.println(Indent+"Title only: "+track.getTitleOnly());
         System.out.println(Indent+"Duration: "+track.getDuration());

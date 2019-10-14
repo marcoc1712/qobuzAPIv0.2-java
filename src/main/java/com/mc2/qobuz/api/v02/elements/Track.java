@@ -241,11 +241,11 @@ public final class Track extends QobuzObject {
     /**
      * @return the work
      */
-    public String getWork() {
+    public String getWorkTitle() {
         return work;
     }
 	/**
-     * @return the work stored in work field or guessed from the title-.
+     * @return the work stored in work field or guessed from the title.
      */
     public String geWorkGuessed() {
        return workGuessed;

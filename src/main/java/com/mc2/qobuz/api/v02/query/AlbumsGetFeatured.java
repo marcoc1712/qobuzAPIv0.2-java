@@ -26,6 +26,8 @@ import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
 
 public class AlbumsGetFeatured extends QobuzObjectQuery {
     
+	
+	
     //at 2017/10/03
     public static final String[] TYPES = {  
                                             "new-releases", 

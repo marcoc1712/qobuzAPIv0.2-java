@@ -20,7 +20,6 @@
 
 package com.mc2.qobuz.api.v02.elements;
 
-import static com.mc2.qobuz.api.v02.elements.Album.ARTICLE_IDS;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +32,6 @@ import com.mc2.qobuz.api.v02.query.ArtistGet;
 import com.mc2.qobuz.api.v02.utils.JsonUtils;
 import java.util.ArrayList;
 import java.util.List;
-import org.json.JSONArray;
 
 /**
  *

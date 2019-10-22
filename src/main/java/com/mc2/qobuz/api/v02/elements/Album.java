@@ -364,7 +364,9 @@ public final class Album extends QobuzObject {
 				if (jsonObject.has(AWARDS)) {
                     JSONArray jAwards = jsonObject.getJSONArray(AWARDS);
                     for (int i = 0; i < jAwards.length(); i++) {
-                        awards.add(new Award(jAwards.getJSONObject(i)));
+						Award award = new Award(jAwards.getJSONObject(i));
+                        awards.add(award);
+						rawKeyValuePair.put(AWARDS, award.getName());
                     }
                 }
 

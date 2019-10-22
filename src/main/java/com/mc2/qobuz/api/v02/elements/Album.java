@@ -39,7 +39,7 @@ public final class Album extends QobuzObject {
     public static final String AREA = "area"; //no
     public static final String ARTICLES = "articles"; //no
     public static final String ARTIST = "artist"; 
-    public static final String AWARDS = "awards"; //no
+    public static final String AWARDS = "awards";
     
     public static final String CATCHLINE = "catchline"; //no
     public static final String COLLECTION = "collection"; //no

@@ -45,12 +45,16 @@ public class AlbumFeaturedTest extends UnitTest {
             albumFeaturedTest(typeInd,genre, false);
         }
     }
-    @Test
-    public void newClassicalRelease(){
+    //@Test
+    public void newClassicalReleases(){
        
         albumFeaturedTest(13, 10L, true);
     }
-    
+    @Test
+    public void newReleases(){
+       
+        albumFeaturedTest(13, 0L, true);
+    }
     private void albumFeaturedTest(int typeInd, long genre, Boolean details) {
         
         //You could use this template to search any single type in the catalog.

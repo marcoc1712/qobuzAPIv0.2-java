@@ -36,6 +36,7 @@ import test.utils.TestUtils;
  * @author marco
  */
 public class ArtistGetTest {
+	
     //@Test
     public void getArtistComplete() {
     
@@ -104,7 +105,7 @@ public class ArtistGetTest {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
     }
-     //@Test
+    //@Test
     public void getArtistWithTracks() {
 
         try {

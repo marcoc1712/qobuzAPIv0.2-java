@@ -20,13 +20,15 @@
 
 package test.units;
 
+import com.mc2.qobuz.api.v02.API.lists.AlbumList;
+import com.mc2.qobuz.api.v02.API.lists.ArtistList;
+import com.mc2.qobuz.api.v02.API.lists.TrackList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.junit.Test;
-import com.mc2.qobuz.api.v02.elements.Catalog;
-import com.mc2.qobuz.api.v02.lists.ArtistList;
-import com.mc2.qobuz.api.v02.lists.TrackList;
-import com.mc2.qobuz.api.v02.lists.AlbumList;
+import com.mc2.qobuz.api.v02.elements.CatalogFromApi;
+import com.mc2.qobuz.api.v02.lists.AlbumListFromApi;
+import com.mc2.qobuz.api.v02.lists.ArtistListFromApi;
+import com.mc2.qobuz.api.v02.lists.TrackListFromApi;
 import com.mc2.qobuz.api.v02.query.CatalogSearch;
 
 import test.utils.TestUtils;
@@ -52,7 +54,7 @@ public class AlbumSearchTest extends UnitTest {
                 String query = "Antonio Vivaldi : Les quatre saisons"; //can't use an empty string here.
                 
                 CatalogSearch q = new CatalogSearch(query, type, (long)0, (long)10);
-                Catalog catalog = q.getCatalog();
+                CatalogFromApi catalog = q.getCatalog();
                 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
 
@@ -64,9 +66,9 @@ public class AlbumSearchTest extends UnitTest {
                 Long totalAlbum = (long)0;
                 Long totalTrack = (long)0;
 
-                ArtistList artists = catalog.getArtists();
-                AlbumList albums = catalog.getAlbums();
-                TrackList tracks = catalog.getTracks();
+                ArtistListFromApi artists = catalog.getArtists();
+                AlbumListFromApi albums = catalog.getAlbums();
+                TrackListFromApi tracks = catalog.getTracks();
                 
                 System.out.println( "Query ("+type+"): "+catalog.getQuery());
                 
@@ -117,7 +119,7 @@ public class AlbumSearchTest extends UnitTest {
                     long offset= size;
                     
                     q = new CatalogSearch(query, type, offset);
-                    Catalog extra = q.getCatalog();
+                    CatalogFromApi extra = q.getCatalog();
                     
                     if (artists!= null && artists.getItems().size() > 0) {
                         artists.getItems().addAll(extra.getArtists().getItems());

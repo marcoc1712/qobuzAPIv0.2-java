@@ -23,10 +23,10 @@ package test.units;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
-import com.mc2.qobuz.api.v02.elements.Catalog;
-import com.mc2.qobuz.api.v02.lists.ArtistList;
-import com.mc2.qobuz.api.v02.lists.TrackList;
-import com.mc2.qobuz.api.v02.lists.AlbumList;
+import com.mc2.qobuz.api.v02.elements.CatalogFromApi;
+import com.mc2.qobuz.api.v02.lists.ArtistListFromApi;
+import com.mc2.qobuz.api.v02.lists.TrackListFromApi;
+import com.mc2.qobuz.api.v02.lists.AlbumListFromApi;
 import com.mc2.qobuz.api.v02.query.CatalogSearch;
 
 import test.utils.TestUtils;
@@ -36,14 +36,14 @@ import test.utils.TestUtils;
  */
 public class CatalogueSearchTest extends UnitTest{
     
-    @Test
+    //@Test
     public void searchAllCatalog() {
 
         try {
                 //String query = "Antonio Vivaldi"; //can't use an empty string here.
                 String query = "Cello Sonata in B-Flat Major, RV 46";
                 CatalogSearch q = new CatalogSearch(query);
-                Catalog catalog = q.getCatalog();
+                CatalogFromApi catalog = q.getCatalog();
                                 
                 System.out.println("======================================================================");
                 System.out.println("= CATALOG SEARCH (with pagination)                                   =");
@@ -53,9 +53,9 @@ public class CatalogueSearchTest extends UnitTest{
                 Long totalAlbum = (long)0;
                 Long totalTrack = (long)0;
 
-                ArtistList artists = catalog.getArtists();
-                AlbumList albums = catalog.getAlbums();
-                TrackList tracks = catalog.getTracks();
+                ArtistListFromApi artists = catalog.getArtists();
+                AlbumListFromApi albums = catalog.getAlbums();
+                TrackListFromApi tracks = catalog.getTracks();
                 
                 System.out.println( "Query: "+catalog.getQuery());
                 if (artists!= null) {
@@ -104,7 +104,7 @@ public class CatalogueSearchTest extends UnitTest{
                     long offset = size;
                     
                     q = new CatalogSearch(query, offset);
-                    Catalog extra = q.getCatalog();
+                    CatalogFromApi extra = q.getCatalog();
                     
                     if (artists!= null) {
                         artists.getItems().addAll(extra.getArtists().getItems());

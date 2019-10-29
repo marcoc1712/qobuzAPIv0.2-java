@@ -20,9 +20,9 @@
 
 package com.mc2.qobuz.api.v02.query;
 
-import com.mc2.qobuz.api.v02.QobuzController;
+import com.mc2.qobuz.api.v02.QobuzClient;
 import com.mc2.qobuz.api.v02.elements.LabelListResult;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 
 public class LabelListGet extends QobuzObjectQuery {
     
@@ -45,7 +45,7 @@ public class LabelListGet extends QobuzObjectQuery {
     }
     private String buildUrlStr(){
         
-        String urlStr = QobuzController.BASEURL + "/"+QobuzObjectQuery.ENDPOINT_LABEL+
+        String urlStr = QobuzClient.BASEURL + "/"+QobuzObjectQuery.ENDPOINT_LABEL+
                         "/list";
         
         return urlStr;

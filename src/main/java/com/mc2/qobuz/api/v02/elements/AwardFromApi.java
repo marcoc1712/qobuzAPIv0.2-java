@@ -24,22 +24,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.elements.Award;
 /**
  *
  * @author marco
  */
-public final class  Award extends QobuzObject{  
+public final class  AwardFromApi extends QobuzObjectFromApi implements Award{  
 
-    public static final String AWARD_ID = "award_id";
-    public static final String AWARD_SLUG = "award_slug";
-    public static final String PUBLICATION_NAME = "publication_name";
-    public static final String PUBLICATION_ID = "publication_id";
-    public static final String PUBLICATION_SLUG = "publication_slug";
-    public static final String NAME = "name";
-    public static final String SLUG = "slug";
-    public static final String AWARDED_AT = "awarded_at";
     
     private String award_id;
     private String award_slug;
@@ -51,11 +43,11 @@ public final class  Award extends QobuzObject{
     private Long awarded_at;
     
     
-    public Award() {
+    public AwardFromApi() {
         super();
     }
 
-    public Award (JSONObject jsonObject)throws QobuzAPIException {
+    public AwardFromApi (JSONObject jsonObject)throws QobuzAPIException {
         super(jsonObject);
         
         KeyList.add(AWARD_ID);
@@ -112,18 +104,21 @@ public final class  Award extends QobuzObject{
     /**
      * @return the award_id
      */
+	@Override
     public String getAward_id() {
         return award_id;
     }
     /**
      * @return the award_slug
      */
+	@Override
     public String getAward_Slug() {
         return award_slug;
     }
     /**
      * @return the publication_name
      */
+	@Override
     public String getPublication_name() {
         return publication_name;
     }
@@ -131,6 +126,7 @@ public final class  Award extends QobuzObject{
     /**
      * @return the publication_id
      */
+	@Override
     public String getPublication_id() {
         return publication_id;
     }
@@ -138,6 +134,7 @@ public final class  Award extends QobuzObject{
     /**
      * @return the publication_slug
      */
+	@Override
     public String getPublication_slug() {
         return publication_slug;
     }
@@ -145,6 +142,7 @@ public final class  Award extends QobuzObject{
     /**
      * @return the name
      */
+	@Override
     public String getName() {
         return name;
     }
@@ -152,6 +150,7 @@ public final class  Award extends QobuzObject{
     /**
      * @return the slug
      */
+	@Override
     public String getSlug() {
         return slug;
     }
@@ -159,6 +158,7 @@ public final class  Award extends QobuzObject{
     /**
      * @return the awarded_at
      */
+	@Override
     public Long getAwarded_at() {
         return awarded_at;
     }

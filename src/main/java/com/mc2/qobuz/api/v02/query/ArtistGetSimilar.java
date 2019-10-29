@@ -20,8 +20,8 @@
 
 package com.mc2.qobuz.api.v02.query;
 
-import com.mc2.qobuz.api.v02.QobuzController;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
+import com.mc2.qobuz.api.v02.QobuzClient;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 import com.mc2.qobuz.api.v02.elements.SimilarArtists;
 
 public class ArtistGetSimilar extends QobuzObjectQuery {
@@ -48,7 +48,7 @@ public class ArtistGetSimilar extends QobuzObjectQuery {
         
     private String buildUrlStr(Long id){
         
-        String urlStr = QobuzController.BASEURL + "/"+QobuzObjectQuery.ENDPOINT_ARTIST+
+        String urlStr = QobuzClient.BASEURL + "/"+QobuzObjectQuery.ENDPOINT_ARTIST+
                         "/getSimilarArtists?"+QobuzObjectQuery.ENDPOINT_ARTIST+"_id="+id.toString();
         
         return urlStr;

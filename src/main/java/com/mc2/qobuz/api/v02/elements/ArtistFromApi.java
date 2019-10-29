@@ -25,35 +25,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import com.mc2.qobuz.api.v02.lists.AlbumList;
-import com.mc2.qobuz.api.v02.lists.TrackList;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.lists.AlbumListFromApi;
+import com.mc2.qobuz.api.v02.lists.TrackListFromApi;
 import com.mc2.qobuz.api.v02.query.ArtistGet;
 import com.mc2.qobuz.api.v02.utils.JsonUtils;
 import java.util.ArrayList;
 import java.util.List;
+import com.mc2.qobuz.api.v02.API.elements.Artist;
 
 /**
  *
  * @author marco
  */
-public final class  Artist extends QobuzObject{  
+public final class  ArtistFromApi extends QobuzObjectFromApi implements Artist{  
 
-    public static final String ID = "id";
-    public static final String PICTURE = "picture";
-    public static final String ALBUM_AS_PRIMARY_COMPOSER_COUNT = "albums_as_primary_composer_count";
-    public static final String ALBUM_COUNT = "albums_count";
-    public static final String ALBUM_AS_PRIMARY_ARTIST_COUNT = "albums_as_primary_artist_count";
-    public static final String NAME = "name";
-    public static final String IMAGE = "image";
-    public static final String SLUG = "slug";
-    public static final String BIOGRAPHY = "biography";
-    public static final String ALBUMS = "albums";
-    public static final String TRACKS = "tracks";
-    public static final String INFORMATION = "information";
-    
-	/* 9/9/19 */
-	public static final String SIMILAR_ARTIST_IDS ="similar_artist_ids";
 
     private Long id;
     private URL picture;
@@ -61,21 +47,21 @@ public final class  Artist extends QobuzObject{
     private Long albums_count;
     private Long albums_as_primary_artist_count;
     private String name;
-    private Image image;
+    private ImageFromApi image;
     private String slug;
-    private Biography biography;
-    private AlbumList albums;
-    private TrackList tracks;
+    private BiographyFromApi biography;
+    private AlbumListFromApi albums;
+    private TrackListFromApi tracks;
     private EmptyClass information;
 	
 	private ArrayList<String> similar_artist_ids;
     
     
-    public Artist() {
+    public ArtistFromApi() {
         super();
     }
 
-    public Artist (JSONObject jsonObject)throws QobuzAPIException {
+    public ArtistFromApi (JSONObject jsonObject)throws QobuzAPIException {
         super(jsonObject);
         
         KeyList.add(ID);
@@ -130,19 +116,19 @@ public final class  Artist extends QobuzObject{
                 
                 image = jsonObject.has(IMAGE) ? 
                         jsonObject.isNull(IMAGE) ? 
-                            null : new Image(jsonObject.getJSONObject(IMAGE)) : null;
+                            null : new ImageFromApi(jsonObject.getJSONObject(IMAGE)) : null;
                 
                 biography = jsonObject.has(BIOGRAPHY) ? 
                         jsonObject.isNull(BIOGRAPHY) ? 
-                            null : new Biography(jsonObject.getJSONObject(BIOGRAPHY)) : null;
+                            null : new BiographyFromApi(jsonObject.getJSONObject(BIOGRAPHY)) : null;
                 
                 albums = jsonObject.has(ALBUMS) ? 
                         jsonObject.isNull(ALBUMS) ? 
-                            null : new AlbumList(jsonObject.getJSONObject(ALBUMS)) : null;
+                            null : new AlbumListFromApi(jsonObject.getJSONObject(ALBUMS)) : null;
                 
                 tracks = jsonObject.has(TRACKS) ? 
                         jsonObject.isNull(TRACKS) ? 
-                            null : new TrackList(jsonObject.getJSONObject(TRACKS)) : null;
+                            null : new TrackListFromApi(jsonObject.getJSONObject(TRACKS)) : null;
 
                 information = jsonObject.has(INFORMATION) ? 
                             jsonObject.isNull(INFORMATION) ? 
@@ -162,6 +148,7 @@ public final class  Artist extends QobuzObject{
                 throw new QobuzAPIException(ex.getMessage(), ex);
         }
     }
+	@Override
     public boolean isAlbumlistComplete(){
         
         if (albums == null) return true; //no album to get.
@@ -172,6 +159,7 @@ public final class  Artist extends QobuzObject{
         //return (albums.getItems().size()>= albums.getTotal());
         return false;
     }
+	@Override
     public boolean isTracklistComplete(){
         
         if (tracks == null) return true; //no album to get.
@@ -182,6 +170,7 @@ public final class  Artist extends QobuzObject{
         //return (albums.getItems().size()>= albums.getTotal());
         return false;
     }
+	@Override
     public void completeAlbumList() throws QobuzAPIException{
         long size = 0;
         if (albums != null){
@@ -198,6 +187,7 @@ public final class  Artist extends QobuzObject{
             
         } 
     }
+	@Override
     public void completeTrackList() throws QobuzAPIException{
         long size = 0;
         if (tracks != null){
@@ -214,11 +204,12 @@ public final class  Artist extends QobuzObject{
             
         } 
     }
-    public AlbumList loadNextAlbumsPage(){
+	@Override
+    public AlbumListFromApi loadNextAlbumsPage(){
         
         if (!isAlbumlistComplete()){
             
-            AlbumList extra;
+            AlbumListFromApi extra;
             extra = getNexAlbumsPage();
             albums.getItems().addAll(extra.getItems());
             return extra;
@@ -226,11 +217,12 @@ public final class  Artist extends QobuzObject{
         return null;
         
     }
-    public TrackList loadNextTracksPage(){
+	@Override
+    public TrackListFromApi loadNextTracksPage(){
     
         if (!isTracklistComplete()){
             
-            TrackList extra;
+            TrackListFromApi extra;
             extra = getNextTracksPage();
             tracks.getItems().addAll(extra.getItems());
             return extra;
@@ -239,32 +231,32 @@ public final class  Artist extends QobuzObject{
         
         
     }
-    private AlbumList getNexAlbumsPage() {
+    private AlbumListFromApi getNexAlbumsPage() {
     
         if (!isAlbumlistComplete()) {
             
             ArtistGet q;
             try {
                 q = new ArtistGet(id, ArtistGet.EXTRA_ALBUMS, (long)albums.getItems().size());
-                Artist extra = q.getArtist();
+                ArtistFromApi extra = q.getArtist();
                 return extra.getAlbums();
             } catch (QobuzAPIException ex) {
-                Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ArtistFromApi.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;
     }
-    private TrackList getNextTracksPage() {
+    private TrackListFromApi getNextTracksPage() {
     
         if (!isTracklistComplete()) {
             
             ArtistGet q;
             try {
-                q = new ArtistGet(id, ArtistGet.EXTRA_TRACKS, (long)albums.getItems().size());
-                Artist extra = q.getArtist();
+                q = new ArtistGet(id, ArtistGet.EXTRA_TRACKS, (long)tracks.getItems().size());
+                ArtistFromApi extra = q.getArtist();
                 return extra.getTracks();
             } catch (QobuzAPIException ex) {
-                Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ArtistFromApi.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;
@@ -272,12 +264,14 @@ public final class  Artist extends QobuzObject{
     /**
      * @return the id
      */
+	@Override
     public Long getId() {
         return id;
     }
     /**
      * @return the picture
      */
+	@Override
     public URL getPicture() {
         return picture;
     }
@@ -285,6 +279,7 @@ public final class  Artist extends QobuzObject{
     /**
      * @return the albums_as_primary_composer_count
      */
+	@Override
     public Long getAlbums_as_primary_composer_count() {
         return albums_as_primary_composer_count;
     }
@@ -292,6 +287,7 @@ public final class  Artist extends QobuzObject{
     /**
      * @return the albums_count
      */
+	@Override
     public Long getAlbums_count() {
         return albums_count;
     }
@@ -299,6 +295,7 @@ public final class  Artist extends QobuzObject{
     /**
      * @return the albums_as_primary_artist_count
      */
+	@Override
     public Long getAlbums_as_primary_artist_count() {
         return albums_as_primary_artist_count;
     }
@@ -306,6 +303,7 @@ public final class  Artist extends QobuzObject{
     /**
      * @return the name
      */
+	@Override
     public String getName() {
         return name;
     }
@@ -313,13 +311,15 @@ public final class  Artist extends QobuzObject{
     /**
      * @return the image
      */
-    public Image getImage() {
+	@Override
+    public ImageFromApi getImage() {
         return image;
     }
 
     /**
      * @return the slug
      */
+	@Override
     public String getSlug() {
         return slug;
     }
@@ -327,32 +327,37 @@ public final class  Artist extends QobuzObject{
     /**
      * @return the biography
      */
-    public Biography getBiography() {
+	@Override
+    public BiographyFromApi getBiography() {
         return biography;
     }
 
     /**
      * @return the albums
      */
-    public AlbumList getAlbums() {
+	@Override
+    public AlbumListFromApi getAlbums() {
         return albums;
     }
      /**
      * @return the tracks
      */
     
-    public TrackList getTracks() {
+	@Override
+    public TrackListFromApi getTracks() {
         return tracks;
     }
      /**
      * @return the information
      */
+	//@Override
     public EmptyClass getInformation() {
         return information;
     }
 	/**
      * @return the similar_artist_ids (not used)
      */
+	@Override
     public List<String> getSimilarArtistIds() {
         return similar_artist_ids;
     }

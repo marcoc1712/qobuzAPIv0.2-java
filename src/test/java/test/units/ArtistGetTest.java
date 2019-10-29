@@ -19,14 +19,15 @@
  */
 package test.units;
 
+import com.mc2.qobuz.api.v02.API.lists.TrackList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
-import com.mc2.qobuz.api.v02.elements.Artist;
+import com.mc2.qobuz.api.v02.elements.ArtistFromApi;
 import com.mc2.qobuz.api.v02.elements.SimilarArtists;
-import com.mc2.qobuz.api.v02.lists.AlbumList;
-import com.mc2.qobuz.api.v02.lists.ArtistList;
-import com.mc2.qobuz.api.v02.lists.TrackList;
+import com.mc2.qobuz.api.v02.lists.AlbumListFromApi;
+import com.mc2.qobuz.api.v02.lists.ArtistListFromApi;
+import com.mc2.qobuz.api.v02.lists.TrackListFromApi;
 import com.mc2.qobuz.api.v02.query.ArtistGet;
 import com.mc2.qobuz.api.v02.query.ArtistGetSimilar;
 import test.utils.TestUtils;
@@ -41,20 +42,23 @@ public class ArtistGetTest {
     public void getArtistComplete() {
     
         try {
+			
+			
+			
             ArtistGet q = new ArtistGet((long)720);
-            Artist artist= q.getArtist();
+            ArtistFromApi artist= q.getArtist();
             
             ArtistGetSimilar artistGetSimilar = new ArtistGetSimilar(artist.getId(),(long)0);
             SimilarArtists similarArtists = artistGetSimilar.getSimilaArtist();
-            ArtistList similarArtistList = similarArtists.getArtists();
+            ArtistListFromApi similarArtistList = similarArtists.getArtists();
             
             ArtistGet artistAlbumsQuery = new ArtistGet((long)720, ArtistGet.EXTRA_ALBUMS,(long)0);
-            Artist artistAlbums = artistAlbumsQuery.getArtist();
-            AlbumList artistAlbumsList = artistAlbums.getAlbums();
+            ArtistFromApi artistAlbums = artistAlbumsQuery.getArtist();
+            AlbumListFromApi artistAlbumsList = artistAlbums.getAlbums();
             
             ArtistGet artistTracksQuery = new ArtistGet((long)720, ArtistGet.EXTRA_TRACKS,(long)0);
-            Artist artistTracks = artistTracksQuery.getArtist();
-            TrackList artistTracksList = artistTracks.getTracks();
+            ArtistFromApi artistTracks = artistTracksQuery.getArtist();
+            TrackListFromApi artistTracksList = artistTracks.getTracks();
             
            
         
@@ -67,7 +71,7 @@ public class ArtistGetTest {
 
         try {
                 ArtistGet q = new ArtistGet((long)720);
-                Artist artist= q.getArtist();
+                ArtistFromApi artist= q.getArtist();
 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
                 
@@ -83,12 +87,12 @@ public class ArtistGetTest {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
     }
-    @Test
+    //@Test
     public void getArtistWithAlbums() {
 
         try {
-                ArtistGet q = new ArtistGet((long)720,ArtistGet.EXTRA_ALBUMS, (long)0);
-                Artist artist= q.getArtist();
+                ArtistGet q = new ArtistGet((long)720,ArtistGet.EXTRA_ALBUMS, (long)0, (long)0);
+                ArtistFromApi artist= q.getArtist();
                 artist.completeAlbumList();
 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
@@ -109,8 +113,8 @@ public class ArtistGetTest {
     public void getArtistWithTracks() {
 
         try {
-                ArtistGet q = new ArtistGet((long)720,ArtistGet.EXTRA_TRACKS, (long)0);
-                Artist artist= q.getArtist();
+                ArtistGet q = new ArtistGet((long)720076,ArtistGet.EXTRA_TRACKS, (long)0, (long)0);
+                ArtistFromApi artist= q.getArtist();
                 artist.completeTrackList();
 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
@@ -131,8 +135,8 @@ public class ArtistGetTest {
     public void getArtistWithTracksAndPagination() {
 
         try {
-                ArtistGet q = new ArtistGet((long)720, ArtistGet.EXTRA_TRACKS,(long)0);
-                Artist artist= q.getArtist();
+                ArtistGet q = new ArtistGet((long)720, ArtistGet.EXTRA_TRACKS,(long)0, (long)0);
+                ArtistFromApi artist= q.getArtist();
                 TrackList tracks = artist.getTracks();
 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));

@@ -21,7 +21,7 @@
 package com.mc2.qobuz.api.v02.elements;
 
 import java.util.ArrayList;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -29,55 +29,22 @@ import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.mc2.qobuz.api.v02.API.elements.Track;
 
 
-public final class Track extends QobuzObject {
+public final class TrackFromApi extends QobuzObjectFromApi implements Track {
 
-    public static final String ID = "id"; //no
-    public static final String TITLE = "title";
-    public static final String WORK = "work"; 
-    public static final String COMPOSER = "composer"; 
-    public static final String PERFORMERS = "performers"; //no
-    public static final String DURATION = "duration"; //no
-    public static final String ARTICLES = "articles"; //no
-    public static final String ALBUM = "album"; 
-    public static final String PERFORMER = "performer"; 
-    public static final String COPYRIGHT = "copyright";
-    public static final String MEDIA_NUMBER = "media_number"; //no
-    public static final String TRACK_NUMBER = "track_number"; //no TRACK_NO
-    public static final String VERSION = "version"; //no
-    public static final String PURCHASABLE = "purchasable";//no
-    public static final String STREAMABLE = "streamable";//no
-    public static final String PREVIEWABLE = "previewable";//no
-    public static final String SAMPLEABLE = "sampleable";//no
-    public static final String DOWNLOADABLE = "downloadable";//no
-    public static final String DISPLAYABLE = "displayable";//no
-    public static final String PURCHASABLE_AT = "purchasable_at";//no
-    public static final String STREAMABLE_AT = "streamable_at";//no
-    public static final String MAXIMUM_SAMPLING_RATE = "maximum_sampling_rate";//no
-    public static final String MAXIMUM_BIT_DEPTH = "maximum_bit_depth";//no
-    public static final String HIRES = "hires";//no
-	public static final String ISRC = "isrc";
-    
-	public static final String TITLEONLY = "titleOnly"; //no
-	public static final String WORKGUESSED = "workGuessed";//no
-	
-	/* 9/9/19 */
-	public static final String PARENTAL_WARNING = "parental_warning";//no
-	public static final String HIRES_STREAMABLE = "hires_streamable";//no
-	public static final String MAXIMUM_CHANNEL_COUNT = "maximum_channel_count";//no
-	public static final String ARTICLE_IDS ="article_ids"; //no
 	
     private Long id;
     private String title;
     private String work;
 	private String titleOnly;
 	private String workGuessed;
-    private Artist composer;
+    private ArtistFromApi composer;
     private String performers;
     private Long  duration;
-    private Album album;
-    private Artist performer;
+    private AlbumFromApi album;
+    private ArtistFromApi performer;
     private String copyright;
     private Long  media_number;
     private Long  track_number;
@@ -95,7 +62,7 @@ public final class Track extends QobuzObject {
     private Boolean hires;
 	private String isrc;
     
-    private ArrayList<Article> articles = new ArrayList<>();
+    private ArrayList<ArticleFromApi> articles = new ArrayList<>();
 	
 	/* 9/9/19 */
 	private Boolean hires_streamable;
@@ -103,11 +70,11 @@ public final class Track extends QobuzObject {
 	private Long  maximum_channel_count;
 	//private ArrayList<String> article_ids;
     
-     public  Track() {
+     public  TrackFromApi() {
         super();
      }
      
-     public  Track(JSONObject jsonObject) throws QobuzAPIException {
+     public  TrackFromApi(JSONObject jsonObject) throws QobuzAPIException {
         super(jsonObject);
         
         // fill the KeyList here;
@@ -184,29 +151,29 @@ public final class Track extends QobuzObject {
                             null :  jsonObject.get(VERSION).toString() : null;
                 */
 				
-				titleOnly =calcTitleOnly(workGuessed,title);
-				//rawKeyValuePair.put(TITLEONLY, titleOnly);
-				
 				workGuessed= workFromTitle(work,title);
 				//rawKeyValuePair.put(WORKGUESSED, workGuessed);
 				
+				titleOnly =calcTitleOnly(workGuessed,title);
+				//rawKeyValuePair.put(TITLEONLY, titleOnly);
+
 				if (jsonObject.has(ALBUM)&& !jsonObject.isNull(ALBUM)){
-					album =  new Album(jsonObject.getJSONObject(ALBUM));
+					album =  new AlbumFromApi(jsonObject.getJSONObject(ALBUM));
 					rawKeyValuePair.put(ALBUM, album.getTitle());
 				}
 				if (jsonObject.has(COMPOSER)&& !jsonObject.isNull(COMPOSER)){
-					composer =  new Artist(jsonObject.getJSONObject(COMPOSER));
+					composer =  new ArtistFromApi(jsonObject.getJSONObject(COMPOSER));
 					rawKeyValuePair.put(COMPOSER, composer.getName());
 				}
 				
 				if (jsonObject.has(PERFORMER)&& !jsonObject.isNull(PERFORMER)){
-					performer =  new Artist(jsonObject.getJSONObject(PERFORMER));
+					performer =  new ArtistFromApi(jsonObject.getJSONObject(PERFORMER));
 					rawKeyValuePair.put(PERFORMER, performer.getName());
 				}
 				if (jsonObject.has(ARTICLES)) {
                     JSONArray jArticles = jsonObject.getJSONArray(ARTICLES);
                     for (int i = 0; i < jArticles.length(); i++) {
-                        articles.add(new Article(jArticles.getJSONObject(i)));
+                        articles.add(new ArticleFromApi(jArticles.getJSONObject(i)));
                     }
                 }
 				/*
@@ -227,6 +194,7 @@ public final class Track extends QobuzObject {
     /**
      * @return the id
      */
+	@Override
     public Long getId() {
         return id;
     }
@@ -234,6 +202,7 @@ public final class Track extends QobuzObject {
     /**
      * @return the title
      */
+	@Override
     public String getTitle() {
         return title;
     }
@@ -241,37 +210,44 @@ public final class Track extends QobuzObject {
     /**
      * @return the work
      */
+	@Override
     public String getWorkTitle() {
         return work;
     }
+	
 	/**
      * @return the work stored in work field or guessed from the title.
      */
+	@Override
     public String geWorkGuessed() {
        return workGuessed;
 	}
 	/**
      * @return the title cleaned by the work part as per in workGuessed.
      */
+	@Override
     public String getTitleOnly() {
        return titleOnly;
 	}
     /**
      * @return the composer
      */
-    public Artist getComposer() {
+	@Override
+    public ArtistFromApi getComposer() {
         return composer;
     }
 
     /**
      * @return the performers as a string
      */
+	@Override
     public String getPerformers() {
         return performers;
     }
 	/**
      * @return the performers as a list of strings (name: roles)
      */
+	@Override
 	public ArrayList<String> getPerformerList(){
         
         ArrayList<String> out=new ArrayList<>();
@@ -298,6 +274,7 @@ public final class Track extends QobuzObject {
      * @return the performers as a map of string where role is the key 
 	 * and the performers name the value.
      */
+	@Override
 	public Map<String,String> getPerformersRoleNamesMap(){
         
         Map<String,String> performersMap = new HashMap<>();
@@ -334,25 +311,29 @@ public final class Track extends QobuzObject {
     /**
      * @return the duration
      */
+	@Override
     public Long getDuration() {
         return duration;
     }
     /**
      * @return the album
      */
-    public Album getAlbum() {
+	@Override
+    public AlbumFromApi getAlbum() {
         return album;
     }
     /**
      * @return the performer
      */
-    public Artist getPerformer() {
+	@Override
+    public ArtistFromApi getPerformer() {
         return performer;
     }
 
     /**
      * @return the copyright
      */
+	@Override
     public String getCopyright() {
         return copyright;
     }
@@ -360,6 +341,7 @@ public final class Track extends QobuzObject {
     /**
      * @return the media_number
      */
+	@Override
     public Long getMedia_number() {
         return media_number;
     }
@@ -367,6 +349,7 @@ public final class Track extends QobuzObject {
     /**
      * @return the track_number
      */
+	@Override
     public Long getTrack_number() {
         return track_number;
     }
@@ -374,6 +357,7 @@ public final class Track extends QobuzObject {
     /**
      * @return the version
      */
+	@Override
     public String getVersion() {
         return version;
     }
@@ -381,6 +365,7 @@ public final class Track extends QobuzObject {
     /**
      * @return the purchasable
      */
+	@Override
     public Boolean getPurchasable() {
         return purchasable;
     }
@@ -388,6 +373,7 @@ public final class Track extends QobuzObject {
     /**
      * @return the streamable
      */
+	@Override
     public Boolean getStreamable() {
         return streamable;
     }
@@ -395,6 +381,7 @@ public final class Track extends QobuzObject {
     /**
      * @return the previewable
      */
+	@Override
     public Boolean getPreviewable() {
         return previewable;
     }
@@ -402,6 +389,7 @@ public final class Track extends QobuzObject {
     /**
      * @return the sampleable
      */
+	@Override
     public Boolean getSampleable() {
         return sampleable;
     }
@@ -409,6 +397,7 @@ public final class Track extends QobuzObject {
     /**
      * @return the downloadable
      */
+	@Override
     public Boolean getDownloadable() {
         return downloadable;
     }
@@ -416,6 +405,7 @@ public final class Track extends QobuzObject {
     /**
      * @return the displayable
      */
+	@Override
     public Boolean getDisplayable() {
         return displayable;
     }
@@ -423,6 +413,7 @@ public final class Track extends QobuzObject {
     /**
      * @return the purchasable_at
      */
+	@Override
     public Long getPurchasable_at() {
         return purchasable_at;
     }
@@ -430,6 +421,7 @@ public final class Track extends QobuzObject {
     /**
      * @return the streamable_at
      */
+	@Override
     public Long getStreamable_at() {
         return streamable_at;
     }
@@ -437,6 +429,7 @@ public final class Track extends QobuzObject {
     /**
      * @return the maximum_sampling_rate
      */
+	@Override
     public Double getMaximum_sampling_rate() {
         return maximum_sampling_rate;
     }
@@ -444,6 +437,7 @@ public final class Track extends QobuzObject {
     /**
      * @return the maximum_bit_depth
      */
+	@Override
     public Long getMaximum_bit_depth() {
         return maximum_bit_depth;
     }
@@ -451,6 +445,7 @@ public final class Track extends QobuzObject {
     /**
      * @return the hires
      */
+	@Override
     public Boolean getHires() {
         return hires;
     }
@@ -458,6 +453,7 @@ public final class Track extends QobuzObject {
 	 /**
      * @return the isrc
      */
+	@Override
     public String getIsrc() {
         return isrc;
     }
@@ -465,13 +461,15 @@ public final class Track extends QobuzObject {
     /**
      * @return the articles
      */
-    public ArrayList<Article> getArticles() {
+	@Override
+    public ArrayList<ArticleFromApi> getArticles() {
         return articles;
     }
 	
 	/**
      * @return the hires streamable
      */
+	@Override
     public Boolean getHiresStreamable() {
         return hires_streamable;
     }
@@ -479,6 +477,7 @@ public final class Track extends QobuzObject {
 	 /**
      * @return the parental warning
      */
+	@Override
     public Boolean getParentalWarning() {
         return parental_warning;
     }
@@ -486,6 +485,7 @@ public final class Track extends QobuzObject {
 	/**
      * @return the maximum_channel_count
      */
+	@Override
     public Long getMaximumChannelCount() {
         return maximum_channel_count;
     }

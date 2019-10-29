@@ -20,6 +20,8 @@
 
 package com.mc2.qobuz.api.v02.exceptions;
 
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+
 /**
  * A general web service exception
  */

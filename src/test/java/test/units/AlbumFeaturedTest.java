@@ -22,14 +22,11 @@ package test.units;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.junit.Test;
-import com.mc2.qobuz.api.v02.elements.Album;
+import com.mc2.qobuz.api.v02.elements.AlbumFromApi;
 import com.mc2.qobuz.api.v02.elements.FeaturedAlbums;
-import com.mc2.qobuz.api.v02.lists.AlbumList;
+import com.mc2.qobuz.api.v02.lists.AlbumListFromApi;
 import com.mc2.qobuz.api.v02.query.AlbumsGetFeatured;
 
-import test.utils.TestUtils;
-import static test.utils.TestUtils.printAlbum;
 
 /**
  *
@@ -50,7 +47,7 @@ public class AlbumFeaturedTest extends UnitTest {
        
         albumFeaturedTest(13, 10L, true);
     }
-    @Test
+    //@Test
     public void newReleases(){
        
         albumFeaturedTest(13, 0L, true);
@@ -70,7 +67,7 @@ public class AlbumFeaturedTest extends UnitTest {
                 System.out.println("= ALBUM FEATURED: "+type +" - "+genre);
                
             
-                AlbumList albums = featuredAlbums.getAlbums();
+                AlbumListFromApi albums = featuredAlbums.getAlbums();
                 if (albums == null){
                     System.out.println("");
                     System.out.println("= NULL =");
@@ -134,7 +131,7 @@ public class AlbumFeaturedTest extends UnitTest {
                 
                 System.out.println("======================================================================");
                 
-                for  (Album album : albums.getItems()){
+                for  (AlbumFromApi album : albums.getItems()){
                 
                         System.out.println(album.getId()+" - "+album.getTitle());
                 }

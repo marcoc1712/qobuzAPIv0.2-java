@@ -20,35 +20,36 @@
 
 package com.mc2.qobuz.api.v02.lists;
 
+import com.mc2.qobuz.api.v02.API.lists.ArtistList;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.elements.Track;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import static com.mc2.qobuz.api.v02.lists.QobuzObjectList.ITEMS;
+import com.mc2.qobuz.api.v02.elements.ArtistFromApi;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import static com.mc2.qobuz.api.v02.lists.QobuzObjectListFromApi.ITEMS;
 
 /**
  *
  * @author marco
  */
-public final class TrackList extends QobuzObjectList{
+public final class ArtistListFromApi extends QobuzObjectListFromApi implements ArtistList{
 
-    private ArrayList<Track> items = new ArrayList<>();
+    private ArrayList<ArtistFromApi> items = new ArrayList<>();
     
-    public TrackList() {
+    public ArtistListFromApi() {
         super();
     }
 
-    public TrackList (JSONObject jsonObject)throws QobuzAPIException {
+    public ArtistListFromApi (JSONObject jsonObject)throws QobuzAPIException {
         super(jsonObject);
         try {
             if (jsonObject.has(ITEMS)) {
                 JSONArray jItems = jsonObject.getJSONArray(ITEMS);
                 for (int i = 0; i < jItems.length(); i++) {                       
-                    items.add(new Track(jItems.getJSONObject(i)));
+                    items.add(new ArtistFromApi(jItems.getJSONObject(i)));
                 }
             }
         } catch (JSONException ex) {
@@ -58,8 +59,8 @@ public final class TrackList extends QobuzObjectList{
     }
 
     @Override
-    public ArrayList<Track> getItems() {
+    public ArrayList<ArtistFromApi> getItems() {
         return items;
     }
-
+    
 }

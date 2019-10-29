@@ -20,8 +20,8 @@
 
 package com.mc2.qobuz.api.v02.query;
 
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import com.mc2.qobuz.api.v02.elements.Artist;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.elements.ArtistFromApi;
 
 public class ArtistGet extends QobuzObjectQuery {
     
@@ -82,8 +82,8 @@ public class ArtistGet extends QobuzObjectQuery {
         return urlStr;
     }
     
-    public Artist getArtist() throws QobuzAPIException{
+    public ArtistFromApi getArtist() throws QobuzAPIException{
          
-         return new Artist(super.getObject());
+         return new ArtistFromApi(super.getObject());
     }
 }

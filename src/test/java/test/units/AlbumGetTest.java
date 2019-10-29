@@ -23,8 +23,9 @@ package test.units;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
-import com.mc2.qobuz.api.v02.elements.Album;
+import com.mc2.qobuz.api.v02.elements.AlbumFromApi;
 import com.mc2.qobuz.api.v02.query.AlbumGet;
+import java.io.PrintStream;
 
 import test.utils.TestUtils;
 
@@ -43,12 +44,13 @@ public class AlbumGetTest extends UnitTest {
 				// AlbumGet q = new AlbumGet("zcyp7kgzkrl3b"); //tracks with work NOT in title
 				//AlbumGet q = new AlbumGet("3760014193255"); //tracks with work in title	
 				//AlbumGet q = new AlbumGet("0002894135532"); // many performers
-				AlbumGet q = new AlbumGet("swlavp7wrhd6a"); // many aeards
+				//AlbumGet q = new AlbumGet("swlavp7wrhd6a"); // many aeards
+				AlbumGet q = new AlbumGet("vqcu1hk7a3vlc"); //double work in track title
 				
-                Album album = q.getAlbum();
+                AlbumFromApi album = q.getAlbum();
                 album.completeTrackList();
                 
-                //System.setOut(new PrintStream(System.out, true, "utf-8"));
+                System.setOut(new PrintStream(System.out, true, "utf-8"));
                 
                 System.out.println("======================================================================");
                 System.out.println("= ALBUM                                                              =");

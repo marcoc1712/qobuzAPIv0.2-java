@@ -17,29 +17,38 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
+package com.mc2.qobuz.api.v02;
 
-package com.mc2.qobuz.api.v02.exceptions;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.elements.Album;
+import com.mc2.qobuz.api.v02.query.AlbumGet;
+import java.util.logging.Logger;
 
 /**
- * All application specific exceptions extend this class.
+ *
+ * @author marco
  */
-public class QobuzAPIException extends Exception {
-    private static final long serialVersionUID = 2L;
+public class QobuzApiController implements com.mc2.qobuz.api.v02.API.QobuzApiController {
+	
+	private static Logger logger = Logger.getLogger(QobuzApiController.class.getName());
 
-	public QobuzAPIException() {
-		super();
+	private static class LazyHolder {
+        static final QobuzApiController INSTANCE = new QobuzApiController();
+    }
+	
+	public static QobuzApiController findIstance() {
+        return LazyHolder.INSTANCE;
+    }
+	
+    private QobuzApiController() {
+		
+    }
+	
+	@Override
+	public Album getAlbum(String albumId) throws QobuzAPIException {
+		AlbumGet q = new AlbumGet(albumId);
+		Album album = q.getAlbum();
+		return album;
 	}
-
-	public QobuzAPIException(String message, Throwable cause) {
-		super(message, cause);
-	}
-
-	public QobuzAPIException(String message) {
-		super(message);
-	}
-
-	public QobuzAPIException(Throwable cause) {
-		super(cause);
-	}
-
+	
 }

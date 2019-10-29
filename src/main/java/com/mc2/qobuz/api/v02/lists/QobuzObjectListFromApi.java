@@ -25,29 +25,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.elements.QobuzObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
+import com.mc2.qobuz.api.v02.elements.QobuzObjectFromApi;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.lists.QobuzObjectList;
 
 /**
  *
  * @author marco
  */
-public abstract class QobuzObjectList extends QobuzObject {
+public abstract class QobuzObjectListFromApi extends QobuzObjectFromApi implements QobuzObjectList {
     
-    public static final String OFFSET = "offset";
-    public static final String LIMIT = "limit";
-    public static final String TOTAL = "total";
-    public static final String ITEMS = "items";
 
     protected Long offset;
     protected Long limit;
     protected Long total;
     
-    public QobuzObjectList() {
+    public QobuzObjectListFromApi() {
         super();
     }
 
-    public QobuzObjectList(JSONObject jsonObject) throws QobuzAPIException {
+    public QobuzObjectListFromApi(JSONObject jsonObject) throws QobuzAPIException {
         super(jsonObject);
         
         KeyList.add(OFFSET);
@@ -83,6 +80,7 @@ public abstract class QobuzObjectList extends QobuzObject {
     /**
      * @return the offset
      */
+	@Override
     public Long getOffset() {
         return offset;
     }
@@ -90,6 +88,7 @@ public abstract class QobuzObjectList extends QobuzObject {
     /**
      * @return the limit
      */
+	@Override
     public Long getLimit() {
         return limit;
     }
@@ -97,9 +96,9 @@ public abstract class QobuzObjectList extends QobuzObject {
     /**
      * @return the total
      */
+	@Override
     public Long getTotal() {
         return total;
     }
     
-    public abstract ArrayList<? extends QobuzObject> getItems();
 }

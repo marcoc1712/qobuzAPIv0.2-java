@@ -20,35 +20,36 @@
 
 package com.mc2.qobuz.api.v02.lists;
 
+import com.mc2.qobuz.api.v02.API.lists.GenreList;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.elements.Genre;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import static com.mc2.qobuz.api.v02.lists.QobuzObjectList.ITEMS;
+import com.mc2.qobuz.api.v02.elements.GenreFromApi;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import static com.mc2.qobuz.api.v02.lists.QobuzObjectListFromApi.ITEMS;
 
 /**
  *
  * @author marco
  */
-public final class GenreList extends QobuzObjectList{
+public final class GenreListFromApi extends QobuzObjectListFromApi implements GenreList{
 
-    private ArrayList<Genre> items = new ArrayList<>();
+    private ArrayList<GenreFromApi> items = new ArrayList<>();
     
-    public GenreList() {
+    public GenreListFromApi() {
         super();
     }
 
-    public GenreList (JSONObject jsonObject)throws QobuzAPIException {
+    public GenreListFromApi (JSONObject jsonObject)throws QobuzAPIException {
         super(jsonObject);
         try {
             if (jsonObject.has(ITEMS)) {
                 JSONArray jItems = jsonObject.getJSONArray(ITEMS);
                 for (int i = 0; i < jItems.length(); i++) {                       
-                    items.add(new Genre(jItems.getJSONObject(i)));
+                    items.add(new GenreFromApi(jItems.getJSONObject(i)));
                 }
             }
         } catch (JSONException ex) {
@@ -58,7 +59,7 @@ public final class GenreList extends QobuzObjectList{
     }
 
     @Override
-    public ArrayList<Genre> getItems() {
+    public ArrayList<GenreFromApi> getItems() {
         return items;
     }
 

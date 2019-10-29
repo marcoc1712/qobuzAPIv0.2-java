@@ -23,7 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
 import com.mc2.qobuz.api.v02.elements.SimilarArtists;
-import com.mc2.qobuz.api.v02.lists.ArtistList;
+import com.mc2.qobuz.api.v02.lists.ArtistListFromApi;
 import com.mc2.qobuz.api.v02.query.ArtistGetSimilar;
 import test.utils.TestUtils;
 
@@ -41,7 +41,7 @@ public class SimilarArtistGetTest {
                 ArtistGetSimilar q = new ArtistGetSimilar(artist,(long)0);
                 SimilarArtists similarArtists = q.getSimilaArtist();
                 
-                ArtistList artists = similarArtists.getArtists();
+                ArtistListFromApi artists = similarArtists.getArtists();
                 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
                 
@@ -68,7 +68,7 @@ public class SimilarArtistGetTest {
                     System.out.println("= "+page+" =");
                     
                     q = new ArtistGetSimilar(artist,(long)artists.getItems().size());
-                    ArtistList extra = q.getSimilaArtist().getArtists();
+                    ArtistListFromApi extra = q.getSimilaArtist().getArtists();
                     artists.getItems().addAll(extra.getItems());
                     stop = (artists.getItems().size() == size); 
                     size = artists.getItems().size();

@@ -20,9 +20,9 @@
 
 package com.mc2.qobuz.api.v02.query;
 
-import com.mc2.qobuz.api.v02.QobuzController;
+import com.mc2.qobuz.api.v02.QobuzClient;
 import com.mc2.qobuz.api.v02.elements.GenreListResult;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 
 public class GenreListGet extends QobuzObjectQuery {
     
@@ -50,14 +50,14 @@ public class GenreListGet extends QobuzObjectQuery {
     }
     private String buildUrlStr(){
         
-        String urlStr = QobuzController.BASEURL + "/"+QobuzObjectQuery.ENDPOINT_GENRE+
+        String urlStr = QobuzClient.BASEURL + "/"+QobuzObjectQuery.ENDPOINT_GENRE+
                         "/list?offset=0&limit=100";
         
         return urlStr;
     }
     private String buildUrlStr(Long id){
         
-        String urlStr = QobuzController.BASEURL + "/"+QobuzObjectQuery.ENDPOINT_GENRE+
+        String urlStr = QobuzClient.BASEURL + "/"+QobuzObjectQuery.ENDPOINT_GENRE+
                         "/list?parent_id="+id.toString();
         
         return urlStr;

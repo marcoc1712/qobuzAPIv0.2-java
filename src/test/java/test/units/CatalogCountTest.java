@@ -23,7 +23,7 @@ package test.units;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
-import com.mc2.qobuz.api.v02.elements.Catalog;
+import com.mc2.qobuz.api.v02.elements.CatalogFromApi;
 import com.mc2.qobuz.api.v02.query.CatalogCount;
 /**
  *
@@ -39,7 +39,7 @@ public class CatalogCountTest extends UnitTest{
                 //query = "Antonio Vivaldi"; 
                 
                 CatalogCount q = new CatalogCount(query);
-                Catalog catalog = q.getCatalog();
+                CatalogFromApi catalog = q.getCatalog();
                 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
                 

@@ -20,42 +20,37 @@
 
 package com.mc2.qobuz.api.v02.elements;
 
+import com.mc2.qobuz.api.v02.API.elements.Genre;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import com.mc2.qobuz.api.v02.lists.AlbumList;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.lists.AlbumListFromApi;
 import com.mc2.qobuz.api.v02.query.GenreGet;
 
 /**
  *
  * @author marco
  */
-public final class  Genre extends QobuzObject{
+public final class  GenreFromApi extends QobuzObjectFromApi implements Genre{
 
-    public static final String ID = "id";
-    public static final String COLOR = "color";
-    public static final String NAME = "name";
-    public static final String PATH = "path";
-    public static final String SLUG = "slug";
-    public static final String ALBUMS = "albums";
     
     private Long id;
     private String slug;
     private String color;
     private String name;
-    private AlbumList albums;
+    private AlbumListFromApi albums;
      
     private ArrayList<Long> path = new ArrayList<>();
     
-    public Genre() {
+    public GenreFromApi() {
         super();
     }
 
-    public Genre (JSONObject jsonObject)throws QobuzAPIException {
+    public GenreFromApi (JSONObject jsonObject)throws QobuzAPIException {
          super(jsonObject);
          
         KeyList.add(ID);
@@ -90,7 +85,7 @@ public final class  Genre extends QobuzObject{
                 
                 albums = jsonObject.has(ALBUMS) ? 
                         jsonObject.isNull(ALBUMS) ? 
-                            null : new AlbumList(jsonObject.getJSONObject(ALBUMS)) : null;
+                            null : new AlbumListFromApi(jsonObject.getJSONObject(ALBUMS)) : null;
                 
                 if (jsonObject.has(PATH)) {
                     JSONArray Jgenres = jsonObject.getJSONArray(PATH);
@@ -104,6 +99,7 @@ public final class  Genre extends QobuzObject{
                 throw new QobuzAPIException(ex.getMessage(), ex);
         }
     }
+	@Override
      public boolean isAlbumlistComplete(){
         
         if (albums == null) return true; //no album to get.
@@ -114,6 +110,7 @@ public final class  Genre extends QobuzObject{
         //return (albums.getItems().size()>= albums.getTotal());
         return false;
     }
+	@Override
     public void completeAlbumList() throws QobuzAPIException{
 
         long size = 0;
@@ -131,23 +128,24 @@ public final class  Genre extends QobuzObject{
             
         } 
     }
-    public AlbumList loadNextAlbumsPage() throws QobuzAPIException{
+	@Override
+    public AlbumListFromApi loadNextAlbumsPage() throws QobuzAPIException{
     
         if (!isAlbumlistComplete()){
             
-            AlbumList extra = getNexAlbumsPage();
+            AlbumListFromApi extra = getNexAlbumsPage();
             
             albums.getItems().addAll(extra.getItems());
             return extra;
         }
         return null;
     }
-    private AlbumList getNexAlbumsPage() throws QobuzAPIException{
+    private AlbumListFromApi getNexAlbumsPage() throws QobuzAPIException{
     
         if (!isAlbumlistComplete()) {
             
             GenreGet q = new GenreGet(id, (long)albums.getItems().size());
-            Genre extra = q.getGenre();
+            GenreFromApi extra = q.getGenre();
             
             return extra.getAlbums();
         }
@@ -156,6 +154,7 @@ public final class  Genre extends QobuzObject{
     /**
      * @return the id
      */
+	@Override
     public Long getId() {
         return id;
     }
@@ -163,6 +162,7 @@ public final class  Genre extends QobuzObject{
     /**
      * @return the color
      */
+	@Override
     public String getColor() {
         return color;
     }
@@ -170,6 +170,7 @@ public final class  Genre extends QobuzObject{
     /**
      * @return the name
      */
+	@Override
     public String getName() {
         return name;
     }
@@ -177,6 +178,7 @@ public final class  Genre extends QobuzObject{
     /**
      * @return the path
      */
+	@Override
     public ArrayList<Long> getPath() {
         return path;
     }
@@ -184,13 +186,15 @@ public final class  Genre extends QobuzObject{
     /**
      * @return the slug
      */
+	@Override
     public String getSlug() {
         return slug;
     }
     /**
      * @return the albums
      */
-    public AlbumList getAlbums() {
+	@Override
+    public AlbumListFromApi getAlbums() {
         return albums;
     }
 }

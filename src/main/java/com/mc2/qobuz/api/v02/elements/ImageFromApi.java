@@ -20,27 +20,22 @@
 
 package com.mc2.qobuz.api.v02.elements;
 
+import com.mc2.qobuz.api.v02.API.elements.Image;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 import com.mc2.qobuz.api.v02.utils.JsonUtils;
 
 /**
  *
  * @author marco
  */
-public final class  Image extends QobuzObject {
+public final class  ImageFromApi extends QobuzObjectFromApi implements Image {
 
     private static final String THUMBNAIL = "thumbnail"; //50px
-    public static final String SMALL = "small";//230px
-    public static final String MEDIUM = "medium"; 
-    public static final String LARGE = "large"; //600p
-    public static final String EXTRALARGE = "extralarge";
-    public static final String MEGA = "mega";
-    public static final String BACK = "back";
     
     private URL thumbnail;
     private URL small;
@@ -50,11 +45,11 @@ public final class  Image extends QobuzObject {
     private URL mega;
     private URL back;
     
-    public Image() {
+    public ImageFromApi() {
         super();
     }
 
-    public Image (JSONObject jsonObject)throws QobuzAPIException {
+    public ImageFromApi (JSONObject jsonObject)throws QobuzAPIException {
          super(jsonObject);
          
         KeyList.add(THUMBNAIL);
@@ -92,12 +87,14 @@ public final class  Image extends QobuzObject {
     /**
      * @return the thumbnail (50px)
      */
+	@Override
     public URL getThumbnail() {
         return thumbnail;
     }
     /**
      * @return the small (230px)
      */
+	@Override
     public URL getSmall() {
         return small;
     }
@@ -105,6 +102,7 @@ public final class  Image extends QobuzObject {
     /**
      * @return the medium 
      */
+	@Override
     public URL getMedium() {
         return medium;
     }
@@ -112,6 +110,7 @@ public final class  Image extends QobuzObject {
     /**
      * @return the large (600px)
      */
+	@Override
     public URL getLarge() {
         return large;
     }
@@ -119,6 +118,7 @@ public final class  Image extends QobuzObject {
     /**
      * @return the extralarge
      */
+	@Override
     public URL getExtralarge() {
         return extralarge;
     }
@@ -126,6 +126,7 @@ public final class  Image extends QobuzObject {
     /**
      * @return the mega
      */
+	@Override
     public URL getMega() {
         return mega;
     }
@@ -133,6 +134,7 @@ public final class  Image extends QobuzObject {
     /**
      * @return the back
      */
+	@Override
     public URL getBack() {
         return back;
     }

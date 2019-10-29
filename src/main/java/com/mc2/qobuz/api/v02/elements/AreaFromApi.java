@@ -20,39 +20,30 @@
 
 package com.mc2.qobuz.api.v02.elements;
 
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.mc2.qobuz.api.v02.API.QobuzAPIException;
-
+import com.mc2.qobuz.api.v02.API.elements.Area;
 /**
  *
  * @author marco
  */
-public final class  StoreRelated extends QobuzObjectFromApi{
-
-    public static final String GENRE = "genre";
-    public static final String GENRES_LIST = "genres_list";
-    public static final String GENRES_SLUGS_LIST = "genres_slugs_list";
+public final class  AreaFromApi extends QobuzObjectFromApi implements Area {
     
+    private Long id;
+    private String name;
     
-    private String store;
-    private GenreFromApi genre;
-    private ArrayList<String> genres_list = new ArrayList<>();
-    
-    public StoreRelated() {
+    public AreaFromApi() {
         super();
     }
 
-    public StoreRelated (String store, JSONObject jsonObject)throws QobuzAPIException {
-        super(jsonObject);
-        this.store = store;
-        KeyList.add(GENRE);
-        KeyList.add(GENRES_LIST);
-        KeyList.add(GENRES_SLUGS_LIST); //Ignore at moment
+    public AreaFromApi (JSONObject jsonObject)throws QobuzAPIException {
+         super(jsonObject);
+        
+        KeyList.add(ID);
+        KeyList.add(NAME);
         
         checkJSONObject(jsonObject);
         /**
@@ -63,40 +54,28 @@ public final class  StoreRelated extends QobuzObjectFromApi{
         }
 
         try {
-                genre = jsonObject.has(GENRE) ? 
-                        jsonObject.isNull(GENRE) ? 
-                            null : new GenreFromApi(jsonObject.getJSONObject(GENRE)) : null;
-                
-                if (jsonObject.has(GENRES_LIST)) {
-                    JSONArray jGenres = jsonObject.getJSONArray(GENRES_LIST);
-                    for (int i = 0; i < jGenres.length(); i++) {
-                        genres_list.add(jGenres.getString(i));
-                    }
-                }
+                id = jsonObject.getLong(ID);
+                name = jsonObject.getString(NAME);
+
             } catch (JSONException ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                 throw new QobuzAPIException(ex.getMessage(), ex);
         }
     }
     /**
-     * @return the store
+     * @return the id
      */
-    public String getStore() {
-        return store;
+	@Override
+    public Long getId() {
+        return id;
     }
 
     /**
-     * @return the genre
+     * @return the name
      */
-    public GenreFromApi getGenre() {
-        return genre;
-    }
-
-    /**
-     * @return the genres_list
-     */
-    public ArrayList<String> getGenres_list() {
-        return genres_list;
+	@Override
+    public String getName() {
+        return name;
     }
 
 }

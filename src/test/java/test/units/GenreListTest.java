@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
-import com.mc2.qobuz.api.v02.elements.Genre;
+import com.mc2.qobuz.api.v02.elements.GenreFromApi;
 import com.mc2.qobuz.api.v02.elements.GenreListResult;
-import com.mc2.qobuz.api.v02.lists.GenreList;
+import com.mc2.qobuz.api.v02.lists.GenreListFromApi;
 import com.mc2.qobuz.api.v02.query.GenreListGet;
 import test.utils.TestUtils;
 
@@ -46,10 +46,10 @@ public class GenreListTest {
             System.out.println("= GENRES                                                             =");
             System.out.println("======================================================================");
                 
-            GenreList genreList = result.getGenres();
-            ArrayList<Genre> genres = genreList.getItems();
+            GenreListFromApi genreList = result.getGenres();
+            ArrayList<GenreFromApi> genres = genreList.getItems();
             
-            for (Genre genre : genres){
+            for (GenreFromApi genre : genres){
             
                 TestUtils.printGenre(genre, "",false);
             }

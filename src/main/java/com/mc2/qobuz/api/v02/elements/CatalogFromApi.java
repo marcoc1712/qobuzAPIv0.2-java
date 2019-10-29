@@ -25,38 +25,31 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import com.mc2.qobuz.api.v02.lists.AlbumList;
-import com.mc2.qobuz.api.v02.lists.ArtistList;
-import com.mc2.qobuz.api.v02.lists.TrackList;
-
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.elements.Catalog;
+import com.mc2.qobuz.api.v02.lists.AlbumListFromApi;
+import com.mc2.qobuz.api.v02.lists.ArtistListFromApi;
+import com.mc2.qobuz.api.v02.lists.TrackListFromApi;
 /**
  *
  * @author marco
  */
-public final class Catalog extends QobuzObject{
+public final class CatalogFromApi extends QobuzObjectFromApi implements Catalog{
 
-    public static final String QUERY = "query";
-    public static final String ARTISTS = "artists";
-    public static final String TRACKS = "tracks";
-    public static final String ALBUMS = "albums";
-    public static final String PLAYLISTS = "playlists";
-    public static final String ARTICLES = "articles";
-    public static final String FOCUS = "focus";
 
     private String query;      
-    private ArtistList artists;
-    private TrackList tracks;
-    private AlbumList albums;
+    private ArtistListFromApi artists;
+    private TrackListFromApi tracks;
+    private AlbumListFromApi albums;
     //private PlaylistList playlists;
     //private ArticleList articles;
     //private FocusList foci;
     
-    public Catalog() {
+    public CatalogFromApi() {
         super();
     }
 
-    public Catalog (JSONObject jsonObject)throws QobuzAPIException {
+    public CatalogFromApi (JSONObject jsonObject)throws QobuzAPIException {
         super(jsonObject);
         
         KeyList.add(QUERY);
@@ -82,15 +75,15 @@ public final class Catalog extends QobuzObject{
             
                 artists = jsonObject.has(ARTISTS) ? 
                         jsonObject.isNull(ARTISTS) ? 
-                            null : new ArtistList(jsonObject.getJSONObject(ARTISTS)) : null;
+                            null : new ArtistListFromApi(jsonObject.getJSONObject(ARTISTS)) : null;
                 
                 tracks = jsonObject.has(TRACKS) ? 
                         jsonObject.isNull(TRACKS) ? 
-                            null : new TrackList(jsonObject.getJSONObject(TRACKS)) : null;
+                            null : new TrackListFromApi(jsonObject.getJSONObject(TRACKS)) : null;
                 
                 albums = jsonObject.has(ALBUMS) ? 
                         jsonObject.isNull(ALBUMS) ? 
-                            null : new AlbumList(jsonObject.getJSONObject(ALBUMS)) : null;
+                            null : new AlbumListFromApi(jsonObject.getJSONObject(ALBUMS)) : null;
                 
                 /*
                 playlists = jsonObject.has(PLAYLISTS) ? 
@@ -115,6 +108,7 @@ public final class Catalog extends QobuzObject{
      /**
      * @return the query
      */
+	@Override
     public String getQuery() {
         return query;
     }
@@ -122,21 +116,24 @@ public final class Catalog extends QobuzObject{
     /**
      * @return the artists
      */
-    public ArtistList getArtists() {
+	@Override
+    public ArtistListFromApi getArtists() {
         return artists;
     }
 
     /**
      * @return the tracks
      */
-    public TrackList getTracks() {
+	@Override
+    public TrackListFromApi getTracks() {
         return tracks;
     }
 
     /**
      * @return the albums
      */
-    public AlbumList getAlbums() {
+	@Override
+    public AlbumListFromApi getAlbums() {
         return albums;
     }
   

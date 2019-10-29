@@ -20,36 +20,38 @@
 
 package com.mc2.qobuz.api.v02.lists;
 
+import com.mc2.qobuz.api.v02.API.lists.LabelList;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.elements.Genre;
-import com.mc2.qobuz.api.v02.elements.Label;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import static com.mc2.qobuz.api.v02.lists.QobuzObjectList.ITEMS;
+import com.mc2.qobuz.api.v02.elements.GenreFromApi;
+import com.mc2.qobuz.api.v02.elements.LabelFromApi;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.lists.QobuzObjectListFromApi;
+import static com.mc2.qobuz.api.v02.lists.QobuzObjectListFromApi.ITEMS;
 
 /**
  *
  * @author marco
  */
-public final class LabelList extends QobuzObjectList{
+public final class LabelListFromApi extends QobuzObjectListFromApi implements LabelList{
 
-    private ArrayList<Label> items = new ArrayList<>();
+    private ArrayList<LabelFromApi> items = new ArrayList<>();
     
-    public LabelList() {
+    public LabelListFromApi() {
         super();
     }
 
-    public LabelList (JSONObject jsonObject)throws QobuzAPIException {
+    public LabelListFromApi (JSONObject jsonObject)throws QobuzAPIException {
         super(jsonObject);
         try {
             if (jsonObject.has(ITEMS)) {
                 JSONArray jItems = jsonObject.getJSONArray(ITEMS);
                 for (int i = 0; i < jItems.length(); i++) {                       
-                    items.add(new Label(jItems.getJSONObject(i)));
+                    items.add(new LabelFromApi(jItems.getJSONObject(i)));
                 }
             }
         } catch (JSONException ex) {
@@ -59,7 +61,7 @@ public final class LabelList extends QobuzObjectList{
     }
 
     @Override
-    public ArrayList<Label> getItems() {
+    public ArrayList<LabelFromApi> getItems() {
         return items;
     }
 

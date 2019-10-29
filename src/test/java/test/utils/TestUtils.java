@@ -21,23 +21,23 @@
 package test.utils;
 
 
+import com.mc2.qobuz.api.v02.API.elements.Album;
+import com.mc2.qobuz.api.v02.API.elements.Article;
+import com.mc2.qobuz.api.v02.API.elements.Artist;
+import com.mc2.qobuz.api.v02.API.elements.Award;
+import com.mc2.qobuz.api.v02.API.elements.Genre;
+import com.mc2.qobuz.api.v02.API.elements.Goody;
+import com.mc2.qobuz.api.v02.API.elements.Image;
+import com.mc2.qobuz.api.v02.API.elements.Label;
+import com.mc2.qobuz.api.v02.API.elements.Track;
+import com.mc2.qobuz.api.v02.API.lists.AlbumList;
+import com.mc2.qobuz.api.v02.API.lists.ArtistList;
+import com.mc2.qobuz.api.v02.API.lists.GenreList;
+import com.mc2.qobuz.api.v02.API.lists.LabelList;
+import com.mc2.qobuz.api.v02.API.lists.TrackList;
 import java.util.ArrayList;
 import java.util.Date;
-import com.mc2.qobuz.api.v02.elements.Album;
-import com.mc2.qobuz.api.v02.elements.Article;
-import com.mc2.qobuz.api.v02.elements.Artist;
-import com.mc2.qobuz.api.v02.elements.Award;
-import com.mc2.qobuz.api.v02.elements.Genre;
-import com.mc2.qobuz.api.v02.elements.Goody;
-import com.mc2.qobuz.api.v02.elements.Image;
-import com.mc2.qobuz.api.v02.elements.Label;
 import com.mc2.qobuz.api.v02.elements.StoreRelated;
-import com.mc2.qobuz.api.v02.elements.Track;
-import com.mc2.qobuz.api.v02.lists.AlbumList;
-import com.mc2.qobuz.api.v02.lists.ArtistList;
-import com.mc2.qobuz.api.v02.lists.GenreList;
-import com.mc2.qobuz.api.v02.lists.LabelList;
-import com.mc2.qobuz.api.v02.lists.TrackList;
 import java.util.Map.Entry;
 
 /*
@@ -131,10 +131,10 @@ public class TestUtils {
             if (a.getDescription() != null){
                 System.out.println(Indent+"Description: "+a.getDescription());
             }
-            
+            /*
             printSelectedStoreGenre(a.getStore_related(), "GB-en","      ", false);
             printSelectedStoreGenreList(a.getStore_related(), "GB-en","  ");
-            
+            */
             if (a.getLabel() != null){
                 System.out.println(Indent+"LABEL: ");
                 printLabel(a.getLabel(), Indent+" ");
@@ -221,11 +221,12 @@ public class TestUtils {
                 System.out.println(Indent+"ARTICLES: ");
                 printArticles(a.getArticles(), Indent+" ");
             }
-
+			/*
             if (a.getStore_related() != null){
                 System.out.println(Indent+"STORE RELATED: ");
                 printStoreRelated(a.getStore_related(), Indent+" ");
             }
+			*/
             if (a.getImage() != null){
                 System.out.println(Indent+"IMAGE: ");
                 printImage(a.getImage(), Indent+" ");
@@ -314,7 +315,17 @@ public class TestUtils {
             System.out.println(Indent+"Maximum bit depth: "+a.getMaximum_bit_depth());
             System.out.println(Indent+"Hires: "+a.getHires());
 			System.out.println(Indent+"UPC: "+a.getUpc());
-
+			
+			if (a.getRawKeyValuePair() != null){
+				
+				for (String key : a.getRawKeyValuePair().keySet()){
+				
+					System.out.println(Indent+key+ " - "+a.getRawKeyValuePair().get(key));
+				}
+			
+			}
+			
+			
             if (a.getTracks() != null){
                 System.out.println(Indent+"TRACKS: ");
                 printTrackList(a.getTracks(), Indent+" ");
@@ -351,13 +362,13 @@ public class TestUtils {
         } else { 
             System.out.println(Indent+"biography: "+artist.getBiography());
         }
-        
+        /*
         if (artist.getInformation()!=  null){
             System.out.println(Indent+"Information: "+artist.getInformation().toString());
         } else{
             System.out.println(Indent+"Information: "+artist.getInformation());
         }
-        
+        */
         if (artist.getAlbums() != null){
              System.out.println(Indent+"ALBUMS: ");
              printAlbumList(artist.getAlbums(), Indent+"    ");
@@ -422,7 +433,7 @@ public class TestUtils {
     }
     
     
-    public static void printGoodies(ArrayList<Goody> goodies, String Indent){
+    public static void printGoodies(ArrayList<? extends Goody> goodies, String Indent){
         for (int i = 0; i < goodies.size(); i++) {
             System.out.println(Indent+" - "+i);
             printGoody(goodies.get(i), Indent);
@@ -475,7 +486,7 @@ public class TestUtils {
         }
          
     }
-    public static void printArticles(ArrayList<Article> articles, String Indent){
+    public static void printArticles(ArrayList<? extends Article> articles, String Indent){
         for (int i = 0; i < articles.size(); i++) {
             System.out.println(Indent+" - "+i);
             printArticle(articles.get(i), Indent);
@@ -543,7 +554,7 @@ public class TestUtils {
         }
     }
     
-    public static void printAwards(ArrayList<Award> awards, String Indent){
+    public static void printAwards(ArrayList<? extends Award> awards, String Indent){
         for (int i = 0; i < awards.size(); i++) {
             System.out.println(Indent+" - "+i);
             printAward(awards.get(i), Indent);
@@ -583,9 +594,12 @@ public class TestUtils {
             System.out.println(Indent+"Composer: "+track.getComposer());
         }
 		
-		System.out.println(Indent+"Work: "+track.getWorkTitle());
+		System.out.println(Indent+"Work Title: "+track.getWorkTitle());
         System.out.println(Indent+"Title: "+track.getTitle());
+		
+		System.out.println(Indent+"Work guessed: "+track.geWorkGuessed());
 		System.out.println(Indent+"Title only: "+track.getTitleOnly());
+		
         System.out.println(Indent+"Duration: "+track.getDuration());
         System.out.println(Indent+"Performers: "+track.getPerformers());
         

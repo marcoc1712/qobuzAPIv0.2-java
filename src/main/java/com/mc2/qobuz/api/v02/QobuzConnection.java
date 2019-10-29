@@ -32,50 +32,50 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import java.util.logging.Level;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.HttpStatus;
-
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 import javax.imageio.ImageIO;
-//import org.scribe.model.Response;
+import org.apache.commons.httpclient.HttpStatus;
 
-public class QobuzConnection {
+public class QobuzConnection  implements AutoCloseable {
     
     private static Logger log = Logger.getLogger(QobuzConnection.class.getName());
 
-    private static QobuzConnection _instance = null;
-    private static DefaultHttpClient httpClient = new DefaultHttpClient();
-    private static HttpURLConnection urlc;
-
-    public static final String contentType = "application/x-www-form-urlencoded";
+	public static final String contentType = "application/x-www-form-urlencoded";
     public static final String userAgent = "QobuzAPIv0.2-java (marcoc1712@gmail.com)";
     public static final String acceptEncoding = "gzip";
     public static final String protocol = "http://";
     public static final String applicationId = QobuzAppId.APP_ID;
     
 
-    private QobuzConnection() {
-        HttpParams params = httpClient.getParams();
-
-        HttpConnectionParams.setConnectionTimeout(params, 60000);
-        HttpConnectionParams.setSoTimeout(params, 60000);
-        params.setParameter("http.protocol.content-charset", "UTF-8");
-
+    public QobuzConnection() {
+		/*
+		HttpClientParams params = httpClient.getParams();
+		
+        //HttpConnectionParams.setConnectionTimeout(params, 60000);
+       // HttpConnectionParams.setSoTimeout(params, 60000);
+		
+		params.setParameter(HttpClientParams.CONNECTION_MANAGER_TIMEOUT, 60000);
+		params.setParameter(HttpClientParams.SO_TIMEOUT, 60000);
+		params.setParameter(HttpClientParams.HTTP_CONTENT_CHARSET, "UTF-8");
+		*/
     }
-
+	
+	@Override
+	public void close() throws Exception {
+		
+	}
+	/*
     public static QobuzConnection getInstance() {
         if (_instance == null)
             _instance = new QobuzConnection();
 
         return _instance;
     }
-
+	*/
     /**
      * Gets data from URL as String throws {@link QobuzConnectionException} If anything goes wrong
      * 
@@ -131,10 +131,10 @@ public class QobuzConnection {
     private InputStream getAnswer(URL url) throws QobuzConnectionException {
 
         try {
-            
+           
             System.out.println("Hitting url: " + url.toString());
             
-            urlc = (HttpURLConnection) url.openConnection();
+            HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
 
             urlc.setUseCaches(false);
             urlc.setRequestMethod("GET");
@@ -145,41 +145,41 @@ public class QobuzConnection {
 
             int statusCode = urlc.getResponseCode();
             String em;
-            switch (statusCode)
-            {
-	      	case HttpStatus.SC_OK:
-                            InputStream out = urlc.getInputStream();
-                            if ("gzip".equals(urlc.getContentEncoding())) {
-                                 out = new GZIPInputStream(out);
-                            }
+            switch (statusCode) {
+				case HttpStatus.SC_OK:
+								InputStream out = urlc.getInputStream();
+								if ("gzip".equals(urlc.getContentEncoding())) {
+									 out = new GZIPInputStream(out);
+								}
+								
+								return out;
 
-                            return out;
- 
-	      	case HttpStatus.SC_NOT_FOUND:
-	      		em = "ERROR: web service returned " + statusCode + "', response was: " + urlc.getResponseMessage();
-                                 throw new ResourceNotFoundException(em);
-	      		
-	      	case HttpStatus.SC_BAD_REQUEST:
-                                 em = "ERROR: web service returned " + statusCode + "', response was: " + urlc.getResponseMessage();
-	      		throw new RequestException(em);
-	      		
-	      	case HttpStatus.SC_FORBIDDEN:
-	      		em = "ERROR: web service returned " + statusCode + "', response was: " + urlc.getResponseMessage();
-	      		throw new AuthorizationException(em);
-	      		
-	      	case HttpStatus.SC_UNAUTHORIZED:
-	      		em = "ERROR: web service returned " + statusCode + "', response was: " + urlc.getResponseMessage();
-	      		throw new AuthorizationException(em);
-	      		
-	      	default:
-	      		em = "ERROR: web service returned unknown status '" + statusCode + "', response was: " + urlc.getResponseMessage();
-	      		log.severe(em);
-	      		throw new QobuzConnectionException(em);
-	      }
+				case HttpStatus.SC_NOT_FOUND:
+					em = "ERROR: web service returned " + statusCode + "', response was: " + urlc.getResponseMessage();
+									 throw new ResourceNotFoundException(em);
+
+				case HttpStatus.SC_BAD_REQUEST:
+									 em = "ERROR: web service returned " + statusCode + "', response was: " + urlc.getResponseMessage();
+					throw new RequestException(em);
+
+				case HttpStatus.SC_FORBIDDEN:
+					em = "ERROR: web service returned " + statusCode + "', response was: " + urlc.getResponseMessage();
+					throw new AuthorizationException(em);
+
+				case HttpStatus.SC_UNAUTHORIZED:
+					em = "ERROR: web service returned " + statusCode + "', response was: " + urlc.getResponseMessage();
+					throw new AuthorizationException(em);
+
+				default:
+					em = "ERROR: web service returned unknown status '" + statusCode + "', response was: " + urlc.getResponseMessage();
+					log.severe(em);
+					throw new QobuzConnectionException(em);
+			}
+
         } catch (IOException e) {
             throw new QobuzConnectionException("ERROR: web service returned unknown status, response was: " +e.getMessage(), e);
             
-        }
+        } 
     }
     /*
     public String getDataAsString(URL url,QobuzOAuthCredentials credentials) throws QobuzConnectionException {
@@ -237,5 +237,5 @@ public class QobuzConnection {
         }
     }
 */
-    
+
 }

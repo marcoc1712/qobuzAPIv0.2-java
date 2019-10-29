@@ -20,8 +20,8 @@
 
 package com.mc2.qobuz.api.v02.query;
 
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import com.mc2.qobuz.api.v02.elements.Label;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.elements.LabelFromApi;
 
 public class LabelGet extends QobuzObjectQuery {
     
@@ -73,8 +73,8 @@ public class LabelGet extends QobuzObjectQuery {
         return urlStr;
     }
     
-    public Label getLabel() throws QobuzAPIException{
+    public LabelFromApi getLabel() throws QobuzAPIException{
          
-         return new Label(super.getObject());
+         return new LabelFromApi(super.getObject());
     }
 }

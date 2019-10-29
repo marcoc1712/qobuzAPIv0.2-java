@@ -23,7 +23,7 @@ package test.units;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
-import com.mc2.qobuz.api.v02.QobuzController;
+import com.mc2.qobuz.api.v02.QobuzClient;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -43,7 +43,7 @@ public class DirectCallTest extends UnitTest {
         try {
                 //String urlString = QobuzController.BASEURL+"/album/get?album_id=0822189023645";
                 String urlString = "http://www.qobuz.com/api.json/0.2/album/get?album_id=0822189023645";
-                String answer =QobuzController.makeApiCall(urlString);
+                String answer =QobuzClient.makeApiCall(urlString);
                 System.out.println(answer);
 
         } catch (Exception ex) {

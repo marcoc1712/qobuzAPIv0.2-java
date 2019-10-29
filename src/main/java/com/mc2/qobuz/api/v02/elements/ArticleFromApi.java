@@ -25,23 +25,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.elements.Article;
 
 /**
  *
  * @author marco
  */
-public final class  Article extends QobuzObject  {
+public final class  ArticleFromApi extends QobuzObjectFromApi implements Article  {
 
-    public static final String ID = "id";
-    public static final String PRICE = "price";
-    public static final String DESCRIPTION = "description";
-    public static final String LABEL = "label";
-    public static final String TYPE = "type";
-    public static final String URL = "url";
-    public static final String CURRENCY = "currency";
-    public static final String PROMOTION = "promotion";
-    
     private Long id;
     private Double price;
     private String description;
@@ -49,13 +41,13 @@ public final class  Article extends QobuzObject  {
     private String type;
     private String url;
     private String currency;
-    private Promotion promotion;
+    private PromotionFromApi promotion;
     
-     public Article() {
+     public ArticleFromApi() {
         super();
     }
 
-    public Article (JSONObject jsonObject)throws QobuzAPIException {
+    public ArticleFromApi (JSONObject jsonObject)throws QobuzAPIException {
         super(jsonObject);
          
         KeyList.add(ID);
@@ -103,7 +95,7 @@ public final class  Article extends QobuzObject  {
                 
                 promotion = jsonObject.has(PROMOTION) ? 
                         jsonObject.isNull(PROMOTION) ? 
-                            null : new Promotion(jsonObject.getJSONObject(PROMOTION)) : null;
+                            null : new PromotionFromApi(jsonObject.getJSONObject(PROMOTION)) : null;
                 
                 
             } catch (JSONException ex) {
@@ -114,6 +106,7 @@ public final class  Article extends QobuzObject  {
     /**
      * @return the id
      */
+	@Override
     public Long getId() {
         return id;
     }
@@ -121,6 +114,7 @@ public final class  Article extends QobuzObject  {
     /**
      * @return the price
      */
+	@Override
     public Double getPrice() {
         return price;
     }
@@ -128,6 +122,7 @@ public final class  Article extends QobuzObject  {
     /**
      * @return the description
      */
+	@Override
     public String getDescription() {
         return description;
     }
@@ -135,6 +130,7 @@ public final class  Article extends QobuzObject  {
     /**
      * @return the label
      */
+	@Override
     public String getLabel() {
         return label;
     }
@@ -142,6 +138,7 @@ public final class  Article extends QobuzObject  {
     /**
      * @return the type
      */
+	@Override
     public String getType() {
         return type;
     }
@@ -149,6 +146,7 @@ public final class  Article extends QobuzObject  {
     /**
      * @return the url
      */
+	@Override
     public String getUrl() {
         return url;
     }
@@ -156,6 +154,7 @@ public final class  Article extends QobuzObject  {
     /**
      * @return the currency
      */
+	@Override
     public String getCurrency() {
         return currency;
     }
@@ -163,7 +162,8 @@ public final class  Article extends QobuzObject  {
         /**
      * @return the promotion
      */
-    public Promotion getPromotion() {
+	@Override
+    public PromotionFromApi getPromotion() {
         return promotion;
     }
 }

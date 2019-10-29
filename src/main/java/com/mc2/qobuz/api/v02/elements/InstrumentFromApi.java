@@ -18,31 +18,29 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 package com.mc2.qobuz.api.v02.elements;
 
+import com.mc2.qobuz.api.v02.API.elements.Instrument;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 
 /**
  *
  * @author marco
  */
-public final class  Collection extends QobuzObject{
-    public static final String ID = "id";
-    public static final String NAME = "name";
+public final class  InstrumentFromApi extends QobuzObjectFromApi implements Instrument{
     
     private Long id;
     private String name;
     
-    public Collection() {
+    public InstrumentFromApi() {
         super();
     }
 
-    public Collection (JSONObject jsonObject)throws QobuzAPIException {
+    public InstrumentFromApi (JSONObject jsonObject)throws QobuzAPIException {
          super(jsonObject);
         
         KeyList.add(ID);
@@ -68,6 +66,7 @@ public final class  Collection extends QobuzObject{
     /**
      * @return the id
      */
+	@Override
     public Long getId() {
         return id;
     }
@@ -75,6 +74,7 @@ public final class  Collection extends QobuzObject{
     /**
      * @return the name
      */
+	@Override
     public String getName() {
         return name;
     }

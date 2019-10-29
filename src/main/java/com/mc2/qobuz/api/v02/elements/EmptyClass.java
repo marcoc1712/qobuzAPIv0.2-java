@@ -21,7 +21,7 @@
 package com.mc2.qobuz.api.v02.elements;
 
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 
 /**
  * Class tobe used for all the field that are expected to be always null, just to 
@@ -29,7 +29,7 @@ import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
  * 
  * @author marco
  */
-public final class  EmptyClass extends QobuzObject{
+public final class  EmptyClass extends QobuzObjectFromApi{
 
     public EmptyClass() {
         super();

@@ -20,8 +20,8 @@
 
 package com.mc2.qobuz.api.v02.query;
 
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import com.mc2.qobuz.api.v02.elements.Album;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.elements.AlbumFromApi;
 
 public class AlbumGet extends QobuzObjectQuery {
 
@@ -36,7 +36,9 @@ public class AlbumGet extends QobuzObjectQuery {
         getAnswer(urlStr);
 
     }
-    
+    /*
+		get a new set of tracks starting from offset.
+	*/
     public AlbumGet(String id, Long offset) throws QobuzAPIException {
         
         String urlStr = URL_GET_TEMPLATE;
@@ -51,8 +53,8 @@ public class AlbumGet extends QobuzObjectQuery {
         
     }
 
-    public Album getAlbum() throws QobuzAPIException{
+    public AlbumFromApi getAlbum() throws QobuzAPIException{
          
-         return new Album(super.getObject());
+         return new AlbumFromApi(super.getObject());
     }
 }

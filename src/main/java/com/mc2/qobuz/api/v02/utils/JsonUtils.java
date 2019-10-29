@@ -24,7 +24,7 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.elements.Image;
+import com.mc2.qobuz.api.v02.elements.ImageFromApi;
 
 /**
  *
@@ -45,7 +45,7 @@ public class JsonUtils {
                                 new URL(jsonObject.getString(field)) : 
                         null;
         } catch (MalformedURLException ex) {
-            Logger.getLogger(Image.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageFromApi.class.getName()).log(Level.SEVERE, null, ex);
             out= null;
         }
         return out;

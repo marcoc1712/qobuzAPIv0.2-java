@@ -24,20 +24,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import com.mc2.qobuz.api.v02.lists.LabelList;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.lists.LabelListFromApi;
 import com.mc2.qobuz.api.v02.query.LabelListGet;
 
 /**
  *
  * @author marco
  */
-public final class LabelListResult extends QobuzObject{
+public final class LabelListResult extends QobuzObjectFromApi{
 
     public static final String LABELS = "labels";
     
     
-    private LabelList labels;
+    private LabelListFromApi labels;
     
     public LabelListResult() {
         super();
@@ -59,7 +59,7 @@ public final class LabelListResult extends QobuzObject{
         try {
                 labels = jsonObject.has(LABELS) ? 
                         jsonObject.isNull(LABELS) ? 
-                            null : new LabelList(jsonObject.getJSONObject(LABELS)) : null;
+                            null : new LabelListFromApi(jsonObject.getJSONObject(LABELS)) : null;
                 
                 
             } catch (JSONException ex) {
@@ -93,18 +93,18 @@ public final class LabelListResult extends QobuzObject{
             size = labels.getItems().size();
         } 
     }
-    public LabelList loadNextLabelsPage() throws QobuzAPIException{
+    public LabelListFromApi loadNextLabelsPage() throws QobuzAPIException{
     
         if (!isLabelListComplete()){
             
-            LabelList extra = getNexLablesPage();
+            LabelListFromApi extra = getNexLablesPage();
             
             labels.getItems().addAll(extra.getItems());
             return extra;
         }
         return null;
     }
-    private LabelList getNexLablesPage() throws QobuzAPIException{
+    private LabelListFromApi getNexLablesPage() throws QobuzAPIException{
     
         if (!isLabelListComplete()) {
             
@@ -119,7 +119,7 @@ public final class LabelListResult extends QobuzObject{
     /**
      * @return the genres
      */
-    public LabelList getLables() {
+    public LabelListFromApi getLables() {
         return labels;
     }
 }

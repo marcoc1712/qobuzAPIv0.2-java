@@ -24,9 +24,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.mc2.qobuz.api.v02.QobuzController;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import com.mc2.qobuz.api.v02.elements.Catalog;
+import com.mc2.qobuz.api.v02.QobuzClient;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.elements.CatalogFromApi;
 
 public class CatalogSearch extends QobuzObjectQuery {
     //at 2017/10/03
@@ -92,7 +92,7 @@ public class CatalogSearch extends QobuzObjectQuery {
          
          
         try {
-            String urlStr =  QobuzController.BASEURL+"/"+
+            String urlStr =  QobuzClient.BASEURL+"/"+
                     QobuzObjectQuery.ENDPOINT_CATALOG+
                     "/search?query="+URLEncoder.encode(query, "UTF-8");
             
@@ -120,9 +120,9 @@ public class CatalogSearch extends QobuzObjectQuery {
         return urlStr;
     }
     
-    public Catalog getCatalog() throws QobuzAPIException{
+    public CatalogFromApi getCatalog() throws QobuzAPIException{
          
-         return new Catalog(super.getObject());
+         return new CatalogFromApi(super.getObject());
     }
     public static String[] suggestedTypes(){
          

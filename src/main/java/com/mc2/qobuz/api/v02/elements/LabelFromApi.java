@@ -26,25 +26,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import com.mc2.qobuz.api.v02.lists.AlbumList;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.lists.AlbumListFromApi;
 import com.mc2.qobuz.api.v02.query.LabelGet;
 import com.mc2.qobuz.api.v02.utils.JsonUtils;
+import com.mc2.qobuz.api.v02.API.elements.Label;
 
 /**
  *
  * @author marco
  */
-public final class  Label extends QobuzObject{  
+public final class  LabelFromApi extends QobuzObjectFromApi implements Label{  
 
-    public static final String ID = "id";
-    public static final String SUPPLIER_ID = "supplier_id";
-    public static final String ALBUM_COUNT = "albums_count";
-    public static final String NAME = "name";
-    public static final String SLUG = "slug";
-    public static final String DESCRIPTION = "description";
-    public static final String IMAGE = "image";
-    public static final String ALBUMS = "albums";
     
     private Long id;
     private Long supplier_id;
@@ -53,13 +46,13 @@ public final class  Label extends QobuzObject{
     private String slug;
     private String description;
     private URL image;
-    private AlbumList albums;
+    private AlbumListFromApi albums;
     
-    public Label() {
+    public LabelFromApi() {
         super();
     }
 
-    public Label (JSONObject jsonObject)throws QobuzAPIException {
+    public LabelFromApi (JSONObject jsonObject)throws QobuzAPIException {
         super(jsonObject);
         
         KeyList.add(ID);
@@ -101,7 +94,7 @@ public final class  Label extends QobuzObject{
                                 
                 albums = jsonObject.has(ALBUMS) ? 
                         jsonObject.isNull(ALBUMS) ? 
-                            null : new AlbumList(jsonObject.getJSONObject(ALBUMS)) : null;
+                            null : new AlbumListFromApi(jsonObject.getJSONObject(ALBUMS)) : null;
 
             } catch (JSONException ex) {
                 System.out.println(jsonObject.toString());
@@ -109,6 +102,7 @@ public final class  Label extends QobuzObject{
                 throw new QobuzAPIException(ex.getMessage(), ex);
         }
     }
+	@Override
     public boolean isAlbumlistComplete(){
         
         if (albums == null) return true; //no album to get.
@@ -119,6 +113,7 @@ public final class  Label extends QobuzObject{
         //return (albums.getItems().size()>= albums.getTotal());
         return false;
     }
+	@Override
     public void completeAlbumList() throws QobuzAPIException{
 
         long size = 0;
@@ -136,23 +131,24 @@ public final class  Label extends QobuzObject{
             
         } 
     }
-    public AlbumList loadNextAlbumsPage() throws QobuzAPIException{
+	@Override
+    public AlbumListFromApi loadNextAlbumsPage() throws QobuzAPIException{
     
         if (!isAlbumlistComplete()){
             
-            AlbumList extra = getNexAlbumsPage();
+            AlbumListFromApi extra = getNexAlbumsPage();
             
             albums.getItems().addAll(extra.getItems());
             return extra;
         }
         return null;
     }
-    private AlbumList getNexAlbumsPage() throws QobuzAPIException{
+    private AlbumListFromApi getNexAlbumsPage() throws QobuzAPIException{
     
         if (!isAlbumlistComplete()) {
             
             LabelGet q = new LabelGet(id, (long)albums.getItems().size());
-            Label extra = q.getLabel();
+            LabelFromApi extra = q.getLabel();
             
             return extra.getAlbums();
         }
@@ -161,36 +157,42 @@ public final class  Label extends QobuzObject{
     /**
      * @return the id
      */
+	@Override
     public Long getId() {
         return id;
     }
     /**
      * @return the supplier_id
      */
+	@Override
     public Long getSupplier_id() {
         return supplier_id;
     }
     /**
      * @return the albums_count
      */
+	@Override
     public Long getAlbums_count() {
         return albums_count;
     }
     /**
      * @return the name
      */
+	@Override
     public String getName() {
         return name;
     }
     /**
      * @return the slug
      */
+	@Override
     public String getSlug() {
         return slug;
     }
         /**
      * @return the description
      */
+	@Override
     public String getDescription() {
         return description;
     }
@@ -198,6 +200,7 @@ public final class  Label extends QobuzObject{
     /**
      * @return the image
      */
+	@Override
     public URL getImage() {
         return image;
     }
@@ -205,7 +208,8 @@ public final class  Label extends QobuzObject{
     /**
      * @return the albums
      */
-    public AlbumList getAlbums() {
+	@Override
+    public AlbumListFromApi getAlbums() {
         return albums;
     }
 }

@@ -24,26 +24,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.elements.Biography;
 /**
  *
  * @author marco
  */
-public final class  Biography extends QobuzObject{
+public final class BiographyFromApi extends QobuzObjectFromApi implements Biography {
 
     
-    public static final String SUMMARY = "summary";
-    public static final String CONTENT = "content";
     
     private String summary;
     private String content;
     
-    public Biography() {
+    public BiographyFromApi() {
         super();
     }
 
-    public Biography (JSONObject jsonObject)throws QobuzAPIException {
+    public BiographyFromApi (JSONObject jsonObject)throws QobuzAPIException {
          super(jsonObject);
         
         KeyList.add(SUMMARY);
@@ -75,6 +73,7 @@ public final class  Biography extends QobuzObject{
     /**
      * @return the summary
      */
+	@Override
     public String getSummary() {
         return summary;
     }
@@ -82,6 +81,7 @@ public final class  Biography extends QobuzObject{
     /**
      * @return the content
      */
+	@Override
     public String getContent() {
         return content;
     }

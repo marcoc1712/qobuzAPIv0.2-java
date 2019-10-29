@@ -20,32 +20,43 @@
 
 package com.mc2.qobuz.api.v02.elements;
 
+import com.mc2.qobuz.api.v02.API.elements.Goody;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.utils.JsonUtils;
 
 /**
  *
  * @author marco
  */
-public final class  Period extends QobuzObject{
-    public static final String ID = "id";
-    public static final String NAME = "name";
+public final class  GoodyFromApi extends QobuzObjectFromApi implements Goody  {
+
+    
     
     private Long id;
+    private URL original_url;
+    private String description;
     private String name;
+    private Long file_format_id;
+    private URL url;
     
-    public Period() {
+     public GoodyFromApi() {
         super();
     }
 
-    public Period (JSONObject jsonObject)throws QobuzAPIException {
-         super(jsonObject);
-        
+    public GoodyFromApi (JSONObject jsonObject)throws QobuzAPIException {
+        super(jsonObject);
+         
         KeyList.add(ID);
+        KeyList.add(ORIGINAL_URL);
+        KeyList.add(DESCRIPTION);
         KeyList.add(NAME);
+        KeyList.add(FILE_FORMAT_ID);
+        KeyList.add(URL);
         
         checkJSONObject(jsonObject);
         /**
@@ -54,10 +65,21 @@ public final class  Period extends QobuzObject{
         if (jsonObject == null) {
             throw new NullPointerException();
         }
-
-        try {
+         try {
                 id = jsonObject.getLong(ID);
                 name = jsonObject.getString(NAME);
+                
+                original_url = JsonUtils.getURL(jsonObject, ORIGINAL_URL);
+                
+                description = jsonObject.has(DESCRIPTION) ? 
+                            jsonObject.isNull(DESCRIPTION) ? 
+                            null : jsonObject.getString(DESCRIPTION) : null;
+                
+                file_format_id = jsonObject.has(FILE_FORMAT_ID) ? 
+                        jsonObject.isNull(FILE_FORMAT_ID) ? 
+                            null : jsonObject.getLong(FILE_FORMAT_ID) : null;
+                
+                url = JsonUtils.getURL(jsonObject, URL);
 
             } catch (JSONException ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
@@ -67,15 +89,48 @@ public final class  Period extends QobuzObject{
     /**
      * @return the id
      */
+	@Override
     public Long getId() {
         return id;
     }
 
     /**
+     * @return the original_url
+     */
+	@Override
+    public URL getOriginal_url() {
+        return original_url;
+    }
+
+    /**
+     * @return the description
+     */
+	@Override
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * @return the name
      */
+	@Override
     public String getName() {
         return name;
     }
 
+    /**
+     * @return the file_format_id
+     */
+	@Override
+    public Long getFile_format_id() {
+        return file_format_id;
+    }
+
+    /**
+     * @return the url
+     */
+	@Override
+    public URL getUrl() {
+        return url;
+    }
 }

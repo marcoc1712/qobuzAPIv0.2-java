@@ -20,8 +20,8 @@
 
 package com.mc2.qobuz.api.v02.query;
 
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import com.mc2.qobuz.api.v02.elements.Genre;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.elements.GenreFromApi;
 
 public class GenreGet extends QobuzObjectQuery {
     
@@ -73,8 +73,8 @@ public class GenreGet extends QobuzObjectQuery {
         return urlStr;
     }
     
-    public Genre getGenre() throws QobuzAPIException{
+    public GenreFromApi getGenre() throws QobuzAPIException{
          
-         return new Genre(super.getObject());
+         return new GenreFromApi(super.getObject());
     }
 }

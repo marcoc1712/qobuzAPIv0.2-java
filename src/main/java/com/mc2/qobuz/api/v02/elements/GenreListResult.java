@@ -24,22 +24,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import com.mc2.qobuz.api.v02.lists.GenreList;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.lists.GenreListFromApi;
 import com.mc2.qobuz.api.v02.query.GenreListGet;
 
 /**
  *
  * @author marco
  */
-public final class GenreListResult extends QobuzObject{
+public final class GenreListResult extends QobuzObjectFromApi{
 
     public static final String GENRES = "genres";
     public static final String PARENT = "parent";
     
     
-    private GenreList genres;
-    private Genre parent;
+    private GenreListFromApi genres;
+    private GenreFromApi parent;
     
     public GenreListResult() {
         super();
@@ -62,11 +62,11 @@ public final class GenreListResult extends QobuzObject{
         try {
                 genres = jsonObject.has(GENRES) ? 
                         jsonObject.isNull(GENRES) ? 
-                            null : new GenreList(jsonObject.getJSONObject(GENRES)) : null;
+                            null : new GenreListFromApi(jsonObject.getJSONObject(GENRES)) : null;
                 
                 parent = jsonObject.has(PARENT) ? 
                         jsonObject.isNull(PARENT) ? 
-                            null : new Genre(jsonObject.getJSONObject(PARENT)) : null;
+                            null : new GenreFromApi(jsonObject.getJSONObject(PARENT)) : null;
                 
             } catch (JSONException ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
@@ -99,18 +99,18 @@ public final class GenreListResult extends QobuzObject{
             size = genres.getItems().size();
         } 
     }
-    public GenreList loadNextGenresPage() throws QobuzAPIException{
+    public GenreListFromApi loadNextGenresPage() throws QobuzAPIException{
     
         if (!isGenreListComplete()){
             
-            GenreList extra = getNexGenresPage();
+            GenreListFromApi extra = getNexGenresPage();
             
             genres.getItems().addAll(extra.getItems());
             return extra;
         }
         return null;
     }
-    private GenreList getNexGenresPage() throws QobuzAPIException{
+    private GenreListFromApi getNexGenresPage() throws QobuzAPIException{
     
         if (!isGenreListComplete()) {
             
@@ -127,13 +127,13 @@ public final class GenreListResult extends QobuzObject{
     /**
      * @return the genres
      */
-    public GenreList getGenres() {
+    public GenreListFromApi getGenres() {
         return genres;
     }
     /**
      * @return the parent
      */
-    public Genre getParent() {
+    public GenreFromApi getParent() {
         return parent;
     }
 

@@ -20,8 +20,8 @@
 
 package com.mc2.qobuz.api.v02.query;
 
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import com.mc2.qobuz.api.v02.elements.Track;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.elements.TrackFromApi;
 
 public class TrackGet extends QobuzObjectQuery {
     
@@ -39,8 +39,8 @@ public class TrackGet extends QobuzObjectQuery {
         getAnswer(urlStr);
     }
 
-    public Track getTrack() throws QobuzAPIException{
+    public TrackFromApi getTrack() throws QobuzAPIException{
          
-         return new Track(super.getObject());
+         return new TrackFromApi(super.getObject());
     }
 }

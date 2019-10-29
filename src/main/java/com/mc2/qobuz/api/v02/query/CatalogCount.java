@@ -24,9 +24,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.mc2.qobuz.api.v02.QobuzController;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import com.mc2.qobuz.api.v02.elements.Catalog;
+import com.mc2.qobuz.api.v02.QobuzClient;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.elements.CatalogFromApi;
 
 public class CatalogCount extends QobuzObjectQuery {
 
@@ -36,7 +36,7 @@ public class CatalogCount extends QobuzObjectQuery {
         try {
             // use an empty string to count all items.
             
-            String urlStr =  QobuzController.BASEURL+"/"+
+            String urlStr =  QobuzClient.BASEURL+"/"+
                     QobuzObjectQuery.ENDPOINT_CATALOG+
                     "/count?query="+URLEncoder.encode(query, "UTF-8");;
                     
@@ -48,8 +48,8 @@ public class CatalogCount extends QobuzObjectQuery {
 
     }
 
-    public Catalog getCatalog() throws QobuzAPIException{
+    public CatalogFromApi getCatalog() throws QobuzAPIException{
          
-         return new Catalog(super.getObject());
+         return new CatalogFromApi(super.getObject());
     }
 }

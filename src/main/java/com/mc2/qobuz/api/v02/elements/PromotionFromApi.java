@@ -20,28 +20,27 @@
 
 package com.mc2.qobuz.api.v02.elements;
 
+import com.mc2.qobuz.api.v02.API.elements.Promotion;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 
 /**
  *
  * @author marco
  */
-public final class  Promotion extends QobuzObject{
-    public static final String ID = "id";
-    public static final String ORIGINAL_PRICE = "original_price";
+public final class  PromotionFromApi extends QobuzObjectFromApi implements Promotion{
     
     private Long id;
     private Double original_price;
     
-    public Promotion() {
+    public PromotionFromApi() {
         super();
     }
 
-    public Promotion (JSONObject jsonObject)throws QobuzAPIException {
+    public PromotionFromApi (JSONObject jsonObject)throws QobuzAPIException {
          super(jsonObject);
         
         KeyList.add(ID);
@@ -70,6 +69,7 @@ public final class  Promotion extends QobuzObject{
     /**
      * @return the id
      */
+	@Override
     public Long getId() {
         return id;
     }
@@ -77,6 +77,7 @@ public final class  Promotion extends QobuzObject{
     /**
      * @return the original_price
      */
+	@Override
     public Double getOriginal_price() {
         return original_price;
     }

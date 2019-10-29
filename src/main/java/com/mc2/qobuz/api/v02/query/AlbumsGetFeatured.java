@@ -20,9 +20,9 @@
 
 package com.mc2.qobuz.api.v02.query;
 
-import com.mc2.qobuz.api.v02.QobuzController;
+import com.mc2.qobuz.api.v02.QobuzClient;
 import com.mc2.qobuz.api.v02.elements.FeaturedAlbums;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 
 public class AlbumsGetFeatured extends QobuzObjectQuery {
     
@@ -77,7 +77,7 @@ public class AlbumsGetFeatured extends QobuzObjectQuery {
    
     private String buildUrlStr(String  type){
         
-        String urlStr = QobuzController.BASEURL + "/"+QobuzObjectQuery.ENDPOINT_ALBUM+
+        String urlStr = QobuzClient.BASEURL + "/"+QobuzObjectQuery.ENDPOINT_ALBUM+
                         "/getFeatured?type="+type;
         
         return urlStr;

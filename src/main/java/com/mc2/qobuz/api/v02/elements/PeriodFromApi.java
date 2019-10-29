@@ -20,28 +20,27 @@
 
 package com.mc2.qobuz.api.v02.elements;
 
+import com.mc2.qobuz.api.v02.API.elements.Period;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 
 /**
  *
  * @author marco
  */
-public final class  Area extends QobuzObject{
-    public static final String ID = "id";
-    public static final String NAME = "name";
+public final class  PeriodFromApi extends QobuzObjectFromApi implements Period{
     
     private Long id;
     private String name;
     
-    public Area() {
+    public PeriodFromApi() {
         super();
     }
 
-    public Area (JSONObject jsonObject)throws QobuzAPIException {
+    public PeriodFromApi (JSONObject jsonObject)throws QobuzAPIException {
          super(jsonObject);
         
         KeyList.add(ID);
@@ -67,6 +66,7 @@ public final class  Area extends QobuzObject{
     /**
      * @return the id
      */
+	@Override
     public Long getId() {
         return id;
     }
@@ -74,6 +74,7 @@ public final class  Area extends QobuzObject{
     /**
      * @return the name
      */
+	@Override
     public String getName() {
         return name;
     }

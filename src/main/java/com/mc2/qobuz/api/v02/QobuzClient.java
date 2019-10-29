@@ -25,9 +25,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Logger;
 
-public final class QobuzController {
+public final class QobuzClient {
 
-    private static Logger log = Logger.getLogger(QobuzController.class.getName());
+    private static Logger log = Logger.getLogger(QobuzClient.class.getName());
     
     public static final String BASEURL = "http://www.qobuz.com/api.json/0.2";
    
@@ -49,12 +49,18 @@ public final class QobuzController {
     }
     
     public static String makeApiCall(URL url) throws QobuzConnectionException {
-
-        
-        String answer=QobuzConnection.getInstance().getDataAsString(url);
-        wait(100);
-        lastHitTime =System.currentTimeMillis();
-        return answer;
+		
+		wait(100);
+		try(QobuzConnection connection = new QobuzConnection()){
+			
+			String answer= connection.getDataAsString(url);
+			// String answer=QobuzConnection.getInstance().getDataAsString(url);
+			lastHitTime =System.currentTimeMillis();
+			return answer;
+			
+		} catch (Exception ex){
+			throw new QobuzConnectionException(ex);
+		}
     }
     
     public static String makeApiCall(String urlString) throws QobuzConnectionException {

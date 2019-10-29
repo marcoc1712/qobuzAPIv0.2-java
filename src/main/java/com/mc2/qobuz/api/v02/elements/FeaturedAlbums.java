@@ -24,19 +24,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
-import com.mc2.qobuz.api.v02.lists.AlbumList;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.lists.AlbumListFromApi;
 
 /**
  *
  * @author marco
  */
-public final class FeaturedAlbums extends QobuzObject{
+public final class FeaturedAlbums extends QobuzObjectFromApi{
 
     public static final String ALBUMS = "albums";
     
     
-    private AlbumList albums;
+    private AlbumListFromApi albums;
     
     public FeaturedAlbums() {
         super();
@@ -58,7 +58,7 @@ public final class FeaturedAlbums extends QobuzObject{
         try {
                 albums = jsonObject.has(ALBUMS) ? 
                         jsonObject.isNull(ALBUMS) ? 
-                            null : new AlbumList(jsonObject.getJSONObject(ALBUMS)) : null;
+                            null : new AlbumListFromApi(jsonObject.getJSONObject(ALBUMS)) : null;
                 
                 
             } catch (JSONException ex) {
@@ -70,7 +70,7 @@ public final class FeaturedAlbums extends QobuzObject{
     /**
      * @return the store
      */
-    public AlbumList getAlbums() {
+    public AlbumListFromApi getAlbums() {
         return albums;
     }
 

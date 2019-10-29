@@ -68,7 +68,7 @@ public class QobuzAppId {
     
     *   
     * please replace value with your own valid APP_ID:
-    */
-    public static final String APP_ID = "928179325";
+    */                                  
+    public static final String APP_ID = "942852567"; //LMS
   
 }

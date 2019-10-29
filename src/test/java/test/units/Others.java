@@ -22,18 +22,18 @@ package test.units;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.mc2.qobuz.api.v02.elements.Album;
-import com.mc2.qobuz.api.v02.elements.Catalog;
-import com.mc2.qobuz.api.v02.elements.Genre;
+import com.mc2.qobuz.api.v02.elements.AlbumFromApi;
+import com.mc2.qobuz.api.v02.elements.CatalogFromApi;
+import com.mc2.qobuz.api.v02.elements.GenreFromApi;
 import com.mc2.qobuz.api.v02.elements.GenreListResult;
-import com.mc2.qobuz.api.v02.elements.Label;
+import com.mc2.qobuz.api.v02.elements.LabelFromApi;
 import com.mc2.qobuz.api.v02.elements.LabelListResult;
-import com.mc2.qobuz.api.v02.elements.Track;
-import com.mc2.qobuz.api.v02.lists.ArtistList;
-import com.mc2.qobuz.api.v02.lists.TrackList;
-import com.mc2.qobuz.api.v02.lists.AlbumList;
-import com.mc2.qobuz.api.v02.lists.GenreList;
-import com.mc2.qobuz.api.v02.lists.LabelList;
+import com.mc2.qobuz.api.v02.elements.TrackFromApi;
+import com.mc2.qobuz.api.v02.lists.ArtistListFromApi;
+import com.mc2.qobuz.api.v02.lists.TrackListFromApi;
+import com.mc2.qobuz.api.v02.lists.AlbumListFromApi;
+import com.mc2.qobuz.api.v02.lists.GenreListFromApi;
+import com.mc2.qobuz.api.v02.lists.LabelListFromApi;
 import com.mc2.qobuz.api.v02.query.AlbumsGetFeatured;
 import com.mc2.qobuz.api.v02.query.GenreListGet;
 import com.mc2.qobuz.api.v02.query.LabelListGet;
@@ -71,7 +71,7 @@ public class Others extends UnitTest {
                 String query = "Antonio Vivaldi"; //can't use an empty string here.
                 
                 CatalogSearch q = new CatalogSearch(query, type);
-                Catalog catalog = q.getCatalog();
+                CatalogFromApi catalog = q.getCatalog();
                 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
 
@@ -83,9 +83,9 @@ public class Others extends UnitTest {
                 Long totalAlbum = (long)0;
                 Long totalTrack = (long)0;
 
-                ArtistList artists = catalog.getArtists();
-                AlbumList albums = catalog.getAlbums();
-                TrackList tracks = catalog.getTracks();
+                ArtistListFromApi artists = catalog.getArtists();
+                AlbumListFromApi albums = catalog.getAlbums();
+                TrackListFromApi tracks = catalog.getTracks();
                 
                 System.out.println( "Query ("+type+"): "+catalog.getQuery());
                 
@@ -136,7 +136,7 @@ public class Others extends UnitTest {
                     long offset= size;
                     
                     q = new CatalogSearch(query, type, offset);
-                    Catalog extra = q.getCatalog();
+                    CatalogFromApi extra = q.getCatalog();
                     
                     if (artists!= null) {
                         artists.getItems().addAll(extra.getArtists().getItems());
@@ -183,7 +183,7 @@ public class Others extends UnitTest {
 
         try {
                 LabelGet q = new LabelGet((long)151717);
-                Label label= q.getLabel();
+                LabelFromApi label= q.getLabel();
                 
 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
@@ -205,7 +205,7 @@ public class Others extends UnitTest {
         // Deprecated, but still working.
         try {
                 LabelGet q = new LabelGet((long)151717,(long)0);
-                Label label= q.getLabel();
+                LabelFromApi label= q.getLabel();
                 
                 label.completeAlbumList();
 
@@ -228,7 +228,7 @@ public class Others extends UnitTest {
         // Deprecated, but still working.
         try {
                 LabelGet q = new LabelGet((long)151717,(long)0);
-                Label label= q.getLabel();
+                LabelFromApi label= q.getLabel();
                 
 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
@@ -252,7 +252,7 @@ public class Others extends UnitTest {
                     
                     System.out.println("= "+page+" =");
                     
-                    AlbumList extra = label.loadNextAlbumsPage();
+                    AlbumListFromApi extra = label.loadNextAlbumsPage();
                     stop = (label.getAlbums().getItems().size() == size); 
                     size = label.getAlbums().getItems().size();
                     
@@ -277,7 +277,7 @@ public class Others extends UnitTest {
                 
                 result.completeLabelsList();
 
-                LabelList labels = result.getLables();
+                LabelListFromApi labels = result.getLables();
                 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
                 
@@ -300,7 +300,7 @@ public class Others extends UnitTest {
                 LabelListGet q = new LabelListGet();
                 LabelListResult result = q.getLabelListResult();
                 
-                LabelList labels = result.getLables();
+                LabelListFromApi labels = result.getLables();
                 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
                 
@@ -326,7 +326,7 @@ public class Others extends UnitTest {
                     
                     System.out.println("= "+page+" =");
                     
-                    LabelList extra  = result.loadNextLabelsPage();
+                    LabelListFromApi extra  = result.loadNextLabelsPage();
                     stop = (labels.getItems().size() == size || labels.getItems().size() > limit); 
                     size = labels.getItems().size();
                     
@@ -346,7 +346,7 @@ public class Others extends UnitTest {
 
         try {
                 GenreGet q = new GenreGet((long)22);
-                Genre genre= q.getGenre();
+                GenreFromApi genre= q.getGenre();
 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
                 
@@ -367,7 +367,7 @@ public class Others extends UnitTest {
         // Deprecated, not working anymore.
         try {
                 GenreGet q = new GenreGet((long)22,(long)0);
-                Genre genre= q.getGenre();
+                GenreFromApi genre= q.getGenre();
                 
                 genre.completeAlbumList();
 
@@ -396,8 +396,8 @@ public class Others extends UnitTest {
                 
                 result.completeGenresList();
                 
-                Genre parent = result.getParent();
-                GenreList genres = result.getGenres();
+                GenreFromApi parent = result.getParent();
+                GenreListFromApi genres = result.getGenres();
                 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
                 
@@ -423,8 +423,8 @@ public class Others extends UnitTest {
                 GenreListGet q = new GenreListGet(genre);
                 GenreListResult result = q.getGenreListResult();
                 
-                Genre parent = result.getParent();
-                GenreList genres = result.getGenres();
+                GenreFromApi parent = result.getParent();
+                GenreListFromApi genres = result.getGenres();
                 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
                 
@@ -449,7 +449,7 @@ public class Others extends UnitTest {
                     
                     System.out.println("= "+page+" =");
                     
-                    GenreList extra = result.loadNextGenresPage();
+                    GenreListFromApi extra = result.loadNextGenresPage();
                     stop = (genres.getItems().size() == size); 
                     size = genres.getItems().size();
                     
@@ -477,7 +477,7 @@ public class Others extends UnitTest {
                 Long genreId = (long)27;
       
                 AlbumsGetFeatured q = new AlbumsGetFeatured(type, genreId);
-                AlbumList featuredAlbums = q.getFeaturedAlbumResult().getAlbums();
+                AlbumListFromApi featuredAlbums = q.getFeaturedAlbumResult().getAlbums();
                 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
                 
@@ -501,7 +501,7 @@ public class Others extends UnitTest {
                     System.out.println("= "+page+" =");
                     
                     q = new AlbumsGetFeatured(type, genreId,(long)featuredAlbums.getItems().size());
-                    AlbumList extra = q.getFeaturedAlbumResult().getAlbums();
+                    AlbumListFromApi extra = q.getFeaturedAlbumResult().getAlbums();
                     featuredAlbums.getItems().addAll(extra.getItems());
                     stop = (featuredAlbums.getItems().size() == size); 
                     size = featuredAlbums.getItems().size();
@@ -523,7 +523,7 @@ public class Others extends UnitTest {
 
         try {
                 AlbumGet q = new AlbumGet("0822189023645");
-                Album album = q.getAlbum();
+                AlbumFromApi album = q.getAlbum();
                 album.completeTrackList();
                 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
@@ -545,7 +545,7 @@ public class Others extends UnitTest {
 
         try {
                 TrackGet q = new TrackGet((long)34520243);
-                Track track = q.getTrack();
+                TrackFromApi track = q.getTrack();
                                 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
                 

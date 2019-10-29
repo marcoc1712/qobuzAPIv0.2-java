@@ -20,9 +20,9 @@
 
 package com.mc2.qobuz.api.v02.query;
 
-import com.mc2.qobuz.api.v02.QobuzController;
+import com.mc2.qobuz.api.v02.QobuzClient;
 import com.mc2.qobuz.api.v02.exceptions.QobuzConnectionException;
-import com.mc2.qobuz.api.v02.exceptions.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 
 import java.net.URL;
 import java.util.logging.Level;
@@ -32,7 +32,7 @@ import org.json.JSONObject;
 
 public class QobuzObjectQuery {
     
-    static final String URL_GET_TEMPLATE = QobuzController.BASEURL + "/[ENDPOINT]/get?[ENDPOINT]_id=[ID]";
+    static final String URL_GET_TEMPLATE = QobuzClient.BASEURL + "/[ENDPOINT]/get?[ENDPOINT]_id=[ID]";
     
     public static final String ENDPOINT_ALBUM = "album";
     public static final String ENDPOINT_ARTICLE = "article";
@@ -49,23 +49,23 @@ public class QobuzObjectQuery {
         
     }
    
-    public JSONObject getObject(){
+    protected JSONObject getObject(){
         return data;
     }
     
     protected final void getAnswer(final String urlStr) throws QobuzAPIException{
-        data= getAnswer2(QobuzController.getUrl(urlStr));
+        data= getAnswerAsJSONObject(QobuzClient.getUrl(urlStr));
     }
     protected final void getAnswer(final URL url) throws QobuzAPIException{
-        data= getAnswer2(url);
+        data= getAnswerAsJSONObject(url);
     }
     
-    private JSONObject getAnswer2(final URL url) throws QobuzAPIException {
+    private JSONObject getAnswerAsJSONObject(final URL url) throws QobuzAPIException {
         
         String answer="{error: 'empty answer'}"; 
         JSONObject jsonObject = new JSONObject(answer);
         try {
-            answer =QobuzController.makeApiCall(url);
+            answer =QobuzClient.makeApiCall(url);
             if (answer == null)return jsonObject;
             if (answer.isEmpty())return jsonObject;
             
@@ -75,12 +75,12 @@ public class QobuzObjectQuery {
         }catch (QobuzConnectionException ex) {
                 Logger.getLogger(QobuzObjectQuery.class.getName()).log(Level.SEVERE, null, ex);
                 //throw new QobuzConnectionException(ex.getMessage(), ex);
-                System.out.println(" *** ERROR : QobuzObjectQuery.getAnswer2 QobuzConnectionException Answer: "+answer);
+                System.out.println(" *** ERROR : QobuzObjectQuery.getAnswerAsJSONObject QobuzConnectionException Answer: "+answer);
                return new JSONObject("{error: "+ex.getMessage()+"}");
         }catch (org.json.JSONException ex) {
                 Logger.getLogger(QobuzObjectQuery.class.getName()).log(Level.SEVERE, null, ex+answer);
                 //throw new QobuzAPIException(ex.getMessage(), ex);
-                System.out.println(" *** ERROR : QobuzObjectQuery.getAnswer2 JSONException Answer: "+answer);
+                System.out.println(" *** ERROR : QobuzObjectQuery.getAnswerAsJSONObject JSONException Answer: "+answer);
                 return new JSONObject("{error: "+ex.getMessage()+"}");
         }
     }

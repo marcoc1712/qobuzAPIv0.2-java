@@ -45,12 +45,23 @@ public class QobuzConnection  implements AutoCloseable {
     private static Logger log = Logger.getLogger(QobuzConnection.class.getName());
 
 	public static final String contentType = "application/x-www-form-urlencoded";
-    public static final String userAgent = "QobuzAPIv0.2-java (marcoc1712@gmail.com)";
+    
     public static final String acceptEncoding = "gzip";
     public static final String protocol = "http://";
-    public static final String apiKey = "AskQobuzForYourApiKey"; 
+	
+	public String userAgent = QobuzAppId.USER_AGENT;
+    public String apiKey = QobuzAppId.APP_ID;
 
     public QobuzConnection() {
+		
+		/*
+		A way to set a valid API_KEY, i.e for testing purpose
+		*/
+		String key = System.getenv("QOBUZ_API_KEY");
+		if (key != null) {this.apiKey = key;}
+		
+		String agent = System.getenv("QOBUZ_USER_AGENT");
+		if (agent != null) {this.userAgent = agent;}
 		
     }
 	
@@ -118,7 +129,8 @@ public class QobuzConnection  implements AutoCloseable {
 			System.out.println("Hitting url: " + url.toString());
 
 			HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
-
+			
+			
 			urlc.setUseCaches(false);
 			urlc.setRequestMethod("GET");
 			urlc.setRequestProperty("Content-Type", contentType);

@@ -20,9 +20,6 @@
 
 package test.units;
 
-import com.mc2.qobuz.api.v02.API.lists.AlbumList;
-import com.mc2.qobuz.api.v02.API.lists.ArtistList;
-import com.mc2.qobuz.api.v02.API.lists.TrackList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.mc2.qobuz.api.v02.elements.CatalogFromApi;

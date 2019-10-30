@@ -20,6 +20,8 @@
 
 package test.units;
 
+import com.mc2.qobuz.api.v02.API.elements.Album;
+import com.mc2.qobuz.api.v02.API.lists.AlbumList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.mc2.qobuz.api.v02.elements.AlbumFromApi;
@@ -42,6 +44,7 @@ import com.mc2.qobuz.api.v02.query.GenreGet;
 import com.mc2.qobuz.api.v02.query.LabelGet;
 import com.mc2.qobuz.api.v02.query.TrackGet;
 import com.mc2.qobuz.api.v02.query.CatalogSearch;
+import java.util.ArrayList;
 import org.junit.Test;
 
 import test.utils.TestUtils;
@@ -477,7 +480,7 @@ public class Others extends UnitTest {
                 Long genreId = (long)27;
       
                 AlbumsGetFeatured q = new AlbumsGetFeatured(type, genreId);
-                AlbumListFromApi featuredAlbums = q.getFeaturedAlbumResult().getAlbums();
+                AlbumList featuredAlbums = q.getFeaturedAlbumResult().getAlbums();
                 
                 //System.setOut(new PrintStream(System.out, true, "utf-8"));
                 
@@ -501,8 +504,12 @@ public class Others extends UnitTest {
                     System.out.println("= "+page+" =");
                     
                     q = new AlbumsGetFeatured(type, genreId,(long)featuredAlbums.getItems().size());
-                    AlbumListFromApi extra = q.getFeaturedAlbumResult().getAlbums();
-                    featuredAlbums.getItems().addAll(extra.getItems());
+                    AlbumList extra = q.getFeaturedAlbumResult().getAlbums();
+					
+					ArrayList<Album> a = (ArrayList<Album>)featuredAlbums.getItems();
+					ArrayList<Album> b = (ArrayList<Album>)extra.getItems();
+					a.addAll(b);
+
                     stop = (featuredAlbums.getItems().size() == size); 
                     size = featuredAlbums.getItems().size();
                     

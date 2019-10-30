@@ -22,7 +22,7 @@ package test.units;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
-import com.mc2.qobuz.api.v02.elements.SimilarArtists;
+import com.mc2.qobuz.api.v02.elements.SimilarArtistsFromApi;
 import com.mc2.qobuz.api.v02.lists.ArtistListFromApi;
 import com.mc2.qobuz.api.v02.query.ArtistGetSimilar;
 import test.utils.TestUtils;
@@ -39,7 +39,7 @@ public class SimilarArtistGetTest {
         try {
                 Long artist =  (long)720;
                 ArtistGetSimilar q = new ArtistGetSimilar(artist,(long)0);
-                SimilarArtists similarArtists = q.getSimilaArtist();
+                SimilarArtistsFromApi similarArtists = q.getSimilaArtist();
                 
                 ArtistListFromApi artists = similarArtists.getArtists();
                 

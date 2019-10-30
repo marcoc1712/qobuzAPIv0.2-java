@@ -21,12 +21,13 @@
 package com.mc2.qobuz.api.v02.query;
 
 import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.QobuzApiController;
 import com.mc2.qobuz.api.v02.elements.ArtistFromApi;
 
 public class ArtistGet extends QobuzObjectQuery {
     
-    public static final String EXTRA_ALBUMS = "extra=albums";
-    public static final String EXTRA_TRACKS = "extra=tracks";
+    public static final String EXTRA_ALBUMS = QobuzApiController.EXTRA_ALBUMS;
+    public static final String EXTRA_TRACKS = QobuzApiController.EXTRA_TRACKS;
     
     public ArtistGet(String urlStr) throws QobuzAPIException{
         getAnswer(urlStr);

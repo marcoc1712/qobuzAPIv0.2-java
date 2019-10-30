@@ -20,12 +20,13 @@
 
 package test.units;
 
+import com.mc2.qobuz.api.v02.API.elements.Album;
+import com.mc2.qobuz.api.v02.API.elements.FeaturedAlbums;
+import com.mc2.qobuz.api.v02.API.lists.AlbumList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.mc2.qobuz.api.v02.elements.AlbumFromApi;
-import com.mc2.qobuz.api.v02.elements.FeaturedAlbums;
-import com.mc2.qobuz.api.v02.lists.AlbumListFromApi;
 import com.mc2.qobuz.api.v02.query.AlbumsGetFeatured;
+import java.util.ArrayList;
 
 
 /**
@@ -67,7 +68,7 @@ public class AlbumFeaturedTest extends UnitTest {
                 System.out.println("= ALBUM FEATURED: "+type +" - "+genre);
                
             
-                AlbumListFromApi albums = featuredAlbums.getAlbums();
+                AlbumList albums = featuredAlbums.getAlbums();
                 if (albums == null){
                     System.out.println("");
                     System.out.println("= NULL =");
@@ -112,7 +113,11 @@ public class AlbumFeaturedTest extends UnitTest {
                     FeaturedAlbums extra = q.getFeaturedAlbumResult();
 
                     if (albums!= null && albums.getItems().size() > 0) {
-                       albums.getItems().addAll(extra.getAlbums().getItems());
+						
+						ArrayList<Album> a = (ArrayList<Album>)albums.getItems();
+						ArrayList<Album> b = (ArrayList<Album>)extra.getAlbums().getItems();
+						a.addAll(b);
+						
                        System.out.println( "- ALBUMS: ");
                        
                        //TestUtils.printAlbumList(extra.getAlbums(),"   ", false);
@@ -131,7 +136,7 @@ public class AlbumFeaturedTest extends UnitTest {
                 
                 System.out.println("======================================================================");
                 
-                for  (AlbumFromApi album : albums.getItems()){
+                for  (Album album : albums.getItems()){
                 
                         System.out.println(album.getId()+" - "+album.getTitle());
                 }

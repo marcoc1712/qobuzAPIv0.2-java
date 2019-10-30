@@ -48,34 +48,17 @@ public class QobuzConnection  implements AutoCloseable {
     public static final String userAgent = "QobuzAPIv0.2-java (marcoc1712@gmail.com)";
     public static final String acceptEncoding = "gzip";
     public static final String protocol = "http://";
-    public static final String applicationId = QobuzAppId.APP_ID;
-    
+    public static final String apiKey = "AskQobuzForYourApiKey"; 
 
     public QobuzConnection() {
-		/*
-		HttpClientParams params = httpClient.getParams();
 		
-        //HttpConnectionParams.setConnectionTimeout(params, 60000);
-       // HttpConnectionParams.setSoTimeout(params, 60000);
-		
-		params.setParameter(HttpClientParams.CONNECTION_MANAGER_TIMEOUT, 60000);
-		params.setParameter(HttpClientParams.SO_TIMEOUT, 60000);
-		params.setParameter(HttpClientParams.HTTP_CONTENT_CHARSET, "UTF-8");
-		*/
     }
 	
 	@Override
 	public void close() throws Exception {
 		
 	}
-	/*
-    public static QobuzConnection getInstance() {
-        if (_instance == null)
-            _instance = new QobuzConnection();
 
-        return _instance;
-    }
-	*/
     /**
      * Gets data from URL as String throws {@link QobuzConnectionException} If anything goes wrong
      * 
@@ -131,27 +114,27 @@ public class QobuzConnection  implements AutoCloseable {
     private InputStream getAnswer(URL url) throws QobuzConnectionException {
 
         try {
-           
-            System.out.println("Hitting url: " + url.toString());
-            
-            HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
+						
+			System.out.println("Hitting url: " + url.toString());
 
-            urlc.setUseCaches(false);
-            urlc.setRequestMethod("GET");
-            urlc.setRequestProperty("Content-Type", contentType);
-            urlc.setRequestProperty("User-Agent", userAgent);
-            urlc.setRequestProperty("Accept-Encoding", acceptEncoding);
-            urlc.setRequestProperty("X-App-Id", applicationId);
+			HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
 
-            int statusCode = urlc.getResponseCode();
-            String em;
-            switch (statusCode) {
+			urlc.setUseCaches(false);
+			urlc.setRequestMethod("GET");
+			urlc.setRequestProperty("Content-Type", contentType);
+			urlc.setRequestProperty("User-Agent", userAgent);
+			urlc.setRequestProperty("Accept-Encoding", acceptEncoding);
+			urlc.setRequestProperty("X-App-Id", apiKey);
+
+			int statusCode = urlc.getResponseCode();
+			String em;
+			switch (statusCode) {
 				case HttpStatus.SC_OK:
 								InputStream out = urlc.getInputStream();
 								if ("gzip".equals(urlc.getContentEncoding())) {
 									 out = new GZIPInputStream(out);
 								}
-								
+
 								return out;
 
 				case HttpStatus.SC_NOT_FOUND:
@@ -175,7 +158,7 @@ public class QobuzConnection  implements AutoCloseable {
 					log.severe(em);
 					throw new QobuzConnectionException(em);
 			}
-
+			
         } catch (IOException e) {
             throw new QobuzConnectionException("ERROR: web service returned unknown status, response was: " +e.getMessage(), e);
             

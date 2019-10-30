@@ -20,6 +20,7 @@
 
 package test.units;
 
+import com.mc2.qobuz.api.v02.QobuzApiController;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
@@ -39,14 +40,15 @@ public class AlbumGetTest extends UnitTest {
     public void getAlbum() {
 
         try {
-                // AlbumGet q = new AlbumGet("0822189023645");
+                
+				// AlbumGet q = new AlbumGet("0822189023645");
 				//AlbumGet q = new AlbumGet("jy9sowqah8x9a"); // wirh description
 				// AlbumGet q = new AlbumGet("zcyp7kgzkrl3b"); //tracks with work NOT in title
 				//AlbumGet q = new AlbumGet("3760014193255"); //tracks with work in title	
 				//AlbumGet q = new AlbumGet("0002894135532"); // many performers
 				//AlbumGet q = new AlbumGet("swlavp7wrhd6a"); // many aeards
+								
 				AlbumGet q = new AlbumGet("vqcu1hk7a3vlc"); //double work in track title
-				
                 AlbumFromApi album = q.getAlbum();
                 album.completeTrackList();
                 

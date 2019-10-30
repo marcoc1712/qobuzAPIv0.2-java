@@ -21,38 +21,14 @@
 package com.mc2.qobuz.api.v02.query;
 
 import com.mc2.qobuz.api.v02.QobuzClient;
-import com.mc2.qobuz.api.v02.elements.FeaturedAlbums;
+import com.mc2.qobuz.api.v02.elements.FeaturedAlbumsFromApi;
 import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.QobuzApiController;
+import com.mc2.qobuz.api.v02.API.elements.FeaturedAlbums;
 
 public class AlbumsGetFeatured extends QobuzObjectQuery {
-    
-	
-	
-    //at 2017/10/03
-    public static final String[] TYPES = {  
-                                            "new-releases", 
-                                            "press-awards", 
-                                            "editor-picks", 
-                                            
-                                            "ideal-discography", 
-                                            "qobuzissims",
-                                            
-                                            "most-featured", 
-                                            "most-streamed", 
-                                            "best-sellers", 
 
-                                            "harmonia-mundi", 
-                                            "universal-classic", 
-                                            "universal-jazz", 
-                                            "universal-jeunesse", 
-                                            "universal-chanson", 
-                                            
-                                            "new-releases-full", 
-                                            "recent-releases", 
-                                            
-                                            
-                                            
-    };
+    public static final String[] TYPES = QobuzApiController.FEATURED_ALBUM_TYPES;
 
     public AlbumsGetFeatured(String  type) throws QobuzAPIException{
         
@@ -110,7 +86,7 @@ public class AlbumsGetFeatured extends QobuzObjectQuery {
     
     public FeaturedAlbums getFeaturedAlbumResult() throws QobuzAPIException{
          
-         return new FeaturedAlbums(super.getObject());
+         return new FeaturedAlbumsFromApi(super.getObject());
     }
     
     public static String[] suggestedTypes(){

@@ -22,9 +22,8 @@ package test.units;
 import com.mc2.qobuz.api.v02.API.lists.TrackList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.junit.Test;
 import com.mc2.qobuz.api.v02.elements.ArtistFromApi;
-import com.mc2.qobuz.api.v02.elements.SimilarArtists;
+import com.mc2.qobuz.api.v02.elements.SimilarArtistsFromApi;
 import com.mc2.qobuz.api.v02.lists.AlbumListFromApi;
 import com.mc2.qobuz.api.v02.lists.ArtistListFromApi;
 import com.mc2.qobuz.api.v02.lists.TrackListFromApi;
@@ -49,7 +48,7 @@ public class ArtistGetTest {
             ArtistFromApi artist= q.getArtist();
             
             ArtistGetSimilar artistGetSimilar = new ArtistGetSimilar(artist.getId(),(long)0);
-            SimilarArtists similarArtists = artistGetSimilar.getSimilaArtist();
+            SimilarArtistsFromApi similarArtists = artistGetSimilar.getSimilaArtist();
             ArtistListFromApi similarArtistList = similarArtists.getArtists();
             
             ArtistGet artistAlbumsQuery = new ArtistGet((long)720, ArtistGet.EXTRA_ALBUMS,(long)0);

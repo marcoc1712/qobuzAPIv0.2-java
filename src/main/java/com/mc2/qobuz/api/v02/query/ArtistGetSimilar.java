@@ -22,7 +22,7 @@ package com.mc2.qobuz.api.v02.query;
 
 import com.mc2.qobuz.api.v02.QobuzClient;
 import com.mc2.qobuz.api.v02.API.QobuzAPIException;
-import com.mc2.qobuz.api.v02.elements.SimilarArtists;
+import com.mc2.qobuz.api.v02.elements.SimilarArtistsFromApi;
 
 public class ArtistGetSimilar extends QobuzObjectQuery {
     
@@ -71,8 +71,8 @@ public class ArtistGetSimilar extends QobuzObjectQuery {
         return urlStr;
     }
     
-    public SimilarArtists getSimilaArtist() throws QobuzAPIException{
+    public SimilarArtistsFromApi getSimilaArtist() throws QobuzAPIException{
          
-         return new SimilarArtists(super.getObject());
+         return new SimilarArtistsFromApi(super.getObject());
     }
 }

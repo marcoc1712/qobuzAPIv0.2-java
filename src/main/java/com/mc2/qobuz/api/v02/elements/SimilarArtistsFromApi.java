@@ -20,6 +20,7 @@
 
 package com.mc2.qobuz.api.v02.elements;
 
+import com.mc2.qobuz.api.v02.API.elements.SimilarArtists;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
@@ -31,18 +32,17 @@ import com.mc2.qobuz.api.v02.lists.ArtistListFromApi;
  *
  * @author marco
  */
-public final class SimilarArtists extends QobuzObjectFromApi{
+public final class SimilarArtistsFromApi extends QobuzObjectFromApi implements SimilarArtists{
 
-    public static final String ARTISTS = "artists";
     
     
     private ArtistListFromApi artists;
     
-    public SimilarArtists() {
+    public SimilarArtistsFromApi() {
         super();
     }
 
-    public SimilarArtists (JSONObject jsonObject)throws QobuzAPIException {
+    public SimilarArtistsFromApi (JSONObject jsonObject)throws QobuzAPIException {
         super(jsonObject);
         
         KeyList.add(ARTISTS);
@@ -70,6 +70,7 @@ public final class SimilarArtists extends QobuzObjectFromApi{
     /**
      * @return the store
      */
+	@Override
     public ArtistListFromApi getArtists() {
         return artists;
     }

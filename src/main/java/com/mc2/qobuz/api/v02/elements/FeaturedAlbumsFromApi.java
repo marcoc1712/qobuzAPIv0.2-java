@@ -20,6 +20,7 @@
 
 package com.mc2.qobuz.api.v02.elements;
 
+import com.mc2.qobuz.api.v02.API.elements.FeaturedAlbums;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
@@ -31,18 +32,17 @@ import com.mc2.qobuz.api.v02.lists.AlbumListFromApi;
  *
  * @author marco
  */
-public final class FeaturedAlbums extends QobuzObjectFromApi{
+public final class FeaturedAlbumsFromApi extends QobuzObjectFromApi implements FeaturedAlbums{
 
-    public static final String ALBUMS = "albums";
     
     
     private AlbumListFromApi albums;
     
-    public FeaturedAlbums() {
+    public FeaturedAlbumsFromApi() {
         super();
     }
 
-    public FeaturedAlbums (JSONObject jsonObject)throws QobuzAPIException {
+    public FeaturedAlbumsFromApi (JSONObject jsonObject)throws QobuzAPIException {
         super(jsonObject);
         
         KeyList.add(ALBUMS);
@@ -70,6 +70,7 @@ public final class FeaturedAlbums extends QobuzObjectFromApi{
     /**
      * @return the store
      */
+	@Override
     public AlbumListFromApi getAlbums() {
         return albums;
     }

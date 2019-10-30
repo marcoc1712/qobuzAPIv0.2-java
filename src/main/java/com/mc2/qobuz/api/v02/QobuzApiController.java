@@ -21,7 +21,20 @@ package com.mc2.qobuz.api.v02;
 
 import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 import com.mc2.qobuz.api.v02.API.elements.Album;
+import com.mc2.qobuz.api.v02.API.elements.Artist;
+import com.mc2.qobuz.api.v02.API.elements.Catalog;
+import com.mc2.qobuz.api.v02.API.elements.FeaturedAlbums;
+import com.mc2.qobuz.api.v02.API.elements.SimilarArtists;
+import com.mc2.qobuz.api.v02.API.elements.Track;
+import com.mc2.qobuz.api.v02.API.lists.GenreList;
+import com.mc2.qobuz.api.v02.elements.GenreListResult;
 import com.mc2.qobuz.api.v02.query.AlbumGet;
+import com.mc2.qobuz.api.v02.query.AlbumsGetFeatured;
+import com.mc2.qobuz.api.v02.query.ArtistGet;
+import com.mc2.qobuz.api.v02.query.ArtistGetSimilar;
+import com.mc2.qobuz.api.v02.query.CatalogSearch;
+import com.mc2.qobuz.api.v02.query.GenreListGet;
+import com.mc2.qobuz.api.v02.query.TrackGet;
 import java.util.logging.Logger;
 
 /**
@@ -31,6 +44,7 @@ import java.util.logging.Logger;
 public class QobuzApiController implements com.mc2.qobuz.api.v02.API.QobuzApiController {
 	
 	private static Logger logger = Logger.getLogger(QobuzApiController.class.getName());
+	protected String applicationId;
 
 	private static class LazyHolder {
         static final QobuzApiController INSTANCE = new QobuzApiController();
@@ -41,8 +55,28 @@ public class QobuzApiController implements com.mc2.qobuz.api.v02.API.QobuzApiCon
     }
 	
     private QobuzApiController() {
-		
     }
+	
+	@Override
+	public Catalog getCatalog(String query, long offset, long limit) throws QobuzAPIException {
+		
+		CatalogSearch q = new CatalogSearch(query, offset, limit);
+		return q.getCatalog();
+	
+	}
+	@Override
+	public Artist getArtist(Long id) throws QobuzAPIException {
+		ArtistGet q = new ArtistGet(id);
+		Artist artist= q.getArtist();
+		return artist;
+	}
+	
+	@Override
+	public Artist getArtist(Long id, String extra, Long offset,  Long limit) throws QobuzAPIException {
+		ArtistGet q = new ArtistGet(id, extra, offset, limit);
+		Artist artist= q.getArtist();
+		return artist;
+	}
 	
 	@Override
 	public Album getAlbum(String albumId) throws QobuzAPIException {
@@ -50,5 +84,43 @@ public class QobuzApiController implements com.mc2.qobuz.api.v02.API.QobuzApiCon
 		Album album = q.getAlbum();
 		return album;
 	}
+	
+	@Override
+	public Track getTrack(Long id) throws QobuzAPIException{
+		
+		TrackGet q = new TrackGet(id);
+		Track track = q.getTrack();
+		return track;
+	}
+	
+	
+	@Override
+	public FeaturedAlbums getFeaturedAlbums(String type, Long genre, Long offset, Long limit) throws QobuzAPIException {
+		AlbumsGetFeatured q = new AlbumsGetFeatured(type , genre, offset, limit);
+		FeaturedAlbums featuredAlbums = q.getFeaturedAlbumResult();
+		return featuredAlbums;
+	}
+	
+	@Override
+	public SimilarArtists getSimilarArtists(Long id, Long offset, Long limit) throws QobuzAPIException{
+	
+		ArtistGetSimilar q = new ArtistGetSimilar(id , offset, limit);
+		SimilarArtists similarArtists = q.getSimilaArtist();
+		return similarArtists;
+	}
+	
+	@Override
+	public GenreList getGenreList() throws QobuzAPIException {
+		
+		GenreListGet q = new GenreListGet();
+            
+        GenreListResult result= q.getGenreListResult();  
+		if (result == null) {return null;}
+		
+		result.completeGenresList();
+		return result.getGenres();
+   
+	}
+
 	
 }

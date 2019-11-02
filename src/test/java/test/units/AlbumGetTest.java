@@ -28,7 +28,7 @@ import com.mc2.qobuz.api.v02.elements.AlbumFromApi;
 import com.mc2.qobuz.api.v02.query.AlbumGet;
 import java.io.PrintStream;
 
-import test.utils.TestUtils;
+import com.mc2.qobuz.api.v02.IMPL.TestUtils;
 
 /**
  *

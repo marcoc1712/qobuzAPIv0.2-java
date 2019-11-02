@@ -47,7 +47,7 @@ import com.mc2.qobuz.api.v02.query.CatalogSearch;
 import java.util.ArrayList;
 import org.junit.Test;
 
-import test.utils.TestUtils;
+import com.mc2.qobuz.api.v02.IMPL.TestUtils;
 
 /**
  *

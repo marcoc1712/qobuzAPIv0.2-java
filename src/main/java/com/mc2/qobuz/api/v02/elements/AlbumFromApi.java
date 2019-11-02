@@ -237,7 +237,7 @@ public final class AlbumFromApi extends QobuzObjectFromApi implements Album {
 						description = this.getString(CONTENT, (JSONObject) obj);
 						
 					}
-					rawKeyValuePair.put(CONTENT, description);
+					//rawKeyValuePair.put(DESCRIPTION, description);
 				}
 				
 				image = jsonObject.has(IMAGE) ? 
@@ -246,40 +246,40 @@ public final class AlbumFromApi extends QobuzObjectFromApi implements Album {
 							
 				if (jsonObject.has(COMPOSER)&& !jsonObject.isNull(COMPOSER)){
 					composer =  new ArtistFromApi(jsonObject.getJSONObject(COMPOSER));
-					rawKeyValuePair.put(COMPOSER, composer.getName());
+					//rawKeyValuePair.put(COMPOSER, composer.getName());
 				}
 				
 				if (jsonObject.has(ARTIST)&& !jsonObject.isNull(ARTIST)){
 					artist =  new ArtistFromApi(jsonObject.getJSONObject(ARTIST));
-					rawKeyValuePair.put(ARTIST, artist.getName());
+					//rawKeyValuePair.put(ARTIST, artist.getName());
 				}
 				
 				if (jsonObject.has(GENRE)&& !jsonObject.isNull(GENRE)){
 					genre =  new GenreFromApi(jsonObject.getJSONObject(GENRE));
-					rawKeyValuePair.put(GENRE, genre.getName());
+					//rawKeyValuePair.put(GENRE, genre.getName());
 				}
 	
 				if (jsonObject.has(COLLECTION)&& !jsonObject.isNull(COLLECTION)){
 					collection =  new CollectionFromApi(jsonObject.getJSONObject(COLLECTION));
-					rawKeyValuePair.put(COLLECTION, collection.getName());
+					//rawKeyValuePair.put(COLLECTION, collection.getName());
 				}
 				if (jsonObject.has(AREA)&& !jsonObject.isNull(AREA)){
 					area =  new AreaFromApi(jsonObject.getJSONObject(AREA));
-					rawKeyValuePair.put(AREA, area.getName());
+					//rawKeyValuePair.put(AREA, area.getName());
 				}
 				if (jsonObject.has(LABEL)&& !jsonObject.isNull(LABEL)){
 					label =  new LabelFromApi(jsonObject.getJSONObject(LABEL));
-					rawKeyValuePair.put(LABEL, label.getName());
+					//rawKeyValuePair.put(LABEL, label.getName());
 				}
 				
 				if (jsonObject.has(INSTRUMENT)&& !jsonObject.isNull(INSTRUMENT)){
 					instrument =  new InstrumentFromApi(jsonObject.getJSONObject(INSTRUMENT));
-					rawKeyValuePair.put(INSTRUMENT, instrument.getName());
+					//rawKeyValuePair.put(INSTRUMENT, instrument.getName());
 				}
 
 				if (jsonObject.has(PERIOD)&& !jsonObject.isNull(PERIOD)){
 					period =  new PeriodFromApi(jsonObject.getJSONObject(PERIOD));
-					rawKeyValuePair.put(PERIOD, period.getName());
+					//rawKeyValuePair.put(PERIOD, period.getName());
 				}
 				
 				tracks = jsonObject.has(TRACKS) ? 
@@ -291,7 +291,7 @@ public final class AlbumFromApi extends QobuzObjectFromApi implements Album {
                     for (int i = 0; i < jAwards.length(); i++) {
 						AwardFromApi award = new AwardFromApi(jAwards.getJSONObject(i));
                         awards.add(award);
-						rawKeyValuePair.put(AWARDS, award.getName());
+						//rawKeyValuePair.put(AWARDS, award.getName());
                     }
                 }
 
@@ -395,7 +395,7 @@ public final class AlbumFromApi extends QobuzObjectFromApi implements Album {
             AlbumGet q = new AlbumGet(id, (long)tracks.getItems().size());
             AlbumFromApi extra = q.getAlbum();
             
-            return extra.getTracks().getItems();
+            return extra.getTrackList().getItems();
         }
         return new ArrayList<>();
     }
@@ -774,7 +774,7 @@ public final class AlbumFromApi extends QobuzObjectFromApi implements Album {
      * @return the tracks
      */
 	@Override
-    public TrackListFromApi getTracks() {
+    public TrackListFromApi getTrackList() {
         return tracks;
     }
 	

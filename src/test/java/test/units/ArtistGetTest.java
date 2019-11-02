@@ -29,7 +29,7 @@ import com.mc2.qobuz.api.v02.lists.ArtistListFromApi;
 import com.mc2.qobuz.api.v02.lists.TrackListFromApi;
 import com.mc2.qobuz.api.v02.query.ArtistGet;
 import com.mc2.qobuz.api.v02.query.ArtistGetSimilar;
-import test.utils.TestUtils;
+import com.mc2.qobuz.api.v02.IMPL.TestUtils;
 
 /**
  *

@@ -22,7 +22,7 @@ package com.mc2.qobuz.api.v02.elements;
 
 import java.util.ArrayList;
 import com.mc2.qobuz.api.v02.API.QobuzAPIException;
-import java.util.HashMap;
+import com.mc2.qobuz.api.v02.API.elements.Article;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.mc2.qobuz.api.v02.API.elements.Track;
+import com.mc2.qobuz.api.v02.IMPL.QobuzUtils;
 
 
 public final class TrackFromApi extends QobuzObjectFromApi implements Track {
@@ -38,8 +39,6 @@ public final class TrackFromApi extends QobuzObjectFromApi implements Track {
     private Long id;
     private String title;
     private String work;
-	private String titleOnly;
-	private String workGuessed;
     private ArtistFromApi composer;
     private String performers;
     private Long  duration;
@@ -62,7 +61,7 @@ public final class TrackFromApi extends QobuzObjectFromApi implements Track {
     private Boolean hires;
 	private String isrc;
     
-    private ArrayList<ArticleFromApi> articles = new ArrayList<>();
+    private ArrayList<Article> articles = new ArrayList<>();
 	
 	/* 9/9/19 */
 	private Boolean hires_streamable;
@@ -145,30 +144,18 @@ public final class TrackFromApi extends QobuzObjectFromApi implements Track {
 				maximum_channel_count= this.getLong(MAXIMUM_CHANNEL_COUNT, jsonObject);
 				version = this.getString(VERSION, jsonObject);
 				
-				/*
-                version = jsonObject.has(VERSION) ? 
-                            jsonObject.isNull(VERSION) ? 
-                            null :  jsonObject.get(VERSION).toString() : null;
-                */
-				
-				workGuessed= workFromTitle(work,title);
-				//rawKeyValuePair.put(WORKGUESSED, workGuessed);
-				
-				titleOnly =calcTitleOnly(workGuessed,title);
-				//rawKeyValuePair.put(TITLEONLY, titleOnly);
-
 				if (jsonObject.has(ALBUM)&& !jsonObject.isNull(ALBUM)){
 					album =  new AlbumFromApi(jsonObject.getJSONObject(ALBUM));
-					rawKeyValuePair.put(ALBUM, album.getTitle());
+					//rawKeyValuePair.put(ALBUM, album.getTitle());
 				}
 				if (jsonObject.has(COMPOSER)&& !jsonObject.isNull(COMPOSER)){
 					composer =  new ArtistFromApi(jsonObject.getJSONObject(COMPOSER));
-					rawKeyValuePair.put(COMPOSER, composer.getName());
+					//rawKeyValuePair.put(COMPOSER, composer.getName());
 				}
 				
 				if (jsonObject.has(PERFORMER)&& !jsonObject.isNull(PERFORMER)){
 					performer =  new ArtistFromApi(jsonObject.getJSONObject(PERFORMER));
-					rawKeyValuePair.put(PERFORMER, performer.getName());
+					//rawKeyValuePair.put(PERFORMER, performer.getName());
 				}
 				if (jsonObject.has(ARTICLES)) {
                     JSONArray jArticles = jsonObject.getJSONArray(ARTICLES);
@@ -220,14 +207,14 @@ public final class TrackFromApi extends QobuzObjectFromApi implements Track {
      */
 	@Override
     public String geWorkGuessed() {
-       return workGuessed;
+       return QobuzUtils.workFromTitle(this.getWorkTitle(),this.getTitle());
 	}
 	/**
      * @return the title cleaned by the work part as per in workGuessed.
      */
 	@Override
     public String getTitleOnly() {
-       return titleOnly;
+       return QobuzUtils.calcTitleOnly(this.geWorkGuessed(),this.getTitle());
 	}
     /**
      * @return the composer
@@ -250,25 +237,7 @@ public final class TrackFromApi extends QobuzObjectFromApi implements Track {
 	@Override
 	public ArrayList<String> getPerformerList(){
         
-        ArrayList<String> out=new ArrayList<>();
-        		
-        if (this.getPerformers() == null) return out;
-        if (this.getPerformers().isEmpty()) return out;
-        
-        if (!this.getPerformers().contains("-")){
-            
-			out.add(this.getPerformers());
-        
-		} else {
-        
-			String[] parts = this.getPerformers().split(" - ");
-
-			for (String part : parts){
-				out.add(part);
-			}
-		}
-
-        return out; 
+       return QobuzUtils.calcPerformerList(this.getPerformers());
     }
 	/**
      * @return the performers as a map of string where role is the key 
@@ -276,37 +245,8 @@ public final class TrackFromApi extends QobuzObjectFromApi implements Track {
      */
 	@Override
 	public Map<String,String> getPerformersRoleNamesMap(){
-        
-        Map<String,String> performersMap = new HashMap<>();
-		
-        if (this.getPerformerList().isEmpty()) return performersMap;
-        
-		for (String perf : this.getPerformerList()){
-		
-			String[] parts = perf.split(", ");
-			
-			if (parts.length > 1){
-			
-				String value = parts[0].trim();
-				
-				for (int i = 1; i < parts.length; i++) {
-					
-					String key = parts[i].trim();
-					
-					if (performersMap.containsKey(key)){
-						performersMap.put(key, performersMap.get(key)+", "+value);
-					} else{
-						performersMap.put(key, value);
-					}
-				}
-			} else if (parts.length == 1)	{
-				
-				String value = parts[0].trim();
-				performersMap.put("Performer", value);
-			}		
-		}
 
-        return performersMap; 
+        return QobuzUtils.getPerformersRoleNamesMap(this.getPerformerList()); 
     }
     /**
      * @return the duration
@@ -462,7 +402,7 @@ public final class TrackFromApi extends QobuzObjectFromApi implements Track {
      * @return the articles
      */
 	@Override
-    public ArrayList<ArticleFromApi> getArticles() {
+    public ArrayList<Article> getArticles() {
         return articles;
     }
 	
@@ -490,48 +430,7 @@ public final class TrackFromApi extends QobuzObjectFromApi implements Track {
         return maximum_channel_count;
     }
 	
-	private String workFromTitle(String work, String title){
-		
-		if (work != null && !"".equals(work)) return work;
-		if  (title == null || "".equals(title)) return "";
-		
-		if (title.split(":").length > 1){
-		
-			return 	title.split(":")[0].trim();
-		
-		}
-		
-		return "";
-	}
 	
-	private String calcTitleOnly(String work, String title){
-		
-		/*
-		Work: Cello Sonata in B-Flat Major, RV 46
-		Title: Cello Sonata in B-Flat Major, RV 46: I. Preludio (Largo)
-		Title only: I. Preludio (Largo)
-		
-		Work: Cello Sonata in B-Flat Major, RV 46
-		Title: Cello Sonata in B-Flat Major, RV 46 : Cello Sonata in B-Flat Major, RV 46: I. Preludio (Largo)
-		Title only: I. Preludio (Largo)
-		*/
-		
-		if  (title == null || "".equals(title)) return "";
-		if (work == null || "".equals(work)) return title;
-		
-		String out="";
-	
-		for (String el :  title.split(":")){
-		
-			if (!el.trim().toUpperCase().equals(work.trim().toUpperCase())){
-				
-				if (! out.isEmpty()) out= out.concat(" : ");
-				out= out.concat(el.trim());
-			}
-		}
-		if (out.isEmpty()) return title;
-		return out;
-	}
 	
 	/**
      * @return the article_Ids (not used)

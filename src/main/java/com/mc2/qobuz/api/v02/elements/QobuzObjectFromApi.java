@@ -19,7 +19,6 @@
  */
 package com.mc2.qobuz.api.v02.elements;
 
-import com.mc2.qobuz.api.v02.API.elements.QobuzObject;
 import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,13 +32,13 @@ import org.json.JSONObject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class QobuzObjectFromApi implements QobuzObject {
+public class QobuzObjectFromApi {
 
 	
     private static Logger log = Logger.getLogger(QobuzObjectFromApi.class.getName());    
     
 	protected List<String> KeyList= new ArrayList();
-	protected Map<String,String> rawKeyValuePair = new HashMap<>();
+	//protected Map<String,String> rawKeyValuePair = new HashMap<>();
 	
     
     public QobuzObjectFromApi() {
@@ -57,11 +56,12 @@ public class QobuzObjectFromApi implements QobuzObject {
     }
 	/**
 	 * @return the rawKeyValuePair
-	 */
-	@Override
+	 
+
 	public Map<String,String> getRawKeyValuePair() {
 		return this.rawKeyValuePair;
 	}
+	*/
 	
 	protected final void checkJSONObject(JSONObject jsonObject){
         
@@ -82,7 +82,7 @@ public class QobuzObjectFromApi implements QobuzObject {
 		if (jsonObject.has(key)&& !jsonObject.isNull(key)){
 			value=jsonObject.getString(key);
 		}
-		this.rawKeyValuePair.put(key, value);
+		//this.rawKeyValuePair.put(key, value);
 		return value;
 
     }
@@ -99,7 +99,7 @@ public class QobuzObjectFromApi implements QobuzObject {
 				if (obj instanceof Integer){
 					value = (Integer)obj*1L;	
 				}
-				this.rawKeyValuePair.put(key, value.toString());
+				//this.rawKeyValuePair.put(key, value.toString());
 			}
 		}
 		return value;
@@ -120,7 +120,7 @@ public class QobuzObjectFromApi implements QobuzObject {
 				}
 				
 				date = new Date(value*1000);
-				this.rawKeyValuePair.put(key, date.toString());
+				//this.rawKeyValuePair.put(key, date.toString());
 			}
 		}
 		return value;
@@ -130,7 +130,7 @@ public class QobuzObjectFromApi implements QobuzObject {
 		Double value=0D;
 		if (jsonObject.has(key)&& !jsonObject.isNull(key)){
 			value =  jsonObject.getDouble(key);
-			this.rawKeyValuePair.put(key, value.toString());
+			//this.rawKeyValuePair.put(key, value.toString());
 		}
 		return value;
 	}
@@ -140,7 +140,7 @@ public class QobuzObjectFromApi implements QobuzObject {
 		if (jsonObject.has(key)&& !jsonObject.isNull(key)){
 			value= jsonObject.getBoolean(key);
 		}
-		this.rawKeyValuePair.put(key, value.toString());
+		//this.rawKeyValuePair.put(key, value.toString());
 		return value;
 	}
 	

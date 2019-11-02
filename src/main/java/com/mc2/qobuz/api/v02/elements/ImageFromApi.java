@@ -35,8 +35,6 @@ import com.mc2.qobuz.api.v02.utils.JsonUtils;
  */
 public final class  ImageFromApi extends QobuzObjectFromApi implements Image {
 
-    private static final String THUMBNAIL = "thumbnail"; //50px
-    
     private URL thumbnail;
     private URL small;
     private URL medium;

@@ -29,7 +29,7 @@ import com.mc2.qobuz.api.v02.lists.TrackListFromApi;
 import com.mc2.qobuz.api.v02.lists.AlbumListFromApi;
 import com.mc2.qobuz.api.v02.query.CatalogSearch;
 
-import test.utils.TestUtils;
+import com.mc2.qobuz.api.v02.IMPL.TestUtils;
 /**
  *
  * @author marco

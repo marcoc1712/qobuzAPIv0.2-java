@@ -27,7 +27,7 @@ import com.mc2.qobuz.api.v02.elements.GenreFromApi;
 import com.mc2.qobuz.api.v02.elements.GenreListResult;
 import com.mc2.qobuz.api.v02.lists.GenreListFromApi;
 import com.mc2.qobuz.api.v02.query.GenreListGet;
-import test.utils.TestUtils;
+import com.mc2.qobuz.api.v02.IMPL.TestUtils;
 
 /**
  *

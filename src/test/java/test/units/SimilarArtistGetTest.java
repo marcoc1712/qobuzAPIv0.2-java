@@ -25,7 +25,7 @@ import org.junit.Test;
 import com.mc2.qobuz.api.v02.elements.SimilarArtistsFromApi;
 import com.mc2.qobuz.api.v02.lists.ArtistListFromApi;
 import com.mc2.qobuz.api.v02.query.ArtistGetSimilar;
-import test.utils.TestUtils;
+import com.mc2.qobuz.api.v02.IMPL.TestUtils;
 
 /**
  *

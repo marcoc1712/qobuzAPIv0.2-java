@@ -58,7 +58,6 @@ public class QobuzAppId {
     * please replace value with your own valid APP_ID:
     */                                  
    
-	//public static final String USER_AGENT ="QobuzAPIv0.2-java (marcoc1712@gmail.com)"; 
 	//public static final String USER_AGENT ="YourUseragentStringHere (Your@Email.here)"; 
 	public static final String USER_AGENT ="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36";
 	public static final String APP_ID = "AskQobuzForYourApiKey";

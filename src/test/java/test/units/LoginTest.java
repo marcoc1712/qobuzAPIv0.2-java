@@ -19,48 +19,37 @@
  */
 package test.units;
 
-import java.util.ArrayList;
+import com.mc2.qobuz.api.v02.API.elements.UserAuth;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
-import com.mc2.qobuz.api.v02.elements.GenreFromApi;
-import com.mc2.qobuz.api.v02.elements.GenreListResult;
-import com.mc2.qobuz.api.v02.lists.GenreListFromApi;
-import com.mc2.qobuz.api.v02.query.GenreListGet;
-import com.mc2.qobuz.api.v02.IMPL.TestUtils;
-import com.mc2.qobuz.api.v02.QobuzApiController;
 import com.mc2.qobuz.api.v02.QobuzAuth;
 import com.mc2.qobuz.api.v02.QobuzAuthFromEnvVar;
+import com.mc2.qobuz.api.v02.query.UserLogin;
 
 /**
  *
  * @author marco
  */
-public class GenreListTest {
+public class LoginTest {
     @Test
-    public void getGenreList() {
+    public void getUserAuthToken() {
     
         try {
-			QobuzApiController controller = 	QobuzApiController.findIstance();
 			
 			QobuzAuth auth = new QobuzAuthFromEnvVar();
-			controller.setQobuzAuth(auth);
+			UserLogin login = new UserLogin(auth);
 			
-            GenreListGet q = new GenreListGet();
-            GenreListResult result= q.getGenreListResult();
-            
-            
+			UserAuth userAuth  = login.getUserAuth();
+			
+			            
             System.out.println("======================================================================");
-            System.out.println("= GENRES                                                             =");
+            System.out.println("= USER AUTH                                                          =");
             System.out.println("======================================================================");
-                
-            GenreListFromApi genreList = result.getGenres();
-            ArrayList<GenreFromApi> genres = genreList.getItems();
-            
-            for (GenreFromApi genre : genres){
-            
-                TestUtils.printGenre(genre, "",false);
-            }
+			System.out.println("");
+			System.out.println("User: "+userAuth.getUser().getDisplayName());
+            System.out.println("Token: "+userAuth.getUserAuthToken());
+
             
         } catch (Exception ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);

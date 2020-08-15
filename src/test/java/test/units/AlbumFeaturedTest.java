@@ -20,13 +20,18 @@
 
 package test.units;
 
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 import com.mc2.qobuz.api.v02.API.elements.Album;
 import com.mc2.qobuz.api.v02.API.elements.FeaturedAlbums;
 import com.mc2.qobuz.api.v02.API.lists.AlbumList;
+import com.mc2.qobuz.api.v02.QobuzApiController;
+import com.mc2.qobuz.api.v02.QobuzAuth;
+import com.mc2.qobuz.api.v02.QobuzAuthFromEnvVar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.mc2.qobuz.api.v02.query.AlbumsGetFeatured;
 import java.util.ArrayList;
+import org.junit.Test;
 
 
 /**
@@ -35,28 +40,39 @@ import java.util.ArrayList;
  */
 public class AlbumFeaturedTest extends UnitTest {
 
-   // @Test
-    public void albumFeaturedTest(){
-       
+    //@Test
+    public void albumFeaturedTest() throws QobuzAPIException{
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
+		
         Long genre= 10L; //Classical
         for(int typeInd=0; typeInd<8; typeInd++){
             albumFeaturedTest(typeInd,genre, false);
         }
     }
     //@Test
-    public void newClassicalReleases(){
-       
+    public void newClassicalReleases() throws QobuzAPIException{
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+			
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
+		
         albumFeaturedTest(13, 10L, true);
     }
     //@Test
-    public void newReleases(){
+    public void newReleases() throws QobuzAPIException{
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+			
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
        
-        albumFeaturedTest(13, 0L, true);
+		albumFeaturedTest(13, 0L, true);
     }
-    private void albumFeaturedTest(int typeInd, long genre, Boolean details) {
+    private void albumFeaturedTest(int typeInd, long genre, Boolean details) throws QobuzAPIException {
         
         //You could use this template to search any single type in the catalog.
-        
+
         try {
                 
                 String type = AlbumsGetFeatured.suggestedTypes()[typeInd];

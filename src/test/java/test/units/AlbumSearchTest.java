@@ -20,6 +20,7 @@
 
 package test.units;
 
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.mc2.qobuz.api.v02.elements.CatalogFromApi;
@@ -29,6 +30,10 @@ import com.mc2.qobuz.api.v02.lists.TrackListFromApi;
 import com.mc2.qobuz.api.v02.query.CatalogSearch;
 
 import com.mc2.qobuz.api.v02.IMPL.TestUtils;
+import com.mc2.qobuz.api.v02.QobuzApiController;
+import com.mc2.qobuz.api.v02.QobuzAuth;
+import com.mc2.qobuz.api.v02.QobuzAuthFromEnvVar;
+import org.junit.Test;
 
 /**
  *
@@ -37,8 +42,12 @@ import com.mc2.qobuz.api.v02.IMPL.TestUtils;
 public class AlbumSearchTest extends UnitTest {
 
     //@Test
-    public void AlbumSearchTest() {
+    public void AlbumSearchTest() throws QobuzAPIException {
         
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
+		
         //You could use this template to search any single type in the catalog.
         
         try {

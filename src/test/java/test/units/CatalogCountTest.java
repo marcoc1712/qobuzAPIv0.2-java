@@ -20,6 +20,10 @@
 
 package test.units;
 
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.QobuzApiController;
+import com.mc2.qobuz.api.v02.QobuzAuth;
+import com.mc2.qobuz.api.v02.QobuzAuthFromEnvVar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
@@ -32,8 +36,12 @@ import com.mc2.qobuz.api.v02.query.CatalogCount;
 public class CatalogCountTest extends UnitTest{
 
     //@Test
-    public void CatalogCountTest() {
-
+    public void CatalogCountTest() throws QobuzAPIException {
+		
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
+		
         try {
                 String query = ""; //use an empty string to count ALL the objects in Qobuz archives. DOES NOT WORKS
                 //query = "Antonio Vivaldi"; 

@@ -20,6 +20,7 @@
 
 package test.units;
 
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
@@ -30,6 +31,9 @@ import com.mc2.qobuz.api.v02.lists.AlbumListFromApi;
 import com.mc2.qobuz.api.v02.query.CatalogSearch;
 
 import com.mc2.qobuz.api.v02.IMPL.TestUtils;
+import com.mc2.qobuz.api.v02.QobuzApiController;
+import com.mc2.qobuz.api.v02.QobuzAuth;
+import com.mc2.qobuz.api.v02.QobuzAuthFromEnvVar;
 /**
  *
  * @author marco
@@ -37,7 +41,11 @@ import com.mc2.qobuz.api.v02.IMPL.TestUtils;
 public class CatalogueSearchTest extends UnitTest{
     
     //@Test
-    public void searchAllCatalog() {
+    public void searchAllCatalog() throws QobuzAPIException {
+		
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
 
         try {
                 //String query = "Antonio Vivaldi"; //can't use an empty string here.

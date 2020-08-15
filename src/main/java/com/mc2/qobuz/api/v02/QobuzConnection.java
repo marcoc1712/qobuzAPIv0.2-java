@@ -20,6 +20,9 @@
 
 package com.mc2.qobuz.api.v02;
 
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.QobuzAuth;
+import com.mc2.qobuz.api.v02.API.elements.UserAuth;
 import com.mc2.qobuz.api.v02.exceptions.ResourceNotFoundException;
 import com.mc2.qobuz.api.v02.exceptions.RequestException;
 import com.mc2.qobuz.api.v02.exceptions.QobuzConnectionException;
@@ -49,20 +52,19 @@ public class QobuzConnection  implements AutoCloseable {
     public static final String acceptEncoding = "gzip";
     public static final String protocol = "http://";
 	
-	public String userAgent = QobuzAppId.USER_AGENT;
-    public String apiKey = QobuzAppId.APP_ID;
+	private final QobuzAuth qobuzAuth;
+	private final UserAuth userAuth;
 
-    public QobuzConnection() {
+    public QobuzConnection(QobuzAuth auth) {
 		
-		/*
-		A way to set a valid API_KEY, i.e for testing purpose
-		*/
-		String key = System.getenv("QOBUZ_API_KEY");
-		if (key != null) {this.apiKey = key;}
+		this.qobuzAuth = auth;
+		this.userAuth = null;
+    }
+
+	public QobuzConnection() throws QobuzAPIException {
 		
-		String agent = System.getenv("QOBUZ_USER_AGENT");
-		if (agent != null) {this.userAgent = agent;}
-		
+		this.qobuzAuth =  QobuzApiController.findIstance().getQobuzAuth();
+		this.userAuth =  QobuzApiController.findIstance().getUserAuth();
     }
 	
 	@Override
@@ -123,6 +125,16 @@ public class QobuzConnection  implements AutoCloseable {
     }
     
     private InputStream getAnswer(URL url) throws QobuzConnectionException {
+		
+		
+		if (qobuzAuth == null || 
+			qobuzAuth.getAppId() == null ||
+			qobuzAuth.getUserAgent() == null ){
+		
+		
+			String em = "ERROR: missing or invalid app-id or user agent";
+			throw new AuthorizationException(em);
+		}
 
         try {
 						
@@ -134,10 +146,13 @@ public class QobuzConnection  implements AutoCloseable {
 			urlc.setUseCaches(false);
 			urlc.setRequestMethod("GET");
 			urlc.setRequestProperty("Content-Type", contentType);
-			urlc.setRequestProperty("User-Agent", userAgent);
+			urlc.setRequestProperty("User-Agent", qobuzAuth.getUserAgent());
 			urlc.setRequestProperty("Accept-Encoding", acceptEncoding);
-			urlc.setRequestProperty("X-App-Id", apiKey);
-
+			urlc.setRequestProperty("X-App-Id", qobuzAuth.getAppId());
+			
+			if (userAuth != null &&  userAuth.getUserAuthToken() != null){
+				urlc.setRequestProperty("X-User-Auth-Token", userAuth.getUserAuthToken());
+			}
 			int statusCode = urlc.getResponseCode();
 			String em;
 			switch (statusCode) {

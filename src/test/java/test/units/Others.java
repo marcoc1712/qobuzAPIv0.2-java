@@ -20,6 +20,7 @@
 
 package test.units;
 
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 import com.mc2.qobuz.api.v02.API.elements.Album;
 import com.mc2.qobuz.api.v02.API.lists.AlbumList;
 import java.util.logging.Level;
@@ -48,6 +49,9 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import com.mc2.qobuz.api.v02.IMPL.TestUtils;
+import com.mc2.qobuz.api.v02.QobuzApiController;
+import com.mc2.qobuz.api.v02.QobuzAuth;
+import com.mc2.qobuz.api.v02.QobuzAuthFromEnvVar;
 
 /**
  *
@@ -56,7 +60,7 @@ import com.mc2.qobuz.api.v02.IMPL.TestUtils;
 public class Others extends UnitTest {
 
     //@Test
-    public void artistSearch() {
+    public void artistSearch() throws QobuzAPIException {
         
         //You could use this template to search any single type in the catalog.
         //It returns counts for all entites an in some case also items for type <> 
@@ -64,6 +68,11 @@ public class Others extends UnitTest {
         
         //In case of Artists it also reports Tracks.
         
+		
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
+		
         try {
                 
                 String [] typesToChooseFrom=CatalogSearch.suggestedTypes();
@@ -182,7 +191,11 @@ public class Others extends UnitTest {
         }
     }
     //@Test
-    public void getLabel() {
+    public void getLabel() throws QobuzAPIException {
+		
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
 
         try {
                 LabelGet q = new LabelGet((long)151717);
@@ -204,8 +217,13 @@ public class Others extends UnitTest {
         }
     }
     //@Test
-    public void getLabelWithAlbums() {
+    public void getLabelWithAlbums() throws QobuzAPIException {
         // Deprecated, but still working.
+		
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
+		
         try {
                 LabelGet q = new LabelGet((long)151717,(long)0);
                 LabelFromApi label= q.getLabel();
@@ -227,8 +245,13 @@ public class Others extends UnitTest {
         }
     }
     //@Test
-    public void getLabelWithAlbumsAndPagination() {
+    public void getLabelWithAlbumsAndPagination() throws QobuzAPIException {
         // Deprecated, but still working.
+		
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
+		
         try {
                 LabelGet q = new LabelGet((long)151717,(long)0);
                 LabelFromApi label= q.getLabel();
@@ -271,9 +294,14 @@ public class Others extends UnitTest {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
     }
-    //@Test
-    public void getLableList() {
+   //@Test
+    public void getLableList() throws QobuzAPIException {
         //very long taking query, better use pagination here.
+		
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
+		
         try {
                 LabelListGet q = new LabelListGet();
                 LabelListResult result = q.getLabelListResult();
@@ -297,8 +325,12 @@ public class Others extends UnitTest {
         }
     }
     //@Test
-    public void getLableListWithPagination() {
-
+    public void getLableListWithPagination() throws QobuzAPIException {
+		
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
+		
         try {
                 LabelListGet q = new LabelListGet();
                 LabelListResult result = q.getLabelListResult();
@@ -345,7 +377,11 @@ public class Others extends UnitTest {
         }
     }
     //@Test
-    public void getGenre() {
+    public void getGenre() throws QobuzAPIException {
+		
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
 
         try {
                 GenreGet q = new GenreGet((long)22);
@@ -366,8 +402,13 @@ public class Others extends UnitTest {
         }
     }
     //@Test
-    public void getGenreWithAlbums() {
+    public void getGenreWithAlbums() throws QobuzAPIException {
         // Deprecated, not working anymore.
+		
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
+		
         try {
                 GenreGet q = new GenreGet((long)22,(long)0);
                 GenreFromApi genre= q.getGenre();
@@ -389,8 +430,10 @@ public class Others extends UnitTest {
         }
     }
     //@Test
-    public void getGenreList() {
-
+    public void getGenreList() throws QobuzAPIException {
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
         try {
                 Long genre =  (long)10;
                 
@@ -418,8 +461,10 @@ public class Others extends UnitTest {
         }
     }
     //@Test
-    public void getGenreListWithPagination() {
-
+    public void getGenreListWithPagination() throws QobuzAPIException {
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
         try {
                 Long genre =  (long)10;
                 
@@ -470,8 +515,10 @@ public class Others extends UnitTest {
     }
     
     //@Test
-    public void getFeaturedAlbumsWithPagination() {
-
+    public void getFeaturedAlbumsWithPagination() throws QobuzAPIException {
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
         try {
                 String [] typesToChooseFrom=AlbumsGetFeatured.suggestedTypes();
                 //should be one in aabove array, but time to time they add some new, so is not mandatory
@@ -526,8 +573,10 @@ public class Others extends UnitTest {
         }
     }
     //@Test
-    public void getAlbum() {
-
+    public void getAlbum() throws QobuzAPIException {
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
         try {
                 AlbumGet q = new AlbumGet("0822189023645");
                 AlbumFromApi album = q.getAlbum();
@@ -548,8 +597,10 @@ public class Others extends UnitTest {
         }
     }
     //@Test
-    public void getTrack() {
-
+    public void getTrack() throws QobuzAPIException {
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
         try {
                 TrackGet q = new TrackGet((long)34520243);
                 TrackFromApi track = q.getTrack();

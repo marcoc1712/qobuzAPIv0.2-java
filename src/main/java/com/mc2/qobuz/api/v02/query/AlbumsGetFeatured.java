@@ -62,9 +62,10 @@ public class AlbumsGetFeatured extends QobuzObjectQuery {
     private String buildUrlStr(String  type, Long genre){
         
         String urlStr = buildUrlStr(type);
-        
-        urlStr = urlStr+"&genre_id="+genre;
-
+		
+        if (genre >0L){ //15/02/2020 - different answert in respect of the Qobz APP and Plugin.
+			urlStr = urlStr+"&genre_id="+genre;
+		}
         return urlStr;
     }
      private String buildUrlStr(String  type, Long genre, Long offset){

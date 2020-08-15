@@ -21,6 +21,7 @@
 package com.mc2.qobuz.api.v02;
 
 import com.mc2.qobuz.api.v02.exceptions.QobuzConnectionException;
+import com.mc2.qobuz.api.v02.API.QobuzAuth;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Logger;
@@ -62,10 +63,29 @@ public final class QobuzClient {
 			throw new QobuzConnectionException(ex);
 		}
     }
+	
+	public static String makeApiCall(URL url,QobuzAuth auth) throws QobuzConnectionException {
+		
+		wait(100);
+		try(QobuzConnection connection = new QobuzConnection(auth)){
+			
+			String answer= connection.getDataAsString(url);
+			// String answer=QobuzConnection.getInstance().getDataAsString(url);
+			lastHitTime =System.currentTimeMillis();
+			return answer;
+			
+		} catch (Exception ex){
+			throw new QobuzConnectionException(ex);
+		}
+    }
     
     public static String makeApiCall(String urlString) throws QobuzConnectionException {
 
         return makeApiCall(getUrl(urlString));
+    }
+	 public static String makeApiCall(String urlString,QobuzAuth auth) throws QobuzConnectionException {
+
+        return makeApiCall(getUrl(urlString),auth);
     }
     
     private static void wait (int milliseconds){
@@ -103,4 +123,5 @@ public final class QobuzClient {
         return answer;
     }
     */
+
 }

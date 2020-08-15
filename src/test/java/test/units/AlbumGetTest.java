@@ -20,6 +20,7 @@
 
 package test.units;
 
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 import com.mc2.qobuz.api.v02.QobuzApiController;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +30,8 @@ import com.mc2.qobuz.api.v02.query.AlbumGet;
 import java.io.PrintStream;
 
 import com.mc2.qobuz.api.v02.IMPL.TestUtils;
+import com.mc2.qobuz.api.v02.QobuzAuth;
+import com.mc2.qobuz.api.v02.QobuzAuthFromEnvVar;
 
 /**
  *
@@ -36,10 +39,14 @@ import com.mc2.qobuz.api.v02.IMPL.TestUtils;
  */
 public class AlbumGetTest extends UnitTest {
 
-    @Test
-    public void getAlbum() {
-
-        try {
+    //@Test
+    public void getAlbum() throws QobuzAPIException {
+		
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
+        
+		try {
                 
 				// AlbumGet q = new AlbumGet("0822189023645");
 				//AlbumGet q = new AlbumGet("jy9sowqah8x9a"); // wirh description

@@ -20,12 +20,14 @@
 package com.mc2.qobuz.api.v02;
 
 import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.API.QobuzAuth;
 import com.mc2.qobuz.api.v02.API.elements.Album;
 import com.mc2.qobuz.api.v02.API.elements.Artist;
 import com.mc2.qobuz.api.v02.API.elements.Catalog;
 import com.mc2.qobuz.api.v02.API.elements.FeaturedAlbums;
 import com.mc2.qobuz.api.v02.API.elements.SimilarArtists;
 import com.mc2.qobuz.api.v02.API.elements.Track;
+import com.mc2.qobuz.api.v02.API.elements.UserAuth;
 import com.mc2.qobuz.api.v02.API.lists.GenreList;
 import com.mc2.qobuz.api.v02.elements.GenreListResult;
 import com.mc2.qobuz.api.v02.query.AlbumGet;
@@ -35,6 +37,7 @@ import com.mc2.qobuz.api.v02.query.ArtistGetSimilar;
 import com.mc2.qobuz.api.v02.query.CatalogSearch;
 import com.mc2.qobuz.api.v02.query.GenreListGet;
 import com.mc2.qobuz.api.v02.query.TrackGet;
+import com.mc2.qobuz.api.v02.query.UserLogin;
 import java.util.logging.Logger;
 
 /**
@@ -44,7 +47,9 @@ import java.util.logging.Logger;
 public class QobuzApiController implements com.mc2.qobuz.api.v02.API.QobuzApiController {
 	
 	private static Logger logger = Logger.getLogger(QobuzApiController.class.getName());
-	protected String applicationId;
+	
+	private QobuzAuth qobuzAuth;
+	private UserAuth userAuth;
 
 	private static class LazyHolder {
         static final QobuzApiController INSTANCE = new QobuzApiController();
@@ -56,6 +61,27 @@ public class QobuzApiController implements com.mc2.qobuz.api.v02.API.QobuzApiCon
 	
     private QobuzApiController() {
     }
+	
+	@Override
+	public QobuzAuth getQobuzAuth() throws QobuzAPIException {
+		return qobuzAuth;
+	}
+
+	@Override
+	public void setQobuzAuth(QobuzAuth qobuzAuth) throws QobuzAPIException {
+		this.qobuzAuth = qobuzAuth;
+		
+		UserLogin login = new UserLogin(qobuzAuth);
+		
+		userAuth  = login.getUserAuth();
+		
+	}
+	
+	@Override
+	public UserAuth getUserAuth() throws QobuzAPIException {
+		return userAuth;
+	}
+
 	
 	@Override
 	public Catalog getCatalog(String query, long offset, long limit) throws QobuzAPIException {

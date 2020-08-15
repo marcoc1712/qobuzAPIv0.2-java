@@ -20,6 +20,10 @@
 
 package test.units;
 
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
+import com.mc2.qobuz.api.v02.QobuzApiController;
+import com.mc2.qobuz.api.v02.QobuzAuth;
+import com.mc2.qobuz.api.v02.QobuzAuthFromEnvVar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
@@ -38,11 +42,16 @@ import com.mc2.qobuz.api.v02.QobuzClient;
 public class DirectCallTest extends UnitTest {
     
     //@Test
-    public void DirectCallTest(){
+    public void DirectCallTest() throws QobuzAPIException{
+		
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
         
         try {
                 //String urlString = QobuzController.BASEURL+"/album/get?album_id=0822189023645";
-                String urlString = "http://www.qobuz.com/api.json/0.2/album/get?album_id=0822189023645";
+                //String urlString = "http://www.qobuz.com/api.json/0.2/album/get?album_id=0822189023645";
+				String urlString = "http://www.qobuz.com/api.json/0.2/catalog/search?query=Unknown&offset=0&limit=10";
                 String answer =QobuzClient.makeApiCall(urlString);
                 System.out.println(answer);
 

@@ -19,6 +19,7 @@
  */
 package test.units;
 
+import com.mc2.qobuz.api.v02.API.QobuzAPIException;
 import com.mc2.qobuz.api.v02.API.lists.TrackList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +31,10 @@ import com.mc2.qobuz.api.v02.lists.TrackListFromApi;
 import com.mc2.qobuz.api.v02.query.ArtistGet;
 import com.mc2.qobuz.api.v02.query.ArtistGetSimilar;
 import com.mc2.qobuz.api.v02.IMPL.TestUtils;
+import com.mc2.qobuz.api.v02.QobuzApiController;
+import com.mc2.qobuz.api.v02.QobuzAuth;
+import com.mc2.qobuz.api.v02.QobuzAuthFromEnvVar;
+import org.junit.Test;
 
 /**
  *
@@ -38,12 +43,15 @@ import com.mc2.qobuz.api.v02.IMPL.TestUtils;
 public class ArtistGetTest {
 	
     //@Test
-    public void getArtistComplete() {
-    
+    public void getArtistComplete() throws QobuzAPIException {
+		
+		
+		QobuzApiController controller = 	QobuzApiController.findIstance();
+		QobuzAuth auth = new QobuzAuthFromEnvVar();
+		controller.setQobuzAuth(auth);
+		
         try {
-			
-			
-			
+
             ArtistGet q = new ArtistGet((long)720);
             ArtistFromApi artist= q.getArtist();
             

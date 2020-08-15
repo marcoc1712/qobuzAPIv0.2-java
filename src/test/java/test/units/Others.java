@@ -69,7 +69,7 @@ public class Others extends UnitTest {
         //In case of Artists it also reports Tracks.
         
 		
-		QobuzApiController controller = 	QobuzApiController.findIstance();
+		com.mc2.qobuz.api.v02.API.QobuzApiController controller = 	QobuzApiController.findIstance();
 		QobuzAuth auth = new QobuzAuthFromEnvVar();
 		controller.setQobuzAuth(auth);
 		
@@ -193,7 +193,7 @@ public class Others extends UnitTest {
     //@Test
     public void getLabel() throws QobuzAPIException {
 		
-		QobuzApiController controller = 	QobuzApiController.findIstance();
+		com.mc2.qobuz.api.v02.API.QobuzApiController controller = 	QobuzApiController.findIstance();
 		QobuzAuth auth = new QobuzAuthFromEnvVar();
 		controller.setQobuzAuth(auth);
 
@@ -220,7 +220,7 @@ public class Others extends UnitTest {
     public void getLabelWithAlbums() throws QobuzAPIException {
         // Deprecated, but still working.
 		
-		QobuzApiController controller = 	QobuzApiController.findIstance();
+		com.mc2.qobuz.api.v02.API.QobuzApiController controller = 	QobuzApiController.findIstance();
 		QobuzAuth auth = new QobuzAuthFromEnvVar();
 		controller.setQobuzAuth(auth);
 		
@@ -248,7 +248,7 @@ public class Others extends UnitTest {
     public void getLabelWithAlbumsAndPagination() throws QobuzAPIException {
         // Deprecated, but still working.
 		
-		QobuzApiController controller = 	QobuzApiController.findIstance();
+		com.mc2.qobuz.api.v02.API.QobuzApiController controller = 	QobuzApiController.findIstance();
 		QobuzAuth auth = new QobuzAuthFromEnvVar();
 		controller.setQobuzAuth(auth);
 		
@@ -298,7 +298,7 @@ public class Others extends UnitTest {
     public void getLableList() throws QobuzAPIException {
         //very long taking query, better use pagination here.
 		
-		QobuzApiController controller = 	QobuzApiController.findIstance();
+		com.mc2.qobuz.api.v02.API.QobuzApiController controller = 	QobuzApiController.findIstance();
 		QobuzAuth auth = new QobuzAuthFromEnvVar();
 		controller.setQobuzAuth(auth);
 		
@@ -327,7 +327,7 @@ public class Others extends UnitTest {
     //@Test
     public void getLableListWithPagination() throws QobuzAPIException {
 		
-		QobuzApiController controller = 	QobuzApiController.findIstance();
+		com.mc2.qobuz.api.v02.API.QobuzApiController controller = 	QobuzApiController.findIstance();
 		QobuzAuth auth = new QobuzAuthFromEnvVar();
 		controller.setQobuzAuth(auth);
 		
@@ -379,7 +379,7 @@ public class Others extends UnitTest {
     //@Test
     public void getGenre() throws QobuzAPIException {
 		
-		QobuzApiController controller = 	QobuzApiController.findIstance();
+		com.mc2.qobuz.api.v02.API.QobuzApiController controller = 	QobuzApiController.findIstance();
 		QobuzAuth auth = new QobuzAuthFromEnvVar();
 		controller.setQobuzAuth(auth);
 
@@ -405,7 +405,7 @@ public class Others extends UnitTest {
     public void getGenreWithAlbums() throws QobuzAPIException {
         // Deprecated, not working anymore.
 		
-		QobuzApiController controller = 	QobuzApiController.findIstance();
+		com.mc2.qobuz.api.v02.API.QobuzApiController controller = 	QobuzApiController.findIstance();
 		QobuzAuth auth = new QobuzAuthFromEnvVar();
 		controller.setQobuzAuth(auth);
 		
@@ -431,7 +431,7 @@ public class Others extends UnitTest {
     }
     //@Test
     public void getGenreList() throws QobuzAPIException {
-		QobuzApiController controller = 	QobuzApiController.findIstance();
+		com.mc2.qobuz.api.v02.API.QobuzApiController controller = 	QobuzApiController.findIstance();
 		QobuzAuth auth = new QobuzAuthFromEnvVar();
 		controller.setQobuzAuth(auth);
         try {
@@ -462,7 +462,7 @@ public class Others extends UnitTest {
     }
     //@Test
     public void getGenreListWithPagination() throws QobuzAPIException {
-		QobuzApiController controller = 	QobuzApiController.findIstance();
+		com.mc2.qobuz.api.v02.API.QobuzApiController controller = 	QobuzApiController.findIstance();
 		QobuzAuth auth = new QobuzAuthFromEnvVar();
 		controller.setQobuzAuth(auth);
         try {
@@ -516,7 +516,7 @@ public class Others extends UnitTest {
     
     //@Test
     public void getFeaturedAlbumsWithPagination() throws QobuzAPIException {
-		QobuzApiController controller = 	QobuzApiController.findIstance();
+		com.mc2.qobuz.api.v02.API.QobuzApiController controller = 	QobuzApiController.findIstance();
 		QobuzAuth auth = new QobuzAuthFromEnvVar();
 		controller.setQobuzAuth(auth);
         try {
@@ -574,7 +574,7 @@ public class Others extends UnitTest {
     }
     //@Test
     public void getAlbum() throws QobuzAPIException {
-		QobuzApiController controller = 	QobuzApiController.findIstance();
+		com.mc2.qobuz.api.v02.API.QobuzApiController controller = 	QobuzApiController.findIstance();
 		QobuzAuth auth = new QobuzAuthFromEnvVar();
 		controller.setQobuzAuth(auth);
         try {
@@ -598,7 +598,7 @@ public class Others extends UnitTest {
     }
     //@Test
     public void getTrack() throws QobuzAPIException {
-		QobuzApiController controller = 	QobuzApiController.findIstance();
+		com.mc2.qobuz.api.v02.API.QobuzApiController controller = 	QobuzApiController.findIstance();
 		QobuzAuth auth = new QobuzAuthFromEnvVar();
 		controller.setQobuzAuth(auth);
         try {

@@ -46,7 +46,7 @@ public class ArtistGetTest {
     public void getArtistComplete() throws QobuzAPIException {
 		
 		
-		QobuzApiController controller = 	QobuzApiController.findIstance();
+		com.mc2.qobuz.api.v02.API.QobuzApiController controller = 	QobuzApiController.findIstance();
 		QobuzAuth auth = new QobuzAuthFromEnvVar();
 		controller.setQobuzAuth(auth);
 		

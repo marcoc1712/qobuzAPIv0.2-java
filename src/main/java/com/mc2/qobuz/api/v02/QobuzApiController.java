@@ -20,7 +20,6 @@
 package com.mc2.qobuz.api.v02;
 
 import com.mc2.qobuz.api.v02.API.QobuzAPIException;
-import com.mc2.qobuz.api.v02.API.QobuzAuth;
 import com.mc2.qobuz.api.v02.API.elements.Album;
 import com.mc2.qobuz.api.v02.API.elements.Artist;
 import com.mc2.qobuz.api.v02.API.elements.Catalog;
@@ -46,29 +45,27 @@ import java.util.logging.Logger;
  */
 public class QobuzApiController implements com.mc2.qobuz.api.v02.API.QobuzApiController {
 	
-	private static Logger logger = Logger.getLogger(QobuzApiController.class.getName());
+private static Logger logger = Logger.getLogger(QobuzApiController.class.getName());
 	
-	private QobuzAuth qobuzAuth;
+	private com.mc2.qobuz.api.v02.API.QobuzAuth qobuzAuth;
 	private UserAuth userAuth;
+	
+	protected static  com.mc2.qobuz.api.v02.API.QobuzApiController INSTANCE;
+	
+	public static com.mc2.qobuz.api.v02.API.QobuzApiController findIstance() {
+        if (INSTANCE == null) INSTANCE = new QobuzApiController();
+		return INSTANCE;
+    }
+	
+    protected QobuzApiController() {}
 
-	private static class LazyHolder {
-        static final QobuzApiController INSTANCE = new QobuzApiController();
-    }
-	
-	public static QobuzApiController findIstance() {
-        return LazyHolder.INSTANCE;
-    }
-	
-    private QobuzApiController() {
-    }
-	
 	@Override
-	public QobuzAuth getQobuzAuth() throws QobuzAPIException {
+	public com.mc2.qobuz.api.v02.API.QobuzAuth getQobuzAuth() throws QobuzAPIException {
 		return qobuzAuth;
 	}
 
 	@Override
-	public void setQobuzAuth(QobuzAuth qobuzAuth) throws QobuzAPIException {
+	public void setQobuzAuth(com.mc2.qobuz.api.v02.API.QobuzAuth qobuzAuth) throws QobuzAPIException {
 		this.qobuzAuth = qobuzAuth;
 		
 		UserLogin login = new UserLogin(qobuzAuth);
@@ -90,6 +87,7 @@ public class QobuzApiController implements com.mc2.qobuz.api.v02.API.QobuzApiCon
 		return q.getCatalog();
 	
 	}
+	
 	@Override
 	public Artist getArtist(Long id) throws QobuzAPIException {
 		ArtistGet q = new ArtistGet(id);
@@ -148,5 +146,4 @@ public class QobuzApiController implements com.mc2.qobuz.api.v02.API.QobuzApiCon
    
 	}
 
-	
 }

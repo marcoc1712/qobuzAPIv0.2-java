@@ -36,6 +36,9 @@ public final class BiographyFromApi extends QobuzObjectFromApi implements Biogra
     
     private String summary;
     private String content;
+	
+	private String language;
+	private String source;
     
     public BiographyFromApi() {
         super();
@@ -46,6 +49,8 @@ public final class BiographyFromApi extends QobuzObjectFromApi implements Biogra
         
         KeyList.add(SUMMARY);
         KeyList.add(CONTENT);
+		KeyList.add(LANGUAGE);
+        KeyList.add(SOURCE);
         
         checkJSONObject(jsonObject);
         /**
@@ -64,6 +69,14 @@ public final class BiographyFromApi extends QobuzObjectFromApi implements Biogra
             content = jsonObject.has(CONTENT) ? 
                             jsonObject.isNull(CONTENT) ? 
                             null : jsonObject.getString(CONTENT) : null;
+			
+			language = jsonObject.has(LANGUAGE) ? 
+                            jsonObject.isNull(LANGUAGE) ? 
+                            null : jsonObject.getString(LANGUAGE) : null;
+			
+			source = jsonObject.has(SOURCE) ? 
+                            jsonObject.isNull(SOURCE) ? 
+                            null : jsonObject.getString(LANGUAGE) : null;
                         
             } catch (JSONException ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
@@ -85,5 +98,15 @@ public final class BiographyFromApi extends QobuzObjectFromApi implements Biogra
     public String getContent() {
         return content;
     }
+
+	@Override
+	public String getLanguage() {
+		return language;
+	}
+
+	@Override
+	public String getSource() {
+		return source;
+	}
 
 }

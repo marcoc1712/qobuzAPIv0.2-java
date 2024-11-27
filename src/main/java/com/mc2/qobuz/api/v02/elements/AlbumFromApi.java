@@ -101,6 +101,12 @@ public final class AlbumFromApi extends QobuzObjectFromApi implements Album {
 	
 	//private ArrayList<String> article_ids;
 	
+	/* 18/08/2020 */
+	
+	private String version;
+	private String releaseType;
+	private ArrayList<String> releaseTags = new ArrayList<>();
+	
      public  AlbumFromApi() {
         super();
      }
@@ -171,6 +177,10 @@ public final class AlbumFromApi extends QobuzObjectFromApi implements Album {
 		KeyList.add(RELEASE_DATE_ORIGINAL);
 		KeyList.add(SUBTITLE);
 		KeyList.add(ARTICLE_IDS);
+		
+		KeyList.add(VERSION);
+		KeyList.add(RELEASE_TYPE);
+		KeyList.add(RELEASE_TAGS);
         
         checkJSONObject(jsonObject);
         /**
@@ -223,6 +233,9 @@ public final class AlbumFromApi extends QobuzObjectFromApi implements Album {
 				release_date_stream = this.getString(RELEASE_DATE_STREAM, jsonObject);
 				release_date_original = this.getString(RELEASE_DATE_ORIGINAL, jsonObject);
 				subtitle  = this.getString(SUBTITLE, jsonObject);
+				
+				version  = this.getString(VERSION, jsonObject);
+				releaseType  = this.getString(RELEASE_TYPE, jsonObject);
 				
 				if (jsonObject.has(DESCRIPTION)&& !jsonObject.isNull(DESCRIPTION)){
 					
@@ -306,6 +319,13 @@ public final class AlbumFromApi extends QobuzObjectFromApi implements Album {
                     JSONArray jGenres = jsonObject.getJSONArray(GENRES_LIST);
                     for (int i = 0; i < jGenres.length(); i++) {
                         genres_list.add(jGenres.getString(i));
+                    }
+                }
+				
+				if (jsonObject.has(RELEASE_TAGS)) {
+                    JSONArray jTags = jsonObject.getJSONArray(RELEASE_TAGS);
+                    for (int i = 0; i < jTags.length(); i++) {
+                        releaseTags.add(jTags.getString(i));
                     }
                 }
 				/*
@@ -830,6 +850,29 @@ public final class AlbumFromApi extends QobuzObjectFromApi implements Album {
 	@Override
     public String getReleaseDateOriginal() {
         return release_date_original;
+    }
+	
+	/**
+     * @return the version
+     */
+	@Override
+    public String getVersion() {
+        return version;
+    }
+	/**
+	 * @return the release type
+	 */
+	@Override
+	public String getReleaseType() {
+        return releaseType;
+    }
+	
+	 /**
+     * @return the release tags
+     */
+	@Override
+    public ArrayList<String> getReleaseTags() {
+        return releaseTags;
     }
 	
 	/**
